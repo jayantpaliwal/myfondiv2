@@ -1,0 +1,308 @@
+.user-profile{width: 48px;
+  height: 48px;
+  background-color: #868686;
+  border-radius: 50%;
+  border: solid 3px #fff;}
+  .main-content {
+    padding: 5px;
+    margin: 10px 10px;
+    border-radius: 8px;
+    margin-top: -100px;
+}
+.white-card{
+  background-color: #fff;
+    border-radius: 8px;
+    // padding: 10px;
+} 
+
+.add-income-button{
+  font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: capitalize;
+    text-overflow: unset;
+    white-space: inherit;
+    height: auto;
+    text-decoration: underline;
+    --padding-start: 0;
+    --padding-end: 0;
+}
+  ion-segment {    border-radius: 8px;}
+  ion-segment-button{
+  --background: #ADE2AE !important;
+  --background-checked:  #39A476 !important;
+  --background-hover:  #39A476 !important;
+  --background-focused:  #39A476 !important;
+  --background-activated-opacity: 1 !important;
+  --background-focused-opacity: 1;
+  --background-hover-opacity: 1;
+  --color:  #39A476 !important;
+  --color-checked:#fff  !important;    
+  --indicator-color: none;   
+  --indicator-transform: none;
+  --padding-top: 0;
+  --padding-end: 16px;
+  --padding-bottom: 0;
+  --padding-start: 16px; 
+  min-height: 35px !important;
+  font-size: 13px !important;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  line-height: 32px;
+  text-transform: capitalize;
+  height: 40px;
+}
+.green-text {
+  color: #32CD33;
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  margin: 0px 0px 0px 0px;
+}    
+.paycheck-table{width:100%;
+th{font-size:9px; text-align:right; color: #5AA4FE;}
+td{
+  padding: 0;
+  font-size: 11px;
+  p{padding-left:5px;padding-bottom: 3px; margin:0;}
+  .add-icon{ font-size: 22px;  color: #4D9DFE; margin-right:5px;}
+  .alignv-center{display: flex;
+    align-items: center;
+    justify-content: flex-end;}
+}
+p{    font-size: 12px;
+  font-weight: 500;
+  margin: 5px 0px;}
+.date-blue{    color: #529FFF;
+  padding-right: 5px;}  
+.paycheck-type{    color: #1F4E99;
+  font-weight: 600;}
+.received-amount{    color: #1F4E99; font-size: 12px;
+  font-weight: 600;}  
+.red-text{color: #EC3535; font-size: 12px;
+  font-weight: 600;
+   text-decoration: line-through;}    
+}
+.budget-bg{
+  background-color: #1F2942; 
+  border-radius: 15px;
+  padding-bottom: 30px; 
+p{font-size: 12px;
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.04em; margin: 5px 0px;}
+.green-text{font-size: 17px;
+  color: #32CD33;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+   margin: 5px 0px;
+  //  white-space: nowrap;
+  //  text-overflow: ellipsis;
+  }  
+.blue-text{font-size: 17px;
+  color: #A4D5FE;
+  font-weight: 600;
+  letter-spacing: 0.04em; 
+  // white-space: nowrap;
+  // text-overflow: ellipsis;
+  margin: 5px 0px;}
+}  
+.surplus-card{
+  background-color: #fff;
+  border-radius: 8px;
+  padding:10px; margin: -30px 10px 20px 10px;
+  box-shadow: 0px 0px 5px 0px #dcdcdc;
+  h4{font-size:20px; color:#202942; margin: 0px 0px 3px 0px;  font-weight: 600;}
+  p{color:#5992DF; margin: 0px 0px 3px 0px; font-size: 12px;
+    font-weight: 600;}
+  .surplus-price{color:#31CC32; font-weight:600; margin:0; font-size: 18px;}
+  .deficits-price{color:red; font-weight:600; margin:0; font-size: 18px;}
+}  
+.expense-table{width:100%;
+th{padding: 0;
+  color: #83A7DD;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase; text-align:right;  
+}
+.th-greenh{color:#31CC32; text-align:left; padding: 5px 0px;}
+
+}
+.category-table{ width:100%;
+  th{color:#174894; font-size:12px; text-align:left; padding: 5px 0px; font-weight: 600;
+    .expense-category{color:#1E2941; font-size:12px; display:flex; align-items: center; justify-content: flex-start; font-weight: 600;}
+    p{padding-left:5px; margin:0;}
+    .add-icon{ font-size: 22px;  color: #4D9DFE; margin-right:5px;}
+    .alignv-center{display: flex;
+      align-items: center;
+      justify-content: flex-end;}
+    }
+  .category-name{font-size:12px; color:#5CA6FF; text-align:left;  padding-left: 26px;} 
+  .budget-amount{font-size:12px; color:#2A3862; text-align:right;} 
+  td{font-size:12px; color:#666768; text-align:right; font-weight: 500;     border-bottom: solid 1px #e5e5e5;
+    padding: 10px 0px;}
+}
+.montly-title{padding: 20px 20px 5px 20px;  margin: 0; font-size:24px; }
+.balance-table{width:100%;
+  .balance-category{color:#1F2942; font-size:20px; display:flex; align-items: center; justify-content: flex-start; font-weight: 600;}
+  th{text-align:right; color:#30CD34; font-size: 20px; border-bottom: solid 1px #e5e5e5; font-weight: 600;
+    padding: 10px 20px;
+  .red-amount{font-size:20px;font-weight: 600; text-align: right; padding:0;
+     border-bottom:none;
+     color: red;}
+}
+  .balance-title{font-size: 18px; color:#1F2941; font-weight: 600; padding-left: 5px; text-align: left; }  
+   
+  td{
+    padding: 12px 0px;
+    font-size: 12px;
+    border-bottom: solid 1px #e5e5e5;
+  }
+  .green-amount{font-size: 12px; color:#32CD33; font-weight: 600; padding-right:8px;}
+  .blue-amount{font-size: 12px; color:#C44242; font-weight: 600; padding-right:8px;}
+  p{    font-size: 12px;
+    font-weight: 500;
+    margin: 3px 0px;}
+  .date-blue{    color: #529FFF;
+    padding-right: 5px;}  
+  .paycheck-type{    color: #1F4E99; word-break: break-all;
+    padding-right: 10px;    font-weight: 600;}
+    .alignv-center{display: flex;
+      align-items: center;
+      justify-content: flex-start;}    
+}
+.px-15{padding:0px 15px;}
+.close-icon{font-size: 24px; color:#fff;}
+.user-card{background-color:#24335E; padding:5px; color:#fff; border-radius: 54px;
+  position: absolute;
+  left: 0;
+  bottom: 10px;
+  margin: 5px;
+.user-image{    height: 64px;
+  width: 64px;
+  border-radius: 50%;
+  background-color: #fff;}
+  .alignv-center{display: flex; align-items: center;}
+  .user-details{font-size: 11px;
+    margin: 5px 0 3px;}
+    p{margin:0;}
+  .yes-button{font-size:9px; color:#31CB33; font-weight: 600;}  
+  .no-button{font-size:9px; color:#3496BE; padding-left: 15px;  font-weight: 600;}  
+}
+.red-background{
+  background-color:#C44242;
+  color:#fff;
+  padding: 10px 15px;
+  h5{font-size: 14px;}
+  p{font-size: 12px;}
+
+}
+.yellow-background{
+  background-color:#D4801E;
+  color:#fff;
+  padding: 10px 15px;
+  h5{font-size: 14px;}
+  p{font-size: 12px;}
+}
+.green-background{
+  background-color:rgb(216, 44, 216);
+  color:#fff;
+  padding: 10px 15px;
+  h5{font-size: 14px;}
+  p{font-size: 12px;}
+}
+.price-bg-green{
+  background-color: rgba(45, 90, 78, 0.2);
+  padding: 6px 10px 5px 10px;
+  border-radius: 12px;
+  margin: 1px 0px;
+  text-align: right;
+  display: inline;
+  color: rgb(45, 90, 78);  
+} 
+.price-bg-red{
+  background-color: rgba(200, 65, 65, 0.2);
+  padding: 6px 10px 5px 10px;
+  border-radius: 12px;
+  margin: 1px 0px;
+  text-align: right;
+  display: inline;
+  color: rgb(200, 65, 65);
+}
+.price-bg-green-white{
+   padding: 6px 10px 5px 10px;
+  border-radius: 12px;
+  margin: 1px 0px;
+  text-align: right;
+  display: inline;
+  color: rgb(45, 90, 78);  
+} 
+.price-bg-red-white{
+   padding: 6px 10px 5px 10px;
+  border-radius: 12px;
+  margin: 1px 0px;
+  text-align: right;
+  display: inline;
+  color: rgb(200, 65, 65);
+}
+ion-toolbar
+{
+    --background: #C4CDD6;
+}
+.main-bg{
+  background: rgb(137,151,164);
+  --background: linear-gradient(180deg, #C3CCD5 0%, rgb(249, 249, 249) 50%, rgb(255, 255, 255) 100%);
+  position: relative;
+}
+.main-content {
+  padding: 10px;
+  margin: 10px 5px;
+  border-radius: 8px;
+  margin-top: -100px;
+}
+.white-background{
+  background-color:#ffffff;
+  border-radius: 8px;
+  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+.paycheck-content{    padding: 10px;
+  border-radius: 10px;}
+.filter-table{ width:100%;
+  .filter-title{font-size: 11px;
+    margin: 3px 0px;
+    text-transform: uppercase;
+    font-weight: 600;}
+  td{border-bottom: solid 1px #e5e5e5;}   
+}
+ion-select{    font-size: 14px;
+  --padding-start: 0;
+  --padding-top: 0px;}
+.paychecklist-table{width:100%;
+  .paycheck-type{    color: #1F4E99;
+    font-weight: 600;}  
+ .date-blue{    color: #529FFF;
+    padding-right: 5px;}
+  .alignv-center{display:flex; align-items: center; justify-content: flex-end;}  
+  td{
+    padding:15px 0px; border-bottom:solid 1px #e5e5e5; font-size:12px; font-size: 13px;
+    color: #262E47;
+    font-weight: 600;
+    p{    margin: 0px 0px 3px;}
+  }  
+} 
+.aligny-center{display: flex;
+    align-items: center;
+    
+}
+
+@media only screen and (max-width: 460px) {
+  .budget-bg {  
+    background-color: #1F2942; 
+  .green-text {font-size: 14px;}
+  .blue-text {
+    font-size: 14px;
+}
+}
+}
+       

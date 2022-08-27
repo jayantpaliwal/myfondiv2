@@ -1,0 +1,164 @@
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-title class="nav-title">
+      Pay Period Details
+
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-button (click)="logoutService.logout()" fill="clear" slot="end">
+      <ion-icon ios="ios-log-out" md="md-log-out"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div *ngIf="budgets.toBeBudgeted < 0" class="red-background ion-padding">
+    <h5 class="ion-no-margin">You're overbudgeted!</h5>
+    <ion-row style="height:4px;"></ion-row>
+    <p class="ion-no-margin">Add an income source or reduce budget for a category below</p>
+  </div>
+  <div *ngIf="overSpent > 0" class="yellow-background ion-padding">
+    <h5 class="ion-no-margin">{{overSpent}} Overspent categories</h5>
+    <ion-row style="height:4px;"></ion-row>
+    <p class="ion-no-margin">Adjust allocation to those categories below.</p>
+  </div>
+  <div class="container">
+    <ion-row style="height:10px;"></ion-row>
+    <div class="white-background ion-padding-h-14">
+      <div class="ion-top-padding-6">
+        <h4>{{payPeriods.startDate}}</h4>
+      </div>
+      <ion-grid class="ion-no-padding">
+        <ion-row class="ion-align-items-center ion-no-padding">
+          <ion-col size="6">
+            <p class="font-weight600 ion-no-margin">Current Paycheck</p>
+          </ion-col>
+          <ion-col size="6">
+            <p class="ion-no-margin font-size14 letter-spacing-1 ion-text-end">
+              <a>+ Add Income Source</a>
+            </p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <table width="100%">
+        <ion-spinner *ngIf="loading" class="spinner" name="crescent"></ion-spinner>
+        <thead>
+          <tr>
+            <th width="60%"></th>
+            <th width="20%" class="ion-text-end color-green">TOTAL BUDGETED</th>
+            <th width="20%" class="ion-text-end color-green">TOTAL RECEIVED</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let period of payPeriods.perPayCheck">
+            <td class="ion-padding-vertical-4">
+              <ion-grid class="ion-no-padding">
+                <ion-row class="ion-align-items-center ion-no-padding">
+                  <ion-col size="12">
+                    <p class="color-blue font-size14" [innerHTML]="showPaycheckName(period)"></p>
+                    <span class="font-size11">{{period.paycheckFrequency}} Income</span>
+                  </ion-col>
+                  <!-- <ion-col size="4"> 
+                  <img src="assets/image/edit.png" width="16" height="16">
+                </ion-col> -->
+                </ion-row>
+              </ion-grid>
+            </td>
+            <td class="ion-text-end font-size14 ion-padding-vertical-4">{{period.payAmount | thousandSeparator}}</td>
+            <td class="ion-text-end font-size14 ion-padding-vertical-4" [innerHTML]="getIncome(period)"></td>
+          </tr>
+
+        </tbody>
+      </table>
+      <div class="ion-padding-vertical-6">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="4">
+              <p class="text-size-small">To Be Budgeted</p>
+              <span
+                [class]="budgets.toBeBudgeted >= 0 ? 'price-green' :  'price-red'">{{budgets.toBeBudgeted  | thousandSeparator}}</span>
+            </ion-col>
+            <ion-col size="4">
+              <div class="ion-margin-auto width-70">
+                <p class="text-size-small">Currently Budgeted</p>
+                <span class="dark-green">{{budgets.budgeted | thousandSeparator}}</span>
+              </div>
+            </ion-col>
+            <ion-col size="4">
+              <div class="ion-margin-auto width-70">
+                <p class="text-size-small">Currently Available</p>
+                <span class="text-size-small">{{budgets.available  | thousandSeparator}}</span>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+      <div class="light-grey-bg ion-no-padding border-radius-10">
+        <ion-grid class="ion-padding-h-14">
+          <ion-row class="ion-align-items-center">
+            <ion-col size="auto">
+              <h4>Surplus</h4>
+              <p class="small-heading ion-no-margin">for next pay period</p>
+            </ion-col>
+            <ion-col>
+              <p class="ion-text-end dark-green text-size-18">{{surplus}}</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+      <ion-grid class="ion-no-padding">
+        <ion-row>
+          <ion-col *ngFor="let exp of expenses; let i = index" size='auto'>
+            <p class="table-heading">
+              <span class="circles" [ngStyle]="{'background-color':circleColor[i]}"></span>
+              <span class="ion-padding-left-8 font-size14" [innerHTML]=categoryName(exp)></span>
+            </p>
+          </ion-col>
+
+        </ion-row>
+      </ion-grid>
+
+      <table width="100%">
+        <thead>
+          <tr>
+            <th width="40%"></th>
+            <th width="20%">Budgeted</th>
+            <th width="20%">Spent</th>
+            <th width="20%">Available</th>
+          </tr>
+          <br />
+
+        </thead>
+        <tbody *ngFor="let exp of expenses; let i = index">
+          <tr>
+
+            <th>
+              <p class="table-heading">
+                <span class="circles" [ngStyle]="{'background-color':circleColor[i]}"></span>
+                <span [innerHTML]=categoryName(exp) class="ion-padding-left-8"></span>
+              </p>
+            </th>
+            <th [innerHTML]=categoryBudget(exp)></th>
+            <th [innerHTML]=categorySpend(exp)></th>
+            <th [innerHTML]=categoryAvailable(exp)></th>
+          </tr>
+          <tr *ngFor="let sub of exp">
+            <td [class]="sub.available >= 0 ? '' :  'warning-red'">{{sub.subCategory}}
+              <span *ngIf="sub.available < 0" class="warning-alert">
+                <img src="assets/image/warning.png" alt="warning-icon" width="14" height="14">
+              </span>
+            </td>
+            <td>{{sub.budgeted | thousandSeparator}}</td>
+            <td>{{sub.spend | thousandSeparator}}</td>
+            <td>
+              <p [class]="sub.available >= 0 ? 'price-bg-green' :  'price-bg-red'">{{sub.available | thousandSeparator}}
+              </p>
+            </td>
+          </tr>
+          <ion-row style="height:15px;"></ion-row>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</ion-content>

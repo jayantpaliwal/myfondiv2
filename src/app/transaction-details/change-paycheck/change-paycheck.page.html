@@ -1,0 +1,67 @@
+<ion-content>
+  <div class="green-gradient-bg">
+    <ion-row class="ion-align-items-center header-row">
+      <ion-col size="2" (click)="back()">
+        <ion-icon name="arrow-back-outline" class="fs-24"></ion-icon>
+      </ion-col>
+      <ion-col size="6">
+        <h2 class="header-title">Current Transaction</h2>
+      </ion-col>
+      <ion-col size="4" class="align-right">
+      </ion-col>
+    </ion-row>
+  </div>
+  <div class="main-content">
+    <ion-row style="height:100px;"></ion-row>
+    <div class="px-10">
+      <div class="px-10">
+        <table class="paychecklist-table">
+          <tbody>
+            <tr width="100%">
+              <td width="70%">
+                <p class="paycheck-type">{{transaction?.name}}</p>
+                <p class="paycheck-type"><span class="date-blue">
+                    {{transaction?.transactionDateTime| date:"dd MMMM yyyy"}}</span>{{transaction?.category}}</p>
+              </td>
+              <td width="25%">
+                <p class="amount ion-no-margin">{{transaction?.amount  | thousandSeparator}}</p>
+              </td>
+              <td width="5%" class="ion-text-end">
+                <ion-button fill="outline" (click)="changeCategory(transaction)">
+                  <ion-icon slot="icon-only" name="list-circle"></ion-icon>
+                </ion-button>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+        <table class="paychecklist-table">
+          <tbody>
+            <tr width="100%" *ngFor="let exp of transaction?.paycheck;let i=index;">
+              <td width="70%">
+                <p class="paycheck-type">{{exp?.name}}</p>
+                <p class="paycheck-type"><span class="date-blue">
+                    {{exp?.payDate| date:"dd MMMM yyyy"}}</span>
+                  {{(exp.isRepeating ? exp.repeating.type : 'Non-Recurring')}}</p>
+              </td>
+              <td width="25%">
+                <p class="amount ion-no-margin">{{exp?.amount  | thousandSeparator}}</p>
+
+              </td>
+              <td width="5%" class="ion-text-end">
+                <ion-button fill="outline" (click)="changePaycheck(exp)">
+                  <ion-icon slot="icon-only" name="cash"></ion-icon>
+                </ion-button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <ion-row style="height: 50px;"></ion-row>
+        <ion-button fill="outline" (click)="remove(transaction)">
+          Unassign This Transaction
+        </ion-button>
+      </div>
+    </div>
+  </div>
+
+</ion-content>

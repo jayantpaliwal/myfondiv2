@@ -1,0 +1,47 @@
+<ion-content>
+  <div class="green-gradient-bg px-15 bbr-80">
+    <ion-row class="ion-align-items-center">
+      <ion-col size="6">
+        <h2 class="header-title">Accounts</h2>
+      </ion-col>
+      <ion-col size="6" class="align-right">
+        <img src="{{userPic}}" (click)="goToProfile()" alt="user profile" class="user-profile">
+      </ion-col>
+    </ion-row>
+    <ion-row style="height:100px;"></ion-row>
+  </div>
+  <div class="main-content white-bg">
+    <ion-card class="ion-no-margin transaction-card" *ngIf="accounts.length==0">
+      <div class="ion-padding ion-text-center">
+        <ion-icon ios="ios-add" md="md-add" style="zoom:1.5;"></ion-icon>
+        <p class="color-black">No Account Connected</p>
+      </div>
+    </ion-card>
+    <ion-row class="account-section" *ngFor="let account of getUniqueAccounts(accounts); let i= index;"
+      >
+      <ion-col size="7">
+        <div class="d-flex alignv-center">
+          <div>
+            <img src="assets/icon/bank1.jpg" alt="bank logo" class="">
+          </div>
+          <div class="pl-8">
+            <p class="bank-name">{{account?.official_name != null ? account?.official_name : account?.name}}</p>
+            <p class="account-name">{{account?.subtype}}</p>
+            <p class="card-no">XXXX XXXX XXXX {{account.lastFour}}</p>
+            <p class="reauth" (click)="checkAccountStatus(account)" *ngIf="account.flag">Re-Authenticate</p>
+          </div>
+        </div>
+      </ion-col>
+      <ion-col size="5" class="align-right">
+        <p class="amount" *ngIf="account.type!='credit'">
+          {{account.balances.current | thousandSeparator}}</p>
+        <p class="credit-amount" *ngIf="account.type=='credit'">
+          -{{account.balances.current | thousandSeparator}}</p>
+        <ion-icon name="ellipsis-vertical" class="menu-icon" (click)="moreItem($event,account.account_id)"></ion-icon>
+      </ion-col>
+    </ion-row>
+    <ion-row style="height:20px;"></ion-row>
+    <ion-button expand="block" class="blue-button" (click)="Connect()">Add New Account</ion-button>
+  </div>
+
+</ion-content>

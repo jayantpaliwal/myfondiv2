@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="18px" viewBox="0 0 16 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>sliders</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Component" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="sliders" fill="#174896" fill-rule="nonzero">
+            <polygon id="Path" points="6.45337 0 8.60449333 0 8.60449333 3.226685 6.45337 3.226685"></polygon>
+            <polygon id="Path" points="5.37780833 4.30224666 5.37780833 7.52893166 6.45337 7.52893166 6.45337 17.2089867 8.60449333 17.2089867 8.60449333 7.52893166 9.68005499 7.52893166 9.68005499 4.30224666"></polygon>
+            <polygon id="Path" points="1.07556167 0 3.226685 0 3.226685 8.60449333 1.07556167 8.60449333"></polygon>
+            <polygon id="Path" points="0 9.68005499 0 12.90674 1.07556167 12.90674 1.07556167 17.2089867 3.226685 17.2089867 3.226685 12.90674 4.30224666 12.90674 4.30224666 9.68005499"></polygon>
+            <polygon id="Path" points="11.8311783 0 13.9823017 0 13.9823017 10.7556167 11.8311783 10.7556167"></polygon>
+            <polygon id="Path" points="10.7556167 11.8311783 10.7556167 15.0578633 11.8311783 15.0578633 11.8311783 17.2089867 13.9823017 17.2089867 13.9823017 15.0578633 15.0578633 15.0578633 15.0578633 11.8311783"></polygon>
+        </g>
+    </g>
+</svg>

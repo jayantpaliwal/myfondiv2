@@ -1,0 +1,155 @@
+<ion-content>
+  <div class="green-gradient-bg px-15 bbr-80">
+    <ion-row *ngIf="!CategoryChange" class="ion-align-items-center header-row">
+      <ion-col size="2" (click)="back()">
+        <ion-icon name="arrow-back-outline" class="fs-24"></ion-icon>
+      </ion-col>
+      <ion-col size="8">
+        <h2 class="header-title">Transactions</h2>
+      </ion-col>
+      <ion-col size="2" class="align-right">
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="CategoryChange" class="ion-align-items-center">
+      <ion-col size="2" (click)="CategoryChange = false">
+        <ion-icon name="arrow-back-outline" class="fs-24"></ion-icon>
+      </ion-col>
+      <ion-col size="10">
+        <h2 class="header-title">Transactions Update</h2>
+      </ion-col>
+    </ion-row>
+  </div>
+  <ion-row style="height:100px;"></ion-row>
+  <div *ngIf="!CategoryChange" class="main-content">
+    <ion-card class="px-10 margin-0">
+      <h5>Transaction Detail</h5>
+      <table class="paychecklist-table">
+        <tbody>
+          <tr>
+            <td width="50%">
+              Name
+            </td>
+            <td width="50%">
+              <p class="paycheck-type">{{transaction?.name}}</p>
+            </td>
+          </tr>
+          <tr>
+            <td width="50%">Date</td>
+            <td width="50%">
+              <p class="paycheck-type"><span class="date-blue">
+                  {{transaction?.transactionDateTime| date:"dd MMMM yyyy"}}</span></p>
+            </td>
+          <tr>
+            <td width="50%">Category</td>
+            <td width="50%">
+              <p class="paycheck-type">{{transaction?.category}}</p>
+            </td>
+          </tr>
+          <tr>
+            <td width="50%">
+              Amount
+            </td>
+            <td width="50%">
+              <p
+                [ngClass]="transaction?.amount > 0 ? 'amount-red amount ion-no-margin' : 'amount-green amount ion-no-margin'">
+                {{(-(transaction?.amount) | thousandSeparator)}}</p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <ion-button (click)="changeCategory()">
+                Change Category
+              </ion-button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <ion-row style="height:20px;"></ion-row>
+      <div *ngIf="transaction.paycheck.length">
+        <h5>Assigned Paycheck</h5>
+        <table class="paychecklist-table">
+          <tbody *ngFor="let exp of transaction?.paycheck;let i=index;">
+            <tr>
+              <td width="50%">Name</td>
+              <td width="50%">
+                <p class="paycheck-type">{{exp?.name | titlecase}}</p>
+              </td>
+            </tr>
+            <tr>
+              <td width="50%">Pay Date</td>
+              <td width="50%">
+                <p class="paycheck-type"><span class="date-blue">
+                    {{exp?.payDate| date:"dd MMMM yyyy"}}</span></p>
+              </td>
+            </tr>
+            <tr>
+              <td width="50%">Type</td>
+              <td width="50%">
+                <p class="paycheck-type"><span class="date-blue">
+                    {{(exp.isRepeating ? exp.repeating.type : 'Non-Recurring')}}</span></p>
+              </td>
+            </tr>
+            <tr>
+              <td>Assigned Amount</td>
+              <td>
+                <p [ngClass]="exp?.amount > 0 ? 'amount-red amount' : 'amount-green amount'">
+                  {{(-(exp?.amount) | thousandSeparator)}}</p>
+              </td>
+            </tr>
+            <tr>
+              <td >
+                <ion-button (click)="changePaycheck(exp)">
+                  Change Paycheck
+                </ion-button>
+              </td>
+            </tr>
+          </tbody>
+     
+        </table>
+      </div>
+
+      <ion-row style="height: 50px;"></ion-row>
+    </ion-card>
+  </div>
+  <div *ngIf="CategoryChange" class="main-content zero-margin">
+    <div class="px-10">
+      <table class="paychecklist-table">
+        <tbody>
+          <tr>
+            <td>
+              <p class="paycheck-type">{{transaction.name}}</p>
+              <p class="paycheck-type"><span class="date-blue">
+                  {{transaction.transactionDateTime |date:'dd MMM yyyy'}}</span></p>
+            </td>
+            <td>
+              <p [ngClass]="transaction?.amount > 0 ? 'amount-red amount' : 'amount-green amount'">
+                {{-(transaction.amount) | thousandSeparator}}</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="container">
+      <ion-row style="height:25px;"></ion-row>
+      <div>
+        <div>
+          <form [formGroup]="incomeForm">
+            <div class="input-item ion-padding-top-20">
+              <p>Transaction Category</p>
+              <div class="input-group">
+                <ion-input type="text" (ionFocus)="selectCategory()" formControlName="categoryName"
+                  placeholder="Please choose">
+                </ion-input>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="input-item ion-padding-top-20">
+      <ion-button (click)="submit()" [disabled]="!incomeForm.valid" expand="block" class="blue-button">Update Category
+      </ion-button>
+    </div>
+  </div>
+
+</ion-content>

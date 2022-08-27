@@ -1,0 +1,115 @@
+<!-- <ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Tab 2
+    </ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+  <div class="green-gradient-bg px-15 bbr-80">
+    <ion-row class="ion-align-items-center">
+      <ion-col size="1" (click)="back()">
+        <ion-icon name="arrow-back" class="fs-24"></ion-icon>
+      </ion-col>
+      <ion-col size="6">
+        <h2 class="header-title">Goals</h2>
+      </ion-col>
+      <ion-col size="5" class="align-right">
+        <!-- <ion-icon name="notifications" class="notification-icon"></ion-icon> -->
+        <img src="{{userPic}}"  (click)="goToProfile()" alt="user profile" class="user-profile">
+      </ion-col>
+    </ion-row>
+    <ion-row style="height:100px;"></ion-row>
+  </div>
+  <div class="main-content">
+    <ion-segment class="segment-section" [(ngModel)]="account">
+      <ion-segment-button value="saving">
+        <ion-label>Saving</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="debt_reduction">
+        <ion-label>Debt Reduction</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    <ion-row style="height:10px;"></ion-row>
+    <div [ngSwitch]="account">
+      <div *ngSwitchCase="'saving'">
+        <div *ngIf="goals.length==0"class="credit-card-section">
+          <ion-card class="ion-no-margin transaction-card">
+            <div class="ion-padding ion-text-center">
+                <ion-icon ios="ios-add" md="md-add" style="zoom:1.5;"></ion-icon>
+                <p class="color-black">No Goal Found</p>
+            </div>
+        </ion-card>
+        </div>
+        <div *ngFor="let goal of goals; let in=index;"class="credit-card-section" >
+          <div class="ion-text-right" (click)="deleteGoal(goal)">
+            <!-- <div class="ion-text-right"> -->
+              
+            <ion-icon name="ellipsis-horizontal" [ngClass]="!goal.isRemoved && goal.isAccomplished  ? 'menu-icon-active' : 'menu-icon'"></ion-icon>
+          </div>
+          <ion-row (click)="editGoal(goal)">
+            <ion-col size="8" class="ion-no-padding">
+            <p class="card-title">{{goal.goal_name}}</p>
+            </ion-col>
+            <ion-col size="4" class="align-right ion-no-padding">
+              <p class="amount-detail"><span class="card-amount">{{goal.goal_amount | thousandSeparator}}</span>Total</p>          
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-align-items-center" (click)="editGoal(goal)">
+            <ion-col size="2" size-sm="1" size-md="1" size-lg="1" size-xl="1" class="ion-no-padding">
+              <img src="assets/icon/save-money.svg" alt="saving icon" width="32" height="32">
+            </ion-col>
+            <ion-col size="10" size-sm="11" size-md="11" size-lg="11" size-xl="11" class="ion-no-padding">
+              <ion-progress-bar value="{{goal.progress}}" class="goal-progress"></ion-progress-bar>
+              <ion-row class="pt-4">
+                <ion-col size="6" class="ion-no-padding"> <p class="amount-detail"><span class="card-amount">{{goal.paid_amount | thousandSeparator}}</span>Paid</p></ion-col>
+                <ion-col size="6" class="ion-text-end ion-no-padding"> <p class="amount-detail"><span class="card-amount">{{goal.left_amount | thousandSeparator}}</span>Left</p></ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+      <div *ngSwitchCase="'debt_reduction'">
+        <div *ngIf="debt_goals.length==0"class="credit-card-section">
+          <ion-card class="ion-no-margin transaction-card">
+            <div class="ion-padding ion-text-center">
+                <ion-icon ios="ios-add" md="md-add" style="zoom:1.5;"></ion-icon>
+                <p class="color-black">No Goal Found</p>
+            </div>
+        </ion-card>
+        </div>
+        <div *ngFor="let goal of debt_goals; let in=index;"class="credit-card-section">
+          <div class="ion-text-right" (click)="deleteGoal(goal)">
+            <!-- <div class="ion-text-right"> -->
+              
+            <ion-icon name="ellipsis-horizontal" [ngClass]="!goal.isRemoved && goal.isAccomplished ? 'menu-icon-active' : 'menu-icon'"></ion-icon>
+          </div>
+          <ion-row (click)="editGoal(goal)">
+            <ion-col size="8" class="ion-no-padding">
+            <p class="card-title">{{goal.goal_name}}</p>
+            </ion-col>
+            <ion-col size="4" class="align-right ion-no-padding">
+              <p class="amount-detail"><span class="card-amount">{{goal.goal_amount | thousandSeparator}}</span>Total</p>          
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-align-items-center" (click)="editGoal(goal)">
+            <ion-col size="2" size-sm="1" size-md="1" size-lg="1" size-xl="1"  class="ion-no-padding">
+              <img src="assets/icon/no-debt.svg" alt="debt icon" width="32" height="32">
+            </ion-col>
+            <ion-col size="10"  size-sm="11" size-md="11" size-lg="11" size-xl="11"  class="ion-no-padding">
+              <ion-progress-bar value="{{goal.progress}}" class="reduction-progress"></ion-progress-bar>
+              <ion-row class="pt-4">
+                <ion-col size="6" class="ion-no-padding"> <p class="amount-detail"><span class="card-amount">{{goal.paid_amount | thousandSeparator}}</span>Paid</p></ion-col>
+                <ion-col size="6" class="ion-text-end ion-no-padding"> <p class="amount-detail"><span class="card-amount">{{goal.left_amount | thousandSeparator}}</span>Left</p></ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </div>
+      </div>
+  </div>
+   
+    <ion-row style="height:10px;"></ion-row>
+    <ion-button expand="block" class="blue-button" (click)="CreateGoalPage()">Add New Goals</ion-button>
+  </div>
+</ion-content>

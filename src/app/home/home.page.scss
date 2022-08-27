@@ -1,0 +1,214 @@
+div.scrollmenu {
+  overflow: auto;
+  white-space: nowrap;
+}
+
+div.scrollmenu span {
+  display: inline-block;
+  text-align: center;
+  padding: 2px;
+  text-decoration: none;
+}
+.custom-card{
+  width: 190px;
+}
+ion-toolbar
+{
+    --background: #72D775;
+}
+/*ion-toolbar {
+--background: transparent;
+--ion-color-base: transparent !important;
+}*/
+.main-bg{
+  background: rgb(137,151,164);
+  --background: linear-gradient(180deg, #C3CCD5 0%, rgb(249, 249, 249) 50%, rgb(255, 255, 255) 100%);
+  position: relative;
+}
+.green-gradient-bg{
+  background: #74D874;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to bottom, #74D874, #47BD89);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to bottom, #74D874, #47BD89); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    border-radius: 0px 0px 40px;
+}
+.container{
+  margin: 10px;
+}
+
+h2 {
+  margin-top: 0px;
+  font-size: 30px;
+  letter-spacing: 1px;
+  color: #3E3E3E;
+  font-weight:800;
+  text-transform: capitalize;
+}
+h3{
+  color:#ffffff;
+  font-size:17px;
+}
+
+h6{
+  font-size: 12px;
+  color: #1F2942;
+  font-weight: 600;
+}
+
+p{
+  font-size: 17px;
+  letter-spacing: 0.03em;
+}
+
+.weight-semibold{
+  font-weight:600;
+}
+.size-small{
+  font-size: 14px;
+}
+.text-white{color: #ffff;}
+.text-yellow{color:#FCFC9F;}
+.price{
+  color:#ffffff;
+  font-size:17px;
+}
+.fw-700{font-weight: 700;}
+.sc-ion-card-md-h, .sc-ion-card-ios-h {
+  --background: var(--ion-item-background,#fff);
+  --color: var(--ion-color-step-550,#737373);
+}
+.custom-card{
+  width: 70%;
+    margin-right: 10px;
+    padding: 5px;
+    display: inline-block;
+
+}
+.text-color-blue{
+  font-size: 12px;
+  color: #4789ff;
+}
+td{
+  border-bottom:solid 1px #e5e5e5;
+  border-collapse: collapse;
+} 
+th{
+  text-align:left;
+  font-size: 12px;
+  color:#141414;
+}
+.text-color-black{
+  color: #141414;
+  font-size: 13px;
+  font-weight: 400;
+}
+.color-black{
+  color: #141414;
+  font-size: 14px;
+    
+}
+.add-icon{ font-size: 22px;  color: #4D9DFE; margin-right:5px;}
+.alignv-center{display: flex;
+  align-items: center;
+  justify-content: flex-end;}
+
+.text-color-red{
+  color: #c84141;
+  margin: 0px;
+  font-weight: 500;
+  font-size: 15px;
+}
+.text-color-green{
+  color:#3B9646;
+ //color: rgb(45,90,78);
+  margin: 0px;
+  font-weight: 500;
+  font-size: 15px;
+}
+.text-size-small{
+  font-size: 11px;
+}
+table P{
+  margin:0px;
+  word-break: break-word;
+}
+th, td{
+  padding:4px 0px;
+}
+.font-size-12{
+  font-size:12px;
+}
+.user-profile{width: 48px;
+  height: 48px;
+  background-color: #868686;
+  border-radius: 50%;
+  border: solid 3px #fff;}
+ion-progress-bar {
+  height: 8px;
+  border-radius: 10px;  
+ /* --progress-background:#5BD1A5;*/
+ background: linear-gradient(to left, #2755C4, #46A3F3);
+}
+.logo{
+  display: flex;
+    align-items: center;
+    font-size: 28px;
+    color: #1f2942;
+    img{
+      margin-left: 5px;
+      margin-right: 10px;
+    }
+}
+.p-20{padding: 20px;}
+.background-transparent{--background: #fff0; --color: #060606;box-shadow: none;}   
+.yellow-button{color:#FCFC9F;font-size: 14px;
+  --padding-start: 0;
+  text-transform: capitalize;}
+.ph-12{padding: 0px 12px;}
+.mx-12{margin: 0px 12px;}
+.image{
+  float:right;
+  border-radius: 50%
+}
+.logout-button{    font-size: 36px;
+  color: #1f2942;}
+.user-button{    height: auto;
+}  
+.main-title{margin-top: 0px;
+  font-size: 30px;
+  letter-spacing: 1px;
+  color: #fff;
+  font-weight: 600;
+  text-transform: capitalize;}
+.paycheck-progress{ --background:#fff; --progress-background: linear-gradient(to right,#2E3CFC,#45A5F3); height: 10px;
+    border-radius: 6px;}
+.goal-progress{ --background:#D8D8D8; --progress-background: linear-gradient(to right,#57C2F1,#45A5F3); height: 7px;
+    border-radius: 6px;}
+.fs-20{font-size:20px;}   
+.alignv-center{    display: flex;  align-items: center; justify-content: flex-start;} 
+.goal-title  {color:#182A5A; font-size:14px; text-transform: uppercase;     font-weight: 700;}
+.goal-cardtitle  {color:#182A5A; font-size:13px;     font-weight: 600; margin:5px 0px 5px 0px; text-transform: capitalize; white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 20ch;}
+.goal-progress-green{color:#60CD7F; font-size:12px;  margin:5px 0px 5px 0px; font-weight: 600;}
+.goals-left-text{color:#182A5A; font-size:12px;padding-left:8px;}
+.px-15{padding: 0px 15px;}
+.view-goal-button{    font-size: 11px;  text-transform: capitalize; --padding-end: 0;}
+.transaction-card {background-color: #fff;  padding: 10px;}
+ion-title{font-weight:600;}
+.dark-blue{
+  color: #162857;  
+}
+.fw-600{font-weight: 600;}
+.fw-500{font-weight: 500;}
+.delete-button{color: #b5b5b5;  font-size: 18px;}
+.pt-12{padding-top:12px;}
+
+.date-blue{    color: #529FFF;
+  padding-right: 5px;}
+.budget-amount{text-align: right;}
+.spinner{
+  top: 50%;
+  left: 45%;
+  z-index: 500;
+}

@@ -1,0 +1,9 @@
+<ion-list>
+  <ion-item>
+  <ion-button class="close-btn" fill="clear" (click)="edit()" ><ion-icon name="{{icon}}"></ion-icon> {{(!boolean ? 'Edit' : 'clear all') | titlecase}}</ion-button>
+  <!-- <ion-button class="close-btn" fill="clear" (click)="RemoveAllTransactions()" *ngIf="boolean">  <ion-icon name=""></ion-icon>Remove Transactions</ion-button> -->
+ </ion-item>
+  <ion-item>
+    <ion-button class="close-btn" fill="clear" (click)="confirm()"><ion-icon name="trash"></ion-icon>Remove</ion-button>
+  </ion-item>
+ </ion-list>

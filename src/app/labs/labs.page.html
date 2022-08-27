@@ -1,0 +1,25 @@
+<ion-content>
+  <div class="green-gradient-bg px-15 bbr-80">
+    <ion-row class="ion-align-items-center">
+      <ion-col size="3">
+        <img height="40" src="assets/image/logo.png" /> 
+        <!-- <ion-icon name="arrow-back-outline" class="fs-24"></ion-icon> -->
+      </ion-col>
+      <ion-col size="4">
+        <div class="logo">
+          <h4>Labs</h4>
+        </div>
+      </ion-col>
+      <ion-col size="5" class="align-right">
+        <!-- <ion-icon name="notifications" class="notification-icon"></ion-icon> -->
+        <img src="{{userPic}}"  (click)="goToProfile()"alt="user profile" class="user-profile">
+      </ion-col>
+    </ion-row>
+    <ion-row style="height:100px;"></ion-row>
+  </div>
+  <div class="container">
+    <img src="assets/image/labs.jpg"/>
+  </div>
+
+
+</ion-content>

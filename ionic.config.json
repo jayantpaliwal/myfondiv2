@@ -1,0 +1,7 @@
+{
+  "name": "myfondi",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,305 @@
+<ion-content>
+  <div class="green-gradient-bg px-15 bbr-80">
+    <ion-row class="ion-align-items-center">
+      <ion-col size="1">
+        <ion-icon name="arrow-back" (click)="back()" class="fs-24"></ion-icon>
+      </ion-col>
+      <ion-col size="8">
+        <h2 class="header-title">Goals</h2>
+      </ion-col>
+      <ion-col size="3" class="align-right">
+        <img src="{{userPic}}" (click)="goToProfile()" alt="user profile" class="user-profile">
+      </ion-col>
+    </ion-row>
+    <ion-row style="height:100px;"></ion-row>
+  </div>
+  <div class="main-content">
+    <h1 class="main-title">Set Your Goal</h1>
+    <ion-row style="height:15px;"></ion-row>
+    <ion-segment class="segment-section" value="saving" [(ngModel)]="account">
+      <ion-segment-button value="saving">
+        <img src="assets/icon/save-money.svg" alt="save money" width="48" height="48">
+        <ion-label>Saving</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="debt_reduction">
+        <img src="assets/icon/no-debt.svg" alt="debit icon" width="48" height="48">
+        <ion-label>Debt<br> Reduction</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    <div [ngSwitch]="account">
+      <div *ngSwitchCase="'saving'">
+        <form [formGroup]="createGoalForm">
+
+          <div class="py-15">
+            <ion-label position="fixed">Enter Goal Name</ion-label>
+            <ion-input placeholder="please enter your financial goal name" formControlName="goal_name"></ion-input>
+          </div>
+          <div class="py-15">
+            <ion-label position="fixed">Choose Account to Attach to This Goal</ion-label>
+            <ion-radio-group formControlName="attached_account">
+              <ion-row>
+                <ion-col>
+                  <ion-item>
+                    <ion-radio value="yes"></ion-radio>
+                    <ion-label>Yes</ion-label>
+                  </ion-item>
+                </ion-col>
+                <ion-col>
+                  <ion-item>
+                    <ion-radio value="no"></ion-radio>
+                    <ion-label>No</ion-label>
+                  </ion-item>
+                </ion-col>
+                <ion-col>
+                </ion-col>
+              </ion-row>
+            </ion-radio-group>
+          </div>
+          <div *ngIf="bank.length && attached_account">
+            <ion-row class="account-section" *ngFor="let b of bank;">
+              <ion-col size="8">
+                <div class="d-flex alignv-center">
+                  <div>
+                    <img src="{{b.bankLogo}}" alt="bank logo" class="">
+                  </div>
+                  <div class="pl-8">
+                    <p class="bank-name">{{b?.bank_name}}</p>
+                    <p class="account-name">{{b?.account_name}}</p>
+                    <p class="card-no">XXXX XXXX XXXX {{b?.last_four_digit}}</p>
+                  </div>
+                </div>
+              </ion-col>
+              <ion-col size="4" class="align-right">
+                <p class="amount">{{b.balance.toFixed(2)}}</p>
+              </ion-col>
+            </ion-row>
+          </div>
+          <ion-button *ngIf="attached_account" color="tertiary" fill="clear" class="browse-account-button"
+            (click)="browseAccount()">
+            <ion-icon name="add"></ion-icon> Browse Account
+          </ion-button>
+          <!-- <ion-button color="tertiary" fill="clear" class="browse-account-button"
+            (click)="gotoAccount()">
+            <ion-icon name="add"></ion-icon> Add A New Account
+          </ion-button> -->
+          <div class="py-15">
+            <ion-label position="fixed"> Goal Income Source</ion-label>
+            <ion-input type="text" (ionFocus)="openIncomePop('saving')" placeholder="please choose goal Income Source"
+              formControlName="incomesource"></ion-input>
+          </div>
+          <div class="py-15" *ngIf="!attached_account">
+            <ion-label position="fixed">Goal Category</ion-label>
+            <ion-input type="text" (ionFocus)="openCategory('saving')" placeholder="please choose goal category"
+              formControlName="category"></ion-input>
+          </div>
+
+          <ion-row style="height:10px;"></ion-row>
+          <div class="white-card">
+            <ion-row>
+              <ion-col size-xs="auto" size-sm="auto" size-md="auto" size-lg="auto" size-xl="auto" class="pt-12">
+                <img src="assets/icon/goal.svg" alt="track icon" class="">
+              </ion-col>
+              <ion-col size-xs="9" size-sm="10" size-md="11" size-lg="11" size-xl="11">
+                <h5 class="title">Track your goals</h5>
+                <p class="subtitle">Adjust your expectation and time</p>
+              </ion-col>
+            </ion-row>
+            <div class="bb-2">
+              <h5 class="question_title">How Much Do You Want to Save For This Goal?</h5>
+              <p class="description">Rule of thumb: should have 3-6 months of living expenses in emergency funds</p>
+              <div class="alignv-center">
+                <span class="input-group-text" id="basic-addon1">
+                  <ion-icon name="logo-usd"></ion-icon>
+                </span>
+                <ion-input type="number" class="question-price" placeholder="Please Enter goal Amount"
+                  formControlName="goal_amount"></ion-input>
+              </div>
+            </div>
+            <div class="pt-15">
+              <h5 class="question_title">How Much Are You Willing to Save Per Paycheck?</h5>
+              <div class="alignv-center">
+                <span class="input-group-text" id="basic-addon1">
+                  <ion-icon name="logo-usd"></ion-icon>
+                </span>
+                <ion-input type="number" class="question-price" id="monthly_amt_id"
+                  placeholder="Please Enter Per Month Amount" (input)='onInputTime($event.target.value)'></ion-input>
+              </div>
+              <ion-row>
+                <ion-col size-xs="9" size-sm="9" size-md="11" size-lg="11" size-xl="11" class="ion-no-padding">
+                  <ion-item>
+                    <ion-range pin="true" min="0" max="{{goal_amount}}" (ionChange)="Change($event)"
+                      formControlName="monthly_amt"></ion-range>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </div>
+            <div class="pt-15">
+              <ion-row>
+                <ion-col size-xs="3" size-sm="2" size-md="1" size-lg="1" size-xl="1" class="ion-no-padding">
+                  <ion-icon name="checkmark-circle" class="check-icon"></ion-icon>
+                </ion-col>
+                <ion-col size-xs="9" size-sm="10" size-md="11" size-lg="11" size-xl="11" class="ion-no-padding">
+                  <h5 class="question_title">Great! Your will reach your savings goal by
+                    {{achiveDate | date : 'MMMM dd yyyy'}}!
+                  </h5>
+                  <!-- <h5 class="question_title">Great! Your debt will be paid off by {{'October'}} {{'8'}} {{'2024'}} !</h5> -->
+                </ion-col>
+              </ion-row>
+            </div>
+            <div>
+
+            </div>
+          </div>
+        </form>
+        <ion-row style="height:10px;"></ion-row>
+        <ion-button expand="block" [disabled]="loading && !createGoalForm.valid" class="blue-button"
+          (click)="createGoal()">
+          <ion-spinner *ngIf="loading"></ion-spinner>
+          Create Goal
+        </ion-button>
+      </div>
+      <div *ngSwitchCase="'debt_reduction'">
+        <form [formGroup]="createdebtForm">
+
+          <div class="py-15">
+            <ion-label position="fixed">Enter Debt Name</ion-label>
+            <ion-input placeholder="please enter your financial goal name" formControlName="goal_name"></ion-input>
+          </div>
+          <div class="py-15">
+            <ion-label position="fixed">Choose Account to Attach to This Goal?</ion-label>
+            <ion-radio-group formControlName="attached_account">
+              <ion-row>
+                <ion-col>
+                  <ion-item>
+                    <ion-radio value="yes"></ion-radio>
+                    <ion-label>Yes</ion-label>
+                  </ion-item>
+                </ion-col>
+                <ion-col>
+                  <ion-item>
+                    <ion-radio value="no"></ion-radio>
+                    <ion-label>No</ion-label>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </ion-radio-group>
+          </div>
+          <div *ngIf="attached_account">
+            <div *ngFor="let bank of debt_reduction_banks; let index=index;">
+              <ion-row class="account-section">
+                <ion-col size="8">
+                  <div class="d-flex alignv-center">
+                    <!-- <div class="bank-image">
+                  <img src="assets/icon/bank5.jpg" alt="bank logo" class="">
+                </div> -->
+                    <div>
+                      <img src="{{bank.bankLogo}}" alt="bank logo" class="">
+                    </div>
+                    <div class="pl-8">
+                      <p class="bank-name">{{bank.bank_name}}</p>
+                      <p class="account-name">{{bank?.account_name}}</p>
+                      <p class="card-no">XXXX XXXX XXXX {{bank.last_four_digit}}</p>
+                    </div>
+                  </div>
+                </ion-col>
+                <ion-col size="4" class="align-right">
+                  <p class="amount">{{bank.balance.toFixed(2)}}</p>
+                </ion-col>
+              </ion-row>
+              <!-- <ion-row>
+                <ion-col>
+                  <ion-label position="fixed">Interest Rate</ion-label>
+                  <ion-input type="number" (change)='interestRate($event.target.value)' placeholder="Enter rate"
+                    [formControlName]="'interest'+index"></ion-input>
+                </ion-col>
+                <ion-col>
+                  <ion-label position="fixed">Min. Payment</ion-label>
+                  <ion-input type="number" (change)='min_payment($event.target.value)' placeholder="Enter min payment"
+                    [formControlName]="'min_payment'+index"></ion-input>
+                </ion-col>
+              </ion-row> -->
+            </div>
+          </div>
+
+          <ion-button *ngIf="attached_account" color="tertiary" fill="clear" class="browse-account-button"
+            (click)="debt_browseAccount()">
+            <ion-icon name="add"></ion-icon> Browse Account
+          </ion-button>
+
+          <div class="py-15">
+            <ion-label position="fixed">Goal Income Source</ion-label>
+            <ion-input type="text" (ionFocus)="openIncomePop('debt')" placeholder="please choose goal Income Source"
+              formControlName="incomesource"></ion-input>
+          </div>
+          <div class="py-15" *ngIf="!attached_account">
+            <ion-label position="fixed">Goal Category</ion-label>
+            <ion-input type="text" (ionFocus)="openCategory('debt')" placeholder="please choose goal category"
+              formControlName="category"></ion-input>
+          </div>
+          <ion-row style="height:10px;"></ion-row>
+          <div class="white-card">
+            <ion-row>
+              <ion-col size-xs="auto" size-sm="auto" size-md="auto" size-lg="auto" size-xl="auto" class="pt-12">
+                <img src="assets/icon/goal.svg" alt="track icon" class="">
+              </ion-col>
+              <ion-col size-xs="9" size-sm="10" size-md="11" size-lg="11" size-xl="11">
+                <h5 class="title">Track your goals</h5>
+                <p class="subtitle">Adjust your expectation and time</p>
+              </ion-col>
+            </ion-row>
+            <div class="bb-2">
+              <h5 class="question_title">How Much Debt Do You Want to Reduce?</h5>
+              <!-- <p class="description">Rule of thumb: should have 3-6 months of living expenses in emergency funds</p> -->
+              <div class="alignv-center">
+                <span class="input-group-text" id="basic-addon1">
+                  <ion-icon name="logo-usd"></ion-icon>
+                </span>
+                <ion-input type="number" class="question-price" placeholder="Please Enter goal Amount"
+                  formControlName="goal_amount"></ion-input>
+              </div>
+            </div>
+            <div class="pt-15">
+              <h5 class="question_title">How Much Are You Willing to Pay per Paycheck?</h5>
+              <div class="alignv-center">
+                <span class="input-group-text" id="basic-addon1">
+                  <ion-icon name="logo-usd"></ion-icon>
+                </span>
+                <ion-input type="number" class="question-price" placeholder="Please Enter Per Month Amount"
+                  (input)='onInputTime($event.target.value)' formControlName="target_amount"></ion-input>
+              </div>
+              <ion-row>
+                <ion-col size-xs="9" size-sm="9" size-md="11" size-lg="11" size-xl="11" class="ion-no-padding">
+                  <ion-item>
+                    <ion-range pin="true" min="0" max="{{goal_amount}}" [value]="target_amount"
+                      (ionChange)="ChangeDebt($event.detail.value)"></ion-range>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </div>
+            <div class="pt-15">
+              <ion-row>
+                <ion-col size-xs="3" size-sm="2" size-md="1" size-lg="1" size-xl="1" class="ion-no-padding">
+                  <ion-icon name="checkmark-circle" class="check-icon"></ion-icon>
+                </ion-col>
+                <ion-col size-xs="9" size-sm="10" size-md="11" size-lg="11" size-xl="11" class="ion-no-padding">
+                  <h5 class="question_title">Great! You will reach your debt reduction goal by
+                    {{achiveDebtDate | date : 'MMMM dd yyyy'}}!
+                  </h5>
+                  <!-- <h5 class="question_title">Great! Your debt will be paid off by {{'October'}} {{'8'}} {{'2024'}} !</h5> -->
+                </ion-col>
+              </ion-row>
+            </div>
+            <div>
+
+            </div>
+          </div>
+          <ion-row style="height:10px;"></ion-row>
+          <ion-button expand="block" (click)="debtGoal()" [disabled]="!createdebtForm.valid" class="blue-button">
+            <ion-spinner *ngIf="loading"></ion-spinner>Create Goal
+          </ion-button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</ion-content>

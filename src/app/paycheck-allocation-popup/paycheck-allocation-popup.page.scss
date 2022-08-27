@@ -1,0 +1,140 @@
+ion-content{--background:#fff; --padding-start:20px; --padding-end:20px; --padding-top:20px; --padding-bottom:20px;}
+.paycheck-title{ margin: 0; font-size:24px; }
+.alignv-center{display: flex; align-items: center;}
+
+ .paycheck-table{width:100%;
+    td{font-size:14px; font-weight: 500; padding: 30px 0px;}
+    .amount{color: #1F4E99; font-size:20px; font-weight: 600; text-align: right;}
+    .date-blue{ color: #529FFF;  padding-right: 5px;}  
+    p{margin:0;}
+    .paycheck-type{    color: #1F4E99;
+        font-weight: 600;}
+}   
+.allocate-table{width:100%;
+    td{font-size:12px; font-weight: 500; padding: 10px 0px;}
+    .amount{color: #1F4E99; font-size:20px; font-weight: 600; text-align: right;}
+    p{margin:0;}
+    .paycheck-type{color: #1F4E99; font-weight: 600; text-transform: uppercase;}
+    ion-input{    border-bottom: solid 1px #e5e5e5;     --placeholder-color: #83B4C7;
+        color: #174895;
+        font-size: 14px; font-weight:600;}
+}
+.delete-icon{color:#C0362F;}   
+.add-icon{color:#4D9DFF;}
+.sub-title{font-weight: 500;
+    font-size: 16px;
+    letter-spacing: 0.03em;}
+.save-button{height: 50px;}    
+.main-bg{
+    background: rgb(137,151,164);
+    --background: linear-gradient(180deg, #C3CCD5 0%, rgb(249, 249, 249) 50%, rgb(255, 255, 255) 100%);
+    position: relative;
+  }
+  ion-toolbar
+{
+    --background: #C4CDD6;
+}
+ 
+.add-button{
+    background-color:#48596B;
+    color:#fff !important;
+        --background: transparent;
+    --box-shadow: 0 0px 0px 0px rgba(0,0,0,0.2),0 0px 0px 0 rgba(0,0,0,0.14),0 0px 0px 0 rgba(0,0,0,0.12);
+   
+    --opacity: 1;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 5px;
+}
+.add-button-blue{    
+    color:#3880ff !important;
+    --background: transparent;
+    --box-shadow: 0 0px 0px 0px rgba(0,0,0,0.2),0 0px 0px 0 rgba(0,0,0,0.14),0 0px 0px 0 rgba(0,0,0,0.12);   
+    --opacity: 1;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 5px;
+}
+ion-item{
+    font-size: 13px;
+    font-weight: 300;
+    color: gray;
+}
+ion-item-divider{
+    color:black;
+}
+.box-shadow{
+    box-shadow: 3px 5px 12px 0px #aaaaaa;
+}
+.searchbar-input
+{
+  height: 30px;
+  -webkit-box-shadow:none;
+  box-shadow:none;
+}
+.grey-circle{
+    background-color:#D8D8D8;
+    border-radius:20px;
+    width:16px;
+    height:16px;
+    display: inline-block;
+  }
+  .table-heading{
+    display: flex;
+    align-items: center;
+  } 
+  .ion-padding-left-8{
+    padding-left:8px;
+  }
+.category-list{
+    font-size: 15px;
+    color: #373737;
+    font-weight: 400;
+}
+.category-title{
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+    color: #3B3B3B;
+}
+.ion-margin-top-8{
+    margin-top:8px;
+}  
+.input-item p {
+    color: #0B254A;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19px;
+    margin: 0px;
+    letter-spacing: 1px;
+}
+.sc-ion-input-md-h, .sc-ion-input-ios-h {
+    border-bottom: solid 1px #527264 !important;
+}
+.white-background{
+    background-color:#fff;
+}
+.close-btn{
+    float: right;
+    right: 10px;
+    top: 25px;
+    position: absolute;
+}
+.label-or{
+    text-align:center;
+    span{
+        color:#3880ff
+    }
+}
+.ion-item-divider{
+    border:none;
+}
+.item {
+    min-height: 0rem; /* <- this can be whatever you need */
+}
+
+.input-wrapper{    
+    padding-top: 10px;
+    padding-bottom: 10px;    
+    min-height: inherit;  
+}

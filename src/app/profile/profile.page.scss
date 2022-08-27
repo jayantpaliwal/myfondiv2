@@ -1,0 +1,209 @@
+.main-bg{
+  background: rgb(137,151,164);
+  --background: linear-gradient(180deg, #C3CCD5 0%, rgb(249, 249, 249) 50%, rgb(255, 255, 255) 100%);
+  position: relative;
+}
+ion-toolbar
+{
+  --background: #C4CDD6;
+}
+
+.add-button{
+  background-color:#48596B;
+  color:#fff !important;
+      --background: transparent;
+  --box-shadow: 0 0px 0px 0px rgba(0,0,0,0.2),0 0px 0px 0 rgba(0,0,0,0.14),0 0px 0px 0 rgba(0,0,0,0.12);
+ 
+  --opacity: 1;
+  font-size: 18px;
+  font-weight: 500;
+  border-radius: 5px;
+}
+.add-button-blue{    
+  color:#3880ff !important;
+  --background: transparent;
+  --box-shadow: 0 0px 0px 0px rgba(0,0,0,0.2),0 0px 0px 0 rgba(0,0,0,0.14),0 0px 0px 0 rgba(0,0,0,0.12);   
+  --opacity: 1;
+  font-size: 18px;
+  font-weight: 500;
+  border-radius: 5px;
+}
+ion-list{
+  --background-color: #fff !important;
+}
+ion-item{
+  font-size: 13px;
+  font-weight: 300;
+  color: gray;
+}
+ion-item-divider{
+  color:black;
+}
+.box-shadow{
+  box-shadow: 3px 5px 12px 0px #aaaaaa;
+}
+.searchbar-input
+{
+height: 30px;
+-webkit-box-shadow:none;
+box-shadow:none;
+}
+.grey-circle{
+  background-color:#D8D8D8;
+  border-radius:20px;
+  width:16px;
+  height:16px;
+  display: inline-block;
+}
+.table-heading{
+  display: flex;
+  align-items: center;
+} 
+.ion-padding-left-8{
+  padding-left:8px;
+}
+.category-list{
+  font-size: 15px;
+  color: #373737;
+  font-weight: 400;
+}
+.category-title{
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+  color: #3B3B3B;
+}
+.ion-margin-top-8{
+  margin-top:8px;
+}  
+.input-item p {
+  color: #0B254A;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19px;
+  margin: 0px;
+  letter-spacing: 1px;
+}
+
+
+.input-item1 p {
+  color: #0B254A;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 19px;
+  margin: 0px;
+  letter-spacing: 1px;
+}
+.sc-ion-input-md-h, .sc-ion-input-ios-h {
+  border-bottom: solid 1px #527264 !important;
+}
+.white-background{
+  background-color:#fff;
+}
+.close-btn{
+  float: right;
+  right: 10px;
+  top: 25px;
+  position: absolute;
+}
+.label-or{
+  text-align:center;
+  span{
+      color:#3880ff
+  }
+}
+.ion-item-divider{
+  border:none;
+}
+.item {
+  min-height: 0rem; /* <- this can be whatever you need */
+}
+.icon-margin{
+  margin: 6px;
+}
+.input-wrapper{    
+  padding-top: 10px;
+  padding-bottom: 10px;    
+  min-height: inherit;  
+}
+.logo{margin:20px 0px;}
+.content{padding:0px 15px;}
+.green-gradient-bg {
+  --background: #47BD89;
+  --background: linear-gradient(to bottom, #74D875, #47BD89);
+}
+ion-title{
+  font-size: 17px;
+    color: #141414;
+    font-weight: 600;
+}
+.profilebutton {
+  z-index: 2;
+  position: absolute;
+  left: 50%;
+  top: 15%;
+  margin: auto;
+}
+.user-profile{width: 48px;
+  height: 48px;
+  background-color: #868686;
+  border-radius: 50%;
+  border: solid 3px #fff;}
+.profilepic-border {
+position: relative;
+background: #a3a3a3;
+}
+
+.profile-pic{
+  border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}
+.position-relative{
+  position: relative;
+}
+.add-icon{
+  --padding-start: 0;
+    position: absolute;
+    left: 56%;
+    top: 58px;
+    z-index: 999;
+    --background: #5bc97f;
+    font-size: 20px;
+    --border-radius: 50%;
+    --padding-end: 0;
+    --padding-top: 0;
+    --padding-bottom: 0;
+    width: 32px;
+    height: 32px;
+    color: #ffff;
+    // --box-shadow: 0px 0px 5px 3px #e5e5e5;
+}
+ion-button{
+  --background-color: #24335E !important;
+}
+ion-datetime {
+  --placeholder-color: rgba(211, 211, 211, 0.4) !important;
+  color: #000 !important;
+}
+ion-input, ion-textarea, ion-select {
+  --placeholder-color: rgba(211, 211, 211, 1) !important;
+  color: #000 !important;
+}
+.subscribe-btn {
+  background-color: #24335E;
+  color: #ffffff;
+  width: 51%;
+  font-size: 16px;
+  font-weight: bold;
+  height: 33px;
+  letter-spacing: 1px;
+  border-radius: 22.5px;
+  transition: all 0.4s;
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+}

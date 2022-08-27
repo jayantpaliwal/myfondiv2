@@ -1,0 +1,38 @@
+<ion-content>
+
+  <ion-grid>
+    <ion-row style="height:20px;"></ion-row>
+    <ion-row class="ion-align-items-center">
+      <ion-col size="10">
+        <h3 class="m5">Choose Paycheck</h3>
+      </ion-col>
+      <ion-col size="2" (click)="close()">
+
+        <ion-icon name="close" class="fs-24"></ion-icon>
+        <!-- </ion-button> -->
+      </ion-col>
+    </ion-row>
+    <ion-row (click)="openCalendar()" class="ion-align-self-start ion-no-padding">
+      <span class="color-light-blue text-size-smaller date-range">{{dateRange.displayForm}} -
+        {{dateRange.displayTo}}</span>
+
+    </ion-row>
+  </ion-grid>
+  <ion-list>
+    <div class="ion-margin-top">
+      <ion-item-divider class="ion-item-divider" *ngFor="let group of payChecks;">
+        <ion-grid class="ion-no-padding ">
+          <ion-row class="ion-align-items-center">
+            <ion-col (click)="addpaycheck(group)">
+              <ion-label>
+                <p class="table-heading">
+                  <span class="grey-circle"></span><span class="ion-padding-left-8 category-title">
+                    {{group.name}}</span></p>
+              </ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item-divider>
+    </div>
+  </ion-list>
+</ion-content>

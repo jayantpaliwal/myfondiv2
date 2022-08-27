@@ -1,0 +1,54 @@
+<ion-header no-border>
+    <ion-toolbar>
+      <ion-title class="nav-title">
+        Add Categories
+      </ion-title>
+      <ion-button (click)="close()" fill="clear" slot="end">
+        <ion-icon ios="ios-close" md="md-close"></ion-icon>
+      </ion-button>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="main-bg">
+    <div class="container">
+      <h3>Category Detail</h3>
+      <form (ngSubmit)="addCategory(categoryForm.value)" [formGroup]="categoryForm">
+        <div class="input-item">
+          <ion-radio-group  formControlName="chooseCategory">
+            <p>What would you like to create?</p>
+            <ion-grid>
+              <ion-row>
+                <ion-col class="ion-no-padding">
+                  <ion-item class="no-background ion-no-padding">
+                    <ion-radio checked="true" (ionSelect)="selected('category')" value="category"></ion-radio>
+                    <ion-label><span style="padding-left:5px;">Category</span></ion-label>
+                  </ion-item>
+                </ion-col>
+                <ion-col class="ion-no-padding">
+                  <ion-item class="no-background ion-no-padding">
+                    <ion-radio (ionSelect)="selected('subcategory')" value="subcategory"></ion-radio>
+                    <ion-label><span style="padding-left:5px;">Sub Category</span></ion-label>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-radio-group>
+        </div>
+        <div *ngIf="showCategory" class="input-item">
+          <p>Choose Parent Category</p>
+          <ion-select formControlName="parentCategory" placeholder="Select category" interface="action-sheet" class="bottom-border-green">
+            <ion-select-option *ngFor="let group of items" value="{{group[0]}}">{{group[0]}}</ion-select-option>
+          </ion-select>
+        </div>
+        <div class="input-item">
+          <p>Category Name</p>
+          <ion-input formControlName="categoryName" type="text" placeholder="Name" class="bottom-border-green"></ion-input>
+        </div>
+        <br />
+        <br />
+        <div class="login-section">
+          <ion-button [disabled]="!categoryForm.valid" class="submit-button" type="submit" expand="block">Submit</ion-button>
+        </div>
+      </form>
+    </div>
+  
+  </ion-content>

@@ -1,0 +1,8 @@
+{
+  "firebase": {
+    "projectId": "myfondi-v2",
+    "databaseURL": "https://myfondi-v2.firebaseio.com",
+    "storageBucket": "myfondi-v2.appspot.com",
+    "locationId": "us-central"
+  }
+}

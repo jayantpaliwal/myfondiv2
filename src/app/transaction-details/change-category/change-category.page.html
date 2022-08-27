@@ -1,0 +1,48 @@
+<ion-header no-border>
+  <ion-toolbar class="green-gradient-bg">
+    <ion-title class="nav-title">
+      Transaction Update
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="main-bg">
+  <div class="px-10">
+    <table class="paychecklist-table">
+      <tbody>
+        <tr width="100%">
+          <td width="70%">
+            <p class="paycheck-type">{{transaction.name}}</p>
+            <p class="paycheck-type"><span class="date-blue">
+                {{transaction.transactionDateTime |date:'dd MMM yyyy'}}</span></p>
+          </td>
+          <td width="30%">
+            <p class="amount ion-no-margin">{{transaction?.amount  | thousandSeparator}}</p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="container">
+    <ion-row style="height:25px;"></ion-row>
+    <div>
+      <div>
+        <form [formGroup]="incomeForm">
+          <div class="input-item ion-padding-top-20">
+            <p>Transaction Pay Check</p>
+            <div class="input-group">
+              <ion-input type="text" (ionFocus)="openCategory()" formControlName="categoryName" placeholder="Please choose">
+              </ion-input>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="input-item ion-padding-top-20">
+    <ion-button (click)="submit()"  [disabled]="!incomeForm.valid"  expand="block" class="blue-button">Update Transaction</ion-button>
+  </div>
+</ion-content>

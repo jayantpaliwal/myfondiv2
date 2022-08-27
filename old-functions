@@ -1,0 +1,784 @@
+//---------------------------------------------------old functions------------------------------------
+// exports.dailyJob = functions.pubsub.schedule('00 9 * * *').onRun(context => {
+//     //console.log('This will be run every day at 9:00AM');
+//     today = new Date();
+//     recurrTillDate = today.setMonth(today.getMonth() + 1);
+//     usersRef = admin.firestore().collection("income_source").where("active", "==", true);
+//     usersRef.get().then((snapUsers) => {
+//         const promises = [];
+//         snapUsers.docs.forEach((groupSnap) => {
+//             promises.push({ userId: groupSnap.id })
+//         });
+//         Promise.all(promises)
+//             .then(results => {
+//                 let count = 0;
+//                 if (results.length === 0) {
+//                     //console.log("No users")
+//                 }
+//                 results.forEach(function (usersList) {
+//                     var startDate = new Date();
+//                     startDate = startDate.setHours(0, 0, 0, 0);
+//                     var endDate = new Date();
+//                     endDate = endDate.setHours(23, 59, 0, 0)
+//                     const userGoal = admin.firestore().collection("users").doc(usersList.userId).collection("goals");
+//                     incomeRef = admin.firestore().collection("income_source").doc(usersList.userId).collection("incomes").where("isRepeating", "==", true);
+//                     incomeRef.get().then((snap) => {
+//                         const incomePromises = [];
+//                         snap.docs.forEach((incomeSnap) => {
+//                             incomePromises.push({ incomeSourceId: incomeSnap.id })
+//                         });
+
+//                         Promise.all(incomePromises)
+//                             .then(resultsIncome => {
+//                                 if (resultsIncome.length === 0) {
+//                                     //console.log(`No recurring income for user:${usersList.userId}`);
+//                                 }
+//                                 resultsIncome.forEach(function (incomeList) {
+//                                     incomePaycheckRef = admin.firestore().collection("income_source").doc(usersList.userId).collection("incomes").doc(incomeList.incomeSourceId);
+//                                     incomePaycheckRef.get().then((snapIncome) => {
+//                                         var incomeCheck = snapIncome.data();
+//                                         let incomeUpdate = incomeCheck;
+//                                         lastDate = incomeCheck.repeating.payDays[incomeCheck.repeating.payDays.length - 1].toDate();
+//                                         var nextDate = new Date(recurrTillDate);
+//                                         var diff = new DateDiff(nextDate, lastDate);
+//                                         numDays = diff.days();
+//                                         numMonth = diff.months();
+//                                         //console.log(numDays, numMonth);
+//                                         var totalPaychecksReccured = 0;
+//                                         var mode = incomeCheck.repeating.type;
+//                                         if (mode == "weekly") {
+//                                             totalPaychecksReccured = parseInt(Math.abs(numDays / 7));
+//                                         }
+//                                         let payDate = [];
+//                                         if (mode == "monthly") {
+//                                             for (var i = 0; i < parseInt(numMonth); i++) {
+//                                                 if (incomeCheck.weeks && incomeCheck.weeks != null) {
+//                                                     firstWeekOfDate = getDateofWeek(new Date(lastDate.getFullYear(), lastDate.getMonth() + i + 1, lastDate.getDate()), incomeCheck.weeks.weekDays);
+//                                                     payDate.push(new Date(firstWeekOfDate.setDate(firstWeekOfDate.getDate() + (7 * incomeCheck.weeks.weekNumber[0]) - 7)));
+//                                                 } else {
+//                                                     payDate.push(new Date(lastDate.getFullYear(), lastDate.getMonth() + i + 1, lastDate.getDate()));
+
+//                                                 }
+//                                             }
+//                                             totalPaychecksReccured = payDate.length;
+//                                         }
+//                                         if (mode == "semimonthly") {
+//                                             for (var i = 0; i < Math.ceil(numMonth); i++) {
+//                                                 firstWeekOfDate = getDateofWeek(new Date(lastDate.getFullYear(), lastDate.getMonth() + i + 1, lastDate.getDate()), incomeCheck.weeks.weekDays);
+//                                                 payDate.push(new Date(firstWeekOfDate.setDate(firstWeekOfDate.getDate() + (7 * incomeCheck.weeks.weekNumber[0]) - 7)));
+//                                                 payDate.push(new Date(firstWeekOfDate.setDate(firstWeekOfDate.getDate() + (7 * incomeCheck.weeks.weekNumber[1]) - 7)));
+
+//                                             }
+//                                             totalPaychecksReccured = payDate.length;
+//                                         }
+//                                         if (mode == "biweekly") {
+//                                             totalPaychecksReccured = parseInt(Math.abs(numDays / 14));
+
+//                                         }
+//                                         let template = [];
+//                                         let totalBudgeted = 0;
+//                                         incomeCheck.budgetTemplate.budgetTemplateDetails.forEach(function (i, index) {
+//                                             if (i.goalId && i.goalId.length > 0) {
+//                                                 goalId.forEach(function (o) {
+//                                                     userGoal.doc(o).get().then(function (goalsnap) {
+//                                                         if (goalsnap.exists) {
+//                                                             var goaldata = goalsnap.data();
+//                                                             for (var a = 0; a < totalPaychecksReccured; a++) {
+//                                                                 let nextNewDate;
+//                                                                 if (mode == "monthly" || mode == "semimonthly") {
+//                                                                     nextNewDate = payDate[a];
+//                                                                 } else {
+//                                                                     nextNewDate = fetchUpComingPaycheckDate(mode, newDates);
+//                                                                 }
+//                                                                 if (!(goaldata.accomplished)) {
+//                                                                     totalBudgeted = totalBudgeted + i.budgeted;
+//                                                                     template.push({
+//                                                                         "category": i.category,
+//                                                                         "budgeted": i.budgeted,
+//                                                                         "spent": 0,
+//                                                                         "available": i.budgeted,
+//                                                                         "transactions": []
+//                                                                     })
+//                                                                 }
+//                                                                 else {
+
+//                                                                     let goal_i = i.goalId.findIndex(x => x == o);
+//                                                                     if(goal_i!=-1){
+//                                                                         i.goalId.splice(goal_i, 1);
+//                                                                         i.budgeted = i.budgeted - goaldata.goal_monthly_amount;
+//                                                                     }
+//                                                                     if (i.budgeted == 0) {
+//                                                                         incomeUpdate.budgetTemplate.budgetTemplateDetails[index] = [];
+//                                                                         incomePaycheckRef.update(incomeUpdate)
+//                                                                     }
+//                                                                     else {
+//                                                                         incomeUpdate.budgetTemplate.budgetTemplateDetails[index] = i;
+//                                                                         incomePaycheckRef.update(incomeUpdate)
+//                                                                     }
+
+//                                                                 }
+//                                                             }
+
+//                                                         }
+//                                                     })
+//                                                 })
+//                                             }
+//                                             else {
+//                                                 totalBudgeted = totalBudgeted + i.budgeted;
+//                                                 template.push({
+//                                                     "category": i.category,
+//                                                     "budgeted": i.budgeted,
+//                                                     "spent": 0,
+//                                                     "available": i.budgeted,
+//                                                     "transactions": []
+//                                                 })
+//                                             }
+//                                         });
+
+//                                         let futureDates = [];
+//                                         let promises = [];
+//                                         let newDates = lastDate;
+//                                         let count = 0;
+//                                         for (var i = 0; i < totalPaychecksReccured; i++) {
+//                                             let nextNewDate;
+//                                             if (mode == "monthly" || mode == "semimonthly") {
+//                                                 nextNewDate = payDate[i];
+//                                             } else {
+//                                                 nextNewDate = fetchUpComingPaycheckDate(mode, newDates);
+
+//                                             }
+//                                             futureDates.push(new Date(nextNewDate));
+//                                             newDates = nextNewDate;
+//                                             let promise = payChecksRef = admin.firestore().collection("income_source").doc(usersList.userId).collection("incomes").doc(incomeList.incomeSourceId).collection("paychecks").add(
+//                                                 {
+//                                                     "name": `${new Date(nextNewDate).toLocaleDateString()} paycheck`,
+//                                                     "payDate": new Date(nextNewDate),
+//                                                     "payDateTimeStamp": new Date(nextNewDate).getTime(),
+//                                                     "totalExpected": incomeCheck.budgetTemplate.totalExpected,
+//                                                     "totalReceived": 0,
+//                                                     "receivedPaycheckTransaction": [],
+//                                                     "budgetsAvailable": incomeCheck.budgetTemplate.totalExpected,
+//                                                     "budgetsCurrent": 0,
+//                                                     "budgetsToBeBudgeted": incomeCheck.budgetTemplate.totalExpected - totalBudgeted,
+//                                                     "isOverbudget": false,
+//                                                     "isOverspent": false,
+//                                                     "budgetDetails": template
+//                                                 });
+//                                             promises.push(promise);
+//                                         }
+//                                         Promise.all(promises).then((result) => {
+//                                             let paychecksIds = [];
+//                                             result.forEach(function (out) {
+//                                                 paychecksIds.push(out.id);
+
+//                                             });
+//                                             if (result.length > 0) {
+//                                                 admin.firestore().collection("income_source").doc(result[0].parent.parent.parent.parent.id).collection("incomes").doc(result[0].parent.parent.id).update({
+//                                                     paycheckIds: admin.firestore.FieldValue.arrayUnion(...paychecksIds),
+//                                                     ['budgetTemplate.budgetsToBeBudgeted']: admin.firestore.FieldValue.increment((incomeCheck.budgetTemplate.totalExpected + (-totalBudgeted)) * result.length),
+//                                                     ['repeating.payDays']: admin.firestore.FieldValue.arrayUnion(...futureDates),
+//                                                 }).then(function (result) {
+//                                                     count++;
+//                                                     if (count == resultsIncome.length) {
+//                                                         //console.log(`Compelte promises for user:${result[0].parent.parent.parent.parent.id}`);
+//                                                     }
+//                                                 })
+
+//                                             } else {
+//                                                 count++;
+//                                                 if (count == resultsIncome.length) {
+
+//                                                 }
+//                                             }
+//                                         })
+//                                         function fetchUpComingPaycheckDate(mode, date) {
+//                                             let newDate = new Date(date);
+//                                             if (mode == "weekly") {
+//                                                 return newDate.setDate(newDate.getDate() + 7);
+//                                             }
+
+//                                             if (mode == "biweekly") {
+//                                                 return newDate.setDate(newDate.getDate() + 14);
+//                                             }
+//                                         }
+
+//                                         function getDateofWeek(startDate, days) {
+//                                             let date = moment().set('year', startDate.getFullYear()).set('month', startDate.getMonth()).set('date', 1);
+//                                             let firstDay = moment().set('year', startDate.getFullYear()).set('month', startDate.getMonth()).set('date', 1).weekday();
+//                                             if (firstDay == days) {
+//                                                 return new Date(date)
+//                                             } else {
+//                                                 let b = (days - firstDay);
+//                                                 if (b > 0) {
+//                                                     return new Date(date.add(b, 'days'));
+//                                                 } else {
+//                                                     let c = 7 - Math.abs(b);
+//                                                     return new Date(date.add(c, 'days'));
+//                                                 }
+//                                             }
+//                                         }
+
+//                                     });
+//                                 });
+//                             });
+
+//                     });
+//                 })
+//             })
+
+//     });
+// });
+// exports.assignPlaidTransaction = functions.https.onRequest((req, res) => {
+//     cors(req, res, () => {
+//         const data = req.body;
+//         let query = admin.firestore().collection("user_plaid_transaction").doc(data.userId).collection("transactions").doc(data.transactionId);
+//         query.get().then((snap) => {
+//             if (snap.exists) {
+//                 const transData = snap.data();
+//                 var sum = data.assignment.map(o => o.amount).reduce(function (a, b) {
+//                     return a + b;
+//                 }, 0);
+
+
+//                 let remainAmount = (transData.remainingAmount || transData.remainingAmount == 0) ? transData.remainingAmount : transData.amount;
+//                 //console.log("remainAmount:", remainAmount, "sum", sum);
+//                 if (Math.abs(remainAmount) < sum) {
+//                     return res.status(400).send({
+//                         success: false,
+//                         logLevel: 2,
+//                         error: "You don't have enough amount,settle down your assignment amount"
+//                     });
+//                 }
+//                   query.update({
+//                     remainingAmount: Math.abs(remainAmount) - Math.abs(sum),
+//                     status: ((Math.abs(remainAmount) - sum) == 0) ? "Completed" : "Partially",
+//                     assignment: admin.firestore.FieldValue.arrayUnion(...data.assignment.map(o => o.paycheckId))
+//                 })
+
+//                 let error = [];
+//                 transRef = admin.firestore().collection("user_transaction").doc(data.userId).collection("transactions");
+//                 incomeRef = admin.firestore().collection("income_source").doc(data.userId).collection("incomes");
+//                 data.category = data.category ? data.category : "miscellaneous";
+//                 transRef.add({
+//                     "name": transData.name,
+//                     "category": data.category,
+//                     "transactionDateTime": transData.date ? new Date(transData.date) : new Date(),
+//                     "transactionDateTimeStamp": transData.date ? new Date(transData.date).getTime() : new Date().getTime(),
+//                     "amount": transData.amount,
+//                     "assignment": data.assignment,
+//                     "plaidTransId": data.transactionId,
+//                     "type": (transData.amount < 0) ? "income" : "expense"
+//                 }).then(function (transResult) {
+//                     let count = 0;
+//                     let transId = transResult.id;
+//                     if (data.assignment.length == 0) {
+//                         return res.status(200).send({
+//                             success: true
+//                         });
+//                     } else {
+//                         //-----------------Income---------------------
+
+//                         // amount (-) means income (+) means expense
+//                         if (transData.amount < 0) {
+//                             updateIncomePaycheks(data.assignment[count], transId);
+//                             function updateIncomePaycheks(i, transId) {
+//                                 incomeRef.where("paycheckIds", "array-contains", i.paycheckId).get().then((snap) => {
+//                                     if (snap.docs.length === 0) {
+//                                         //console.log(`paycheck id not exists: ${i.paycheckId}`);
+//                                         error.push(`paycheck id not exists: ${i.paycheckId}`);
+//                                         count++;
+//                                         if (count == data.assignment.length) {
+//                                             return res.status(200).send({
+//                                                 success: true,
+//                                                 message: error
+//                                             });
+//                                         } else {
+//                                             updateIncomePaycheks(data.assignment[count], transId);
+//                                         }
+//                                     } else {
+//                                         let incomeSourceId = snap.docs[0].id;
+//                                         let incomeSourceData = snap.docs[0].data();
+//                                         let paycheckGet = incomeRef.doc(incomeSourceId).collection("paychecks").doc(i.paycheckId);
+//                                         paycheckGet.get().then((snapPayCheckReq) => {
+//                                             var paycheckData = snapPayCheckReq.data();
+//                                            upatedIncome = (i.amount);
+//                                             paycheckGet.update({
+//                                                 totalReceived: admin.firestore.FieldValue.increment(Math.abs(i.amount)),
+//                                                 receivedPaycheckTransaction: admin.firestore.FieldValue.arrayUnion(transId),
+//                                                 budgetsToBeBudgeted: paycheckData.budgetsToBeBudgeted + upatedIncome,
+//                                                 budgetsAvailable: paycheckData.budgetsAvailable + upatedIncome,
+//                                                 isOverbudget: (paycheckData.budgetsToBeBudgeted + upatedIncome) < 0 ? true : false,
+//                                                 isOverspent: (paycheckData.budgetsAvailable + upatedIncome) < 0 ? true : false
+//                                             }).then(out => {
+//                                                 count++;
+//                                                 if (count == data.assignment.length) {
+//                                                     return res.status(200).send({
+//                                                         success: true,
+//                                                         message: error
+//                                                     });
+
+//                                                 } else {
+//                                                     updateIncomePaycheks(data.assignment[count], transId)
+
+//                                                 }
+
+//                                             })
+//                                         })
+
+//                                     }
+//                                 })
+//                             }
+//                         }
+//                         else {
+//                             //-----------------Expense---------------------
+//                             updatePaycheks(data.assignment[count], transId);
+//                             function updatePaycheks(i, transId) {
+//                                 incomeRef.where("paycheckIds", "array-contains", i.paycheckId).get().then((snap) => {
+//                                     if (snap.docs.length === 0) {
+//                                         //console.log(`paycheck id not exists: ${i.paycheckId}`);
+//                                         error.push(`paycheck id not exists: ${i.paycheckId}`);
+//                                         count++;
+//                                         if (count == data.assignment.length) {
+
+//                                             return res.status(200).send({
+//                                                 success: true,
+//                                                 message: error
+//                                             });
+//                                         } else {
+//                                             updatePaycheks(data.assignment[count], transId);
+//                                         }
+//                                     } else {
+//                                         let incomeSourceId = snap.docs[0].id;
+//                                         let incomeSourceData = snap.docs[0].data();
+//                                         let paycheckGet = incomeRef.doc(incomeSourceId).collection("paychecks").doc(i.paycheckId);
+//                                         paycheckGet.get().then((snapPayCheckReq) => {
+//                                             var paycheckData = snapPayCheckReq.data();
+//                                             let existingBudgetDetails = paycheckData.budgetDetails;
+//                                             let index = existingBudgetDetails.findIndex(o => o.category == data.category);
+//                                             if (index != -1) {
+//                                                 let transactions = [];
+//                                                 transactions = existingBudgetDetails[index].transactions;
+//                                                 transactions.push(transId);
+//                                                 existingBudgetDetails[index].spent = existingBudgetDetails[index].spent + i.amount;
+//                                                 existingBudgetDetails[index].available = existingBudgetDetails[index].available - i.amount;
+//                                                 existingBudgetDetails[index].transactions = transactions;
+//                                             } else {
+//                                                 existingBudgetDetails.push({
+//                                                     "category": data.category,
+//                                                     "budgeted": 0,
+//                                                     "spent": i.amount,
+//                                                     "available": -i.amount,
+//                                                     "transactions": [transId]
+//                                                 })
+//                                             }
+//                                             paycheckGet.update({
+//                                                 budgetDetails: existingBudgetDetails,
+//                                                 budgetsAvailable: paycheckData.budgetsAvailable - i.amount,
+//                                                 isOverspent: (paycheckData.budgetsAvailable - i.amount) < 0 ? true : false
+//                                             }).then(out => {
+//                                                 count++;
+//                                                 if (count == data.assignment.length) {
+//                                                     return res.status(200).send({
+//                                                         success: true,
+//                                                         message: error
+//                                                     });
+
+//                                                 } else {
+//                                                     updatePaycheks(data.assignment[count], transId);
+
+//                                                 }
+
+//                                             })
+//                                         })
+//                                     }
+//                                 })
+//                             }
+
+//                         }
+
+//                     }
+
+//                 }).catch(function (error) {
+//                     //console.log(`logLevel:1, ${error}`);
+//                     res.status(400).send({
+//                         success: false,
+//                         logLevel: 1,
+//                         error: JSON.stringify(error)
+//                     });
+//                 });
+
+
+//             } else {
+//                 return res.status(400).send({
+//                     success: false,
+//                     logLevel: 1,
+//                     error: "Transaction Id not valid"
+//                 });
+
+//             }
+
+//         })
+
+
+//     });
+// })
+// exports.transaction = functions.https.onRequest((req, res) => {
+//     cors(req, res, () => {
+//         const data = req.body;
+//         let error = [];
+//         transRef = admin.firestore().collection("user_transaction").doc(data.userId).collection("transactions");
+//         incomeRef = admin.firestore().collection("income_source").doc(data.userId).collection("incomes");
+//         data.category = data.category ? data.category : "miscellaneous";
+//         transRef.add({
+//             "name": data.name,
+//             "category": data.category,
+//             "transactionDateTime": data.transactionDateTime ? new Date(data.transactionDateTime) : new Date(),
+//             "transactionDateTimeStamp": data.transactionDateTime ? new Date(data.transactionDateTime).getTime() : new Date().getTime(),
+//             "amount": data.amount,
+//             "assignment": data.assignment,
+//             "type": data.type
+//         }).then(function (transResult) {
+//             let count = 0;
+//             let transId = transResult.id;
+//             if (data.assignment.length == 0) {
+//                 return res.status(200).send({
+//                     success: true
+//                 });
+//             } else {
+//                 //-----------------Income---------------------
+//                 if (data.type.toLowerCase() == "income") {
+//                     updateIncomePaycheks(data.assignment[count], transId);
+//                     function updateIncomePaycheks(i, transId) {
+//                         incomeRef.where("paycheckIds", "array-contains", i.paycheckId).get().then((snap) => {
+//                             if (snap.docs.length === 0) {
+//                                 //console.log(`paycheck id not exists: ${i.paycheckId}`);
+//                                 error.push(`paycheck id not exists: ${i.paycheckId}`);
+//                                 count++;
+//                                 if (count == data.assignment.length) {
+//                                     return res.status(200).send({
+//                                         success: true,
+//                                         message: error
+//                                     });
+//                                 } else {
+//                                     updateIncomePaycheks(data.assignment[count], transId);
+//                                 }
+//                             } else {
+//                                 let incomeSourceId = snap.docs[0].id;
+//                                 let incomeSourceData = snap.docs[0].data();
+//                                 let paycheckGet = incomeRef.doc(incomeSourceId).collection("paychecks").doc(i.paycheckId);
+//                                 paycheckGet.get().then((snapPayCheckReq) => {
+//                                     var paycheckData = snapPayCheckReq.data();
+//                                     upatedIncome = i.amount;
+//                                     //console.log(upatedIncome);
+//                                     paycheckGet.update({
+//                                         totalReceived: admin.firestore.FieldValue.increment(i.amount),
+//                                         receivedPaycheckTransaction: admin.firestore.FieldValue.arrayUnion(transId),
+//                                         budgetsToBeBudgeted: paycheckData.budgetsToBeBudgeted - upatedIncome,
+//                                         budgetsAvailable: paycheckData.budgetsAvailable - upatedIncome,
+//                                         isOverbudget: ( paycheckData.budgetsToBeBudgeted - upatedIncome) < 0 ? true : false,
+//                                         isOverspent: (paycheckData.budgetsAvailable - upatedIncome) < 0 ? true : false
+//                                     }).then(out => {
+//                                         count++;
+//                                         if (count == data.assignment.length) {
+
+//                                             return res.status(200).send({
+//                                                 success: true,
+//                                                 message: error
+//                                             });
+
+//                                         } else {
+//                                             updateIncomePaycheks(data.assignment[count], transId);
+
+//                                         }
+
+//                                     })
+//                                 })
+
+//                             }
+//                         })
+//                     }
+//                 }
+//                 else {
+//                     //-----------------Expense---------------------
+//                     updatePaycheks(data.assignment[count], transId);
+//                     function updatePaycheks(i, transId) {
+//                         incomeRef.where("paycheckIds", "array-contains", i.paycheckId).get().then((snap) => {
+//                             if (snap.docs.length === 0) {
+//                                 //console.log(`paycheck id not exists: ${i.paycheckId}`);
+//                                 error.push(`paycheck id not exists: ${i.paycheckId}`);
+//                                 count++;
+//                                 if (count == data.assignment.length) {
+
+//                                     return res.status(200).send({
+//                                         success: true,
+//                                         message: "paycheck id not exists"
+//                                     });
+//                                 } else {
+//                                     updatePaycheks(data.assignment[count], transId);
+//                                 }
+//                             } else {
+//                                 let incomeSourceId = snap.docs[0].id;
+//                                 let incomeSourceData = snap.docs[0].data();
+//                                 let paycheckGet = incomeRef.doc(incomeSourceId).collection("paychecks").doc(i.paycheckId);
+//                                 paycheckGet.get().then((snapPayCheckReq) => {
+//                                     var paycheckData = snapPayCheckReq.data();
+//                                     let existingBudgetDetails = paycheckData.budgetDetails;
+//                                     let index = existingBudgetDetails.findIndex(o => o.category == data.category);
+//                                     if (index != -1) {
+//                                         let transactions = [];
+//                                         transactions = existingBudgetDetails[index].transactions;
+//                                         transactions.push(transId);
+//                                         existingBudgetDetails[index].spent = existingBudgetDetails[index].spent + i.amount;
+//                                         existingBudgetDetails[index].available = existingBudgetDetails[index].available - i.amount;
+//                                         existingBudgetDetails[index].transactions = transactions;
+//                                     } else {
+//                                         existingBudgetDetails.push({
+//                                             "category": data.category,
+//                                             "budgeted": 0,
+//                                             "spent": i.amount,
+//                                             "available": -i.amount,
+//                                             "transactions": [transId]
+//                                         })
+//                                     }
+//                                     paycheckGet.update({
+//                                         budgetDetails: existingBudgetDetails,
+//                                         budgetsAvailable: paycheckData.budgetsAvailable - i.amount,
+//                                         isOverspent: (paycheckData.budgetsAvailable - i.amount) < 0 ? true : false
+//                                     }).then(out => {
+//                                         count++;
+//                                         if (count == data.assignment.length) {
+//                                             return res.status(200).send({
+//                                                 success: true,
+//                                                 message: "paycheck budget updates"
+//                                             });
+
+//                                         } else {
+//                                             updatePaycheks(data.assignment[count], transId);
+
+//                                         }
+
+//                                     })
+//                                 })
+//                             }
+//                         })
+//                     }
+
+//                 }
+
+//             }
+
+//         }).catch(function (error) {
+//             //console.log(`logLevel:1, ${error}`);
+//             res.status(400).send({
+//                 success: false,
+//                 logLevel: 1,
+//                 error: JSON.stringify(error)
+//             });
+//         });
+//     });
+// })
+// exports.unAssignTransaction = functions.https.onRequest((req, res) => {
+//     cors(req, res, () => {
+//         const data = req.body;
+//         let type = "";
+//         let assignment = [];
+//         let plaidTransId = "";
+//         let transId = data.transactionId;
+//         let category = "";
+//         transRef = admin.firestore().collection("user_transaction").doc(data.userId).collection("transactions").doc(data.transactionId);
+//         incomeRef = admin.firestore().collection("income_source").doc(data.userId).collection("incomes");
+//         transRef.get().then((snapTrans) => {
+//             if (snapTrans.exists) {
+//                 type = snapTrans.data().type;
+//                 assignment = snapTrans.data().assignment;
+//                 plaidTransId = snapTrans.data().plaidTransId;
+//                 category = snapTrans.data().category;
+//                 transRef.delete();
+//                 let count = 0;
+//                 if (type == "income") {
+//                     updateIncomePaycheks(assignment[count], data.transactionId);
+//                     function updateIncomePaycheks(i, transId) {
+//                         incomeRef.where("paycheckIds", "array-contains", i.paycheckId).get().then((snap) => {
+//                             if (snap.docs.length === 0) {
+//                                 //console.log(`paycheck id not exists: ${i.paycheckId}`);
+//                                 error.push(`paycheck id not exists: ${i.paycheckId}`);
+//                                 count++;
+//                                 if (count == assignment.length) {
+//                                     // update Plaid Trans
+//                                     updatePlaidCollection();
+//                                 } else {
+//                                     updateIncomePaycheks(assignment[count], transId);
+//                                 }
+//                             } else {
+//                                 let incomeSourceId = snap.docs[0].id;
+//                                 let incomeSourceData = snap.docs[0].data();
+//                                 let paycheckGet = incomeRef.doc(incomeSourceId).collection("paychecks").doc(i.paycheckId);
+//                                 paycheckGet.get().then((snapPayCheckReq) => {
+//                                     var paycheckData = snapPayCheckReq.data();
+//                                     upatedIncome =(paycheckData.totalReceived + (-i.amount)) - paycheckData.totalExpected;
+//                                     if((paycheckData.totalReceived + (-i.amount))==0){
+//                                      upatedIncome=paycheckData.totalExpected;
+//                                     }
+//                                     let updatedTransIds = paycheckData.receivedPaycheckTransaction.filter(o => o != transId);
+//                                     paycheckGet.update({
+//                                         totalReceived: admin.firestore.FieldValue.increment(-i.amount),
+//                                         receivedPaycheckTransaction: updatedTransIds,
+//                                         budgetsToBeBudgeted: upatedIncome,
+//                                         budgetsAvailable: upatedIncome,
+//                                         isOverbudget: ( upatedIncome) < 0 ? true : false,
+//                                         isOverspent: (upatedIncome) < 0 ? true : false
+//                                     }).then(out => {
+//                                         count++;
+//                                         if (count == assignment.length) {
+//                                             // update Plaid Trans
+//                                             updatePlaidCollection();
+
+//                                         } else {
+//                                             updateIncomePaycheks(assignment[count], transId);
+
+//                                         }
+
+//                                     })
+//                                 })
+
+//                             }
+//                         })
+//                     }
+//                     function updatePlaidCollection() {
+//                         if (plaidTransId && plaidTransId != "") {
+//                             let query = admin.firestore().collection("user_plaid_transaction").doc(data.userId).collection("transactions").doc(plaidTransId);
+//                             query.get().then((plaidSnap) => {
+//                                 const plaidData = plaidSnap.data();
+//                                 var sum = assignment.map(o => o.amount).reduce(function (a, b) {
+//                                     return a + b;
+//                                 }, 0);
+
+//                                 var paychecksIds = assignment.map(o => o.paycheckId);
+//                                 let updatedIds = plaidData.assignment.filter(function (obj) { return paychecksIds.indexOf(obj) == -1; });
+//                                 let remainAmount = plaidData.remainingAmount + Math.abs(sum);
+//                                 query.update({
+//                                     remainingAmount: remainAmount,
+//                                     status: (remainAmount == 0) ? "Completed" : "Partially",
+//                                     assignment: updatedIds
+//                                 }).then((plaidSnap) => {
+//                                     return res.status(200).send({
+//                                         success: true,
+//                                         transaction: "Plaid"
+//                                     });
+//                                 });
+
+
+
+//                             });
+//                         } else {
+//                             return res.status(200).send({
+//                                 success: true,
+//                                 transaction: "Manual"
+//                             });
+//                         }
+//                     }
+
+//                 }
+//                 else {
+
+//                     //-----------------Updated Expense---------------------
+//                     updatePaycheks(assignment[count], transId);
+//                     function updatePaycheks(i, transId) {
+//                         incomeRef.where("paycheckIds", "array-contains", i.paycheckId).get().then((snap) => {
+//                             if (snap.docs.length === 0) {
+//                                 //console.log(`paycheck id not exists: ${i.paycheckId}`);
+//                                 error.push(`paycheck id not exists: ${i.paycheckId}`);
+//                                 count++;
+//                                 if (count == assignment.length) {
+//                                     updatePlaidCollection();
+//                                 } else {
+//                                     updatePaycheks(assignment[count], transId);
+//                                 }
+//                             } else {
+//                                 let incomeSourceId = snap.docs[0].id;
+//                                 let incomeSourceData = snap.docs[0].data();
+//                                 let paycheckGet = incomeRef.doc(incomeSourceId).collection("paychecks").doc(i.paycheckId);
+//                                 paycheckGet.get().then((snapPayCheckReq) => {
+//                                     var paycheckData = snapPayCheckReq.data();
+//                                     let existingBudgetDetails = paycheckData.budgetDetails;
+//                                     let index = existingBudgetDetails.findIndex(o => o.category == category);
+//                                     if (index != -1) {
+//                                         let transactions = [];
+//                                         transactions = existingBudgetDetails[index].transactions.filter(o => o != transId);
+//                                         existingBudgetDetails[index].spent = existingBudgetDetails[index].spent + (-i.amount);
+//                                         existingBudgetDetails[index].available = existingBudgetDetails[index].available - (-i.amount);
+//                                         existingBudgetDetails[index].transactions = transactions;
+//                                     } else {
+//                                         //console.log("Error to get Document");
+//                                     }
+//                                     paycheckGet.update({
+//                                         budgetDetails: existingBudgetDetails,
+//                                         budgetsAvailable: paycheckData.budgetsAvailable - (-i.amount),
+//                                         isOverspent: (paycheckData.budgetsAvailable - (-i.amount)) < 0 ? true : false
+//                                     }).then(out => {
+//                                         //console.log("SSS", out);
+
+//                                         count++;
+//                                         if (count == assignment.length) {
+//                                             updatePlaidCollection();
+
+//                                         } else {
+//                                             updatePaycheks(assignment[count], transId);
+
+//                                         }
+
+//                                     })
+//                                 })
+//                             }
+//                         })
+//                     }
+
+//                     function updatePlaidCollection() {
+//                         if (plaidTransId && plaidTransId != "") {
+//                             let query = admin.firestore().collection("user_plaid_transaction").doc(data.userId).collection("transactions").doc(plaidTransId);
+//                             query.get().then((plaidSnap) => {
+//                                 const plaidData = plaidSnap.data();
+//                                 var sum = assignment.map(o => o.amount).reduce(function (a, b) {
+//                                     return a + b;
+//                                 }, 0);
+
+//                                 var paychecksIds = assignment.map(o => o.paycheckId);
+//                                 let updatedIds = plaidData.assignment.filter(function (obj) { return paychecksIds.indexOf(obj) == -1; });
+//                                 let remainAmount = plaidData.remainingAmount + Math.abs(sum);
+//                                 query.update({
+//                                     remainingAmount: remainAmount,
+//                                     status: (remainAmount == 0) ? "Completed" : "Partially",
+//                                     assignment: updatedIds
+//                                 }).then((plaidSnap) => {
+//                                     return res.status(200).send({
+//                                         success: true,
+//                                         transaction: "Plaid"
+//                                     });
+//                                 });
+
+
+
+//                             });
+//                         } else {
+//                             return res.status(200).send({
+//                                 success: true,
+//                                 transaction: "Manual"
+//                             });
+//                         }
+//                     }
+//                 }
+
+//             } else {
+//                 res.status(400).send({
+//                     success: false,
+//                     logLevel: 0,
+//                     error: "Transaction Id is invalid"
+//                 });
+
+//             }
+
+//         });
+
+
+//     });
+// })

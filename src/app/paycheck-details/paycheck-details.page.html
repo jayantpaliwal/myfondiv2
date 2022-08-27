@@ -1,0 +1,331 @@
+<ion-content>
+  <div class="green-gradient-bg px-15 bbr-80">
+    <ion-row class="ion-align-items-center">
+      <ion-col size="1" (click)="back()">
+        <ion-icon name="arrow-back-outline" class="fs-24"></ion-icon>
+      </ion-col>
+      <ion-col size="7">
+        <h2 class="header-title">Transactions</h2>
+      </ion-col>
+      <ion-col size="4" class="align-right">
+        <!-- <ion-icon name="notifications" class="notification-icon"></ion-icon> -->
+        <img src="{{userPic}}" (click)="goToProfile()" alt="user profile" class="user-profile">
+      </ion-col>
+    </ion-row>
+    <ion-row style="height:100px;"></ion-row>
+  </div>
+  <div class="main-content">
+    <ion-segment class="segment-section" [(ngModel)]="transaction" value="paycheck">
+      <ion-segment-button (click)="back()">
+        <ion-label>Paycheck</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="monthly">
+        <ion-label>Monthly</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    <ion-row style="height:10px;"></ion-row>
+    <div [ngSwitch]="transaction">
+      <!-- monthly Transactions -->
+      <div *ngSwitchCase="'monthly'">
+        <div class="white-card">
+          <h4 class="montly-title d-flex alignv-center" (click)="OpenCalendar()">{{Cal_date}}<ion-icon
+              name="chevron-down-circle" class="fs-24 pl-5"></ion-icon>
+          </h4>
+          <table class="balance-table">
+            <thead>
+              <tr>
+                <th colspan="2">
+                  <div class="balance-category" (click)="Openfilter()">
+                    <img src="assets/icon/sort-by-attributes.svg" alt="sort-icon" width="22" height="auto">
+                    <p class="balance-title d-flex alignv-center">Filter <ion-icon name="chevron-down-circle"
+                        class="fs-24 pl-5"></ion-icon>
+                    </p>
+                  </div>
+                </th>
+              </tr>
+              <tr>
+                <th>
+                  <div class="balance-category">
+                    <img src="assets/icon/money3.svg" alt="money-icon" width="22" height="auto">
+                    <p class="balance-title">Current Balance</p>
+                  </div>
+                </th>
+                <th *ngIf="totalReceivedamt>-1">
+                  {{totalReceivedamt | thousandSeparator}}
+                </th>
+                <th *ngIf="0>totalReceivedamt ">
+                  <p class="red-amount">-{{-(totalReceivedamt) | thousandSeparator}}</p>
+                </th>
+              </tr>
+
+            </thead>
+          </table>
+          <div class="px-15">
+            <table class="balance-table">
+              <tbody>
+                <tr *ngFor="let ele of currentMonthPaychecks">
+                  <td>
+                    <div class="alignv-center">
+                      <img [src]="ele?.type=='income' ? 'assets/icon/transaction2.svg': 'assets/icon/transaction1.svg'"
+                        alt="transaction icon" width="22" height="auto">
+                      <div class="pl-5">
+                        <p>{{ele.name}}</p>
+                        <p class="paycheck-type"><span class="date-blue">
+                            {{ele.payDate|date:'dd MMM yyyy'}}</span>{{ele.incomeName}}</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="alignv-center">
+                      <span class="green-amount"
+                        *ngIf="ele?.type=='income'">+{{ele.totalReceivedamt < 0 ? -(ele.totalReceivedamt  | thousandSeparator)  : ele.totalReceivedamt  | thousandSeparator}}</span>
+                      <span class="blue-amount"
+                        *ngIf="ele?.type=='expense'">-{{(ele.totalReceivedamt) | thousandSeparator}}</span>
+                      <img
+                        [src]="ele?.type=='income' ? 'assets/icon/bookmarkyellow.svg': 'assets/icon/bookmark-red.svg'"
+                        src="" alt="bookmark-icon" width="14" height="auto">
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- <ion-row style="height:80px;"></ion-row> -->
+        </div>
+
+      </div>
+      <!-- Paycheck details -->
+      <div *ngSwitchCase="'payDetails'">
+        <div>
+          <div class="white-card">
+            <div class="py-10">
+              <ion-row class="ion-align-items-center px-10">
+                <ion-col size="5">
+                  <p class="green-text fw-600"></p>
+                </ion-col>
+                <ion-col size="7" class="ion-text-right">
+                  <ion-button color="tertiary" fill="clear" class="add-income-button allocate" (click)="addBudget()">
+                    <ion-icon name="add-outline"></ion-icon>Click To Allocate
+                  </ion-button>
+                </ion-col>
+              </ion-row>
+              <div class="red-background" *ngIf="allpayChecks?.budgetsToBeBudgeted<0">
+                <h5 class="ion-no-margin"> You're Overbudget! </h5>
+                <ion-row style="height:4px;"></ion-row>
+                <p class="ion-no-margin">Add additional income or reduce the amount within a budget category.</p>
+              </div>
+              <div class="yellow-background" *ngIf="overSpend>0">
+                <h5 class="ion-no-margin">You're Overspending in {{overSpend}} {{overSpend === 1 ? 'Category' : 'Categories'}}</h5>
+                <ion-row style="height:4px;"></ion-row>
+                <p class="ion-no-margin">Adjust budget allocation to overspent {{overSpend === 1 ? 'category' : 'categories'}}.</p>
+              </div>
+              <div class="px-10">
+                <table class="paycheck-table">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th></th>
+                      <th>TOTAL<br> EXPECTED</th>
+                      <th>TOTAL<br> RECEIVED</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>{{allpayChecks?.name | titlecase}}</p>
+                        <p class="paycheck-type"><span class="date-blue">
+                            {{allpayChecks?.payDate| date:"MMMM dd"}}</span>{{repeating | titlecase}}</p>
+                            <!-- <p *ngFor="let add of add_incomes" class="paycheck-type"><span class="date-blue">
+                              {{add?.payDate| date:"dd MMMM"}}</span>{{add?.repeating}}</p> -->
+                      </td>
+
+                      <td >
+                        <div class="alignv-center"   *ngIf="incomeReceivedPaychecks.length>0 || add_incomes.length">
+                          <ion-icon name="add-circle" class="add-icon"
+                          *ngIf="allpayChecks?.showIncomes" (click)="incomeExpandd(allpayChecks)">
+                          </ion-icon>
+                          <ion-icon name="remove-circle" class="add-icon"
+                          *ngIf="!allpayChecks?.showIncomes" (click)="incomeExpandd(allpayChecks)">
+                          </ion-icon>
+                        </div>
+                      </td>
+                      <td class="received-amount ion-text-end" 
+                        [innerHTML]="totalExpected_amt">
+                      </td>
+                      <td class="received-amount ion-text-end" [innerHTML]="totalReceived_amt"></td>
+                    </tr>
+                    
+                  </tbody>
+                </table>
+                <table class="paycheck-table" *ngIf="!allpayChecks?.showIncomes" >
+                  <tbody *ngIf="incomeReceivedPaychecks.length">
+                    <tr *ngFor="let income of incomeReceivedPaychecks">
+                      <td>
+                        <p>{{income?.name | titlecase}}</p>
+                        <p class="paycheck-type"><span class="date-blue">
+                            {{income?.payDate| date:"dd MMMM"}}</span></p>
+                      </td>
+                      <td class="received-amount ion-text-end">
+                        $0.00
+                      </td>
+                      <td class="received-amount ion-text-end">{{income?.amount >0 ? (income?.amount | thousandSeparator ):(-(income?.amount) | thousandSeparator)}}</td>
+                    </tr>
+
+                  </tbody>
+                  <tbody *ngIf="add_incomes.length">
+                    <tr *ngFor="let add of add_incomes">
+                      <td>
+                        <p>{{add?.name | titlecase}}</p>
+                        <p class="paycheck-type"><span class="date-blue">
+                            {{add?.startDate| date:"dd MMMM"}}</span>{{add?.isRepeating ? add?.repeatingType : 'Non-Recurring'}}</p>
+                      </td>
+                      <td></td>
+                      <td class="received-amount">{{add?.income | thousandSeparator}}</td>
+                      <td class="received-amount"> $0.00
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="budget-bg p-10">
+              <ion-row *ngIf="!_wordBreaker">
+                <ion-col size="4">
+                  <p>To Be  Budgeted</p></ion-col>
+                <ion-col size="4">
+                  <p>Currently Budgeted</p></ion-col>
+                <ion-col size="4">
+                  <p>Currently Available</p></ion-col>
+                <ion-col size="4">
+                  <p class="green-text" [innerHTML]="budgetsToBeBudgeted_amt"></p>
+                </ion-col>
+                <ion-col size="4">
+                  <p class="blue-text" [innerHTML]="budgetsCurrent_amt"></p>
+                </ion-col>
+                <ion-col size="4">
+                  <p class="blue-text" [innerHTML]="budgetsAvailable_amt"></p>
+                </ion-col>
+              </ion-row>
+                <ion-row *ngIf="_wordBreaker">
+                  <ion-col size="5">
+                    <p>To Be Budgeted</p>
+                  </ion-col>
+                  <ion-col size="7">
+                    <p class="blue-text" style="text-align: right;" [innerHTML]="budgetsToBeBudgeted_amt"></p>
+                  </ion-col>
+                  <ion-col size="5">
+                    <p>Currently Budgeted</p>
+                  </ion-col> 
+                  <ion-col size="7">
+                    <p class="blue-text" style="text-align: right;"  [innerHTML]="budgetsCurrent_amt"></p>
+                  </ion-col>
+                  <ion-col size="5">
+                    <p>Currently Available</p>
+                  </ion-col>
+                  <ion-col size="7">
+                    <p class="blue-text" style="text-align: right;"  [innerHTML]="budgetsAvailable_amt"></p>
+                  </ion-col>
+                </ion-row>
+            </div>
+            <!-- surplus add card -->
+
+            <div class="surplus-card" *ngIf="allpayChecks?.surplusTotalBudget  > 0 || allpayChecks?.surplusTotalBudget  < 0 ">
+              <ion-row class="ion-align-items-center">
+                <!-- <ion-col size="1">
+                  
+                </ion-col> -->
+                <ion-col size="6" class="aligny-center">
+                  <div style="margin-right: 5px;">
+                  <img src="assets/icon/money3.svg" alt="money-icon" >                    
+                  </div>
+                  <div>
+                    <h4>{{allpayChecks?.surplusTotalBudget > 0 ? 'Surplus' : 'Deficits' }}</h4>
+                  <p>FROM LAST PAYCHECK</p>
+                  </div>
+                </ion-col>
+                <ion-col size="6" class="ion-text-end">
+                  <p [ngClass]="allpayChecks?.surplusTotalBudget > 0   ? 'surplus-price' : 'deficits-price'" >{{totalSurplusAmount}}</p>
+                </ion-col>
+              </ion-row>
+            </div>
+            <div class="p-10">
+              <table class="expense-table" *ngIf="budgetDetails.length > 0">
+                <thead>
+                  <tr>
+                    <th class="th-greenh">Expense</th>
+                    <th>Budgeted</th>
+                    <th width="16%">Spent</th>
+                    <th width="25%">Available</th>
+                  </tr>
+                </thead>
+              </table>
+              <table class="category-table" *ngFor="let exp of budgetDetails;let i=index;">
+                <thead>
+                  <tr>
+                    <th>
+                      <div class="expense-category">
+                        <img src="assets/icon/money.svg" alt="user-icon" width="22" height="auto">
+                        <p class="alignv-center"> {{exp.category}}</p>
+                      </div>
+                    </th>
+                    <th class="ion-text-end">
+                      <div class="alignv-center">
+                        <ion-icon name="add-circle" class="add-icon"
+                          *ngIf="exp.transactions.length>0 && exp.showDetails" (click)="transactionExpand(exp)">
+                        </ion-icon>
+                        <ion-icon name="remove-circle" class="add-icon"
+                          *ngIf="exp.transactions.length>0 && !exp.showDetails" (click)="transactionExpand(exp)">
+                        </ion-icon>
+                        <p [ngClass]="exp?.budgeted >= 0 ? 'price-bg-green-white' : 'price-bg-red-white'">{{getBudgeted(exp.budgeted)}}</p>
+                      </div>
+                    </th>
+                    <th width="16%" class="ion-text-end">
+                      <p  [ngClass]="exp?.spend === 0 ? 'price-bg-green-white' : 'price-bg-red-white'">{{exp.spend | thousandSeparator}}</p>
+                      <!-- <p *ngIf="exp.spend!=0" class="price-bg-red-white">{{events.putThousandsSeparators((exp.spend).toFixed(2))}}</p> -->
+                    </th>
+                    <th width="25%" class="ion-text-end">
+                      <p [ngClass]="exp?.available >= 0  ? 'price-bg-green' : 'price-bg-red'">{{exp.available | thousandSeparator}}</p>
+                      <!-- <p *ngIf="!(exp.available>=0)" class="price-bg-red">{{events.putThousandsSeparators((exp.available).toFixed(2))}}</p> -->
+                    </th>
+                  </tr>
+                  <ion-row style="height:10px;"></ion-row>
+                </thead>
+                <!-- subCategories -->
+                <tbody [hidden]="exp.showDetails">
+                  <tr *ngFor="let trans of exp.transactions">
+                    <td class="category-name">{{trans?.date|date:'dd MMMM yyyy'}}</td>
+                    <td class="budget-amount">{{trans.amount | thousandSeparator}}</td>
+                    <td>
+                      <p class="price-bg-red">{{trans.assignamount | thousandSeparator}}</p>
+                      <!-- <p *ngIf="!(exp.available>=0)" class="price-bg-red">{{(exp.available).toFixed(2)}}</p> -->
+                    </td>
+                    <td>
+                      <p class="price-bg-green">{{trans.amount-trans.assignamount | thousandSeparator}}</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <ion-card class="ion-no-margin transaction-card" *ngIf="budgetDetails.length==0">
+                <div class="ion-padding ion-text-center">
+                  <ion-icon ios="ios-add" md="md-add" style="zoom:1.5;"></ion-icon>
+                  <p class="color-black">No Transactions</p>
+                </div>
+              </ion-card>
+              <ion-row style="height:10px;"></ion-row>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <ion-select style="display: none;" (ionChange)="chooseFilter($event)" #filtered [(ngModel)]="filterIncomes">
+    <ion-select-option value="all">All</ion-select-option>
+    <ion-select-option value="income">Income</ion-select-option>
+    <ion-select-option value="expense">Expense</ion-select-option>
+  </ion-select>
+  <ion-select style="display: none;" (ionChange)="chooseDate($event)" #calendarDate [(ngModel)]="Cal_date">
+    <ion-select-option *ngFor="let month of calendar_dates; let i=index" value="{{i}}">{{month.value}}
+    </ion-select-option>
+  </ion-select>
+</ion-content>

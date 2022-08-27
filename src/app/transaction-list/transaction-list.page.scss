@@ -1,0 +1,83 @@
+ion-toolbar
+{
+    --background: #C4CDD6;
+}
+.main-bg{
+  background: rgb(137,151,164);
+  --background:  linear-gradient(180deg, rgb(79 194 133) 0%, rgb(249, 249, 249) 50%, rgb(255, 255, 255) 100%);
+  position: relative;
+}
+.card-title{
+  color: #24335E;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+.main-content {
+  padding: 10px;
+  margin: 10px 5px;
+  border-radius: 8px;
+  margin-top: -100px;
+}
+.white-background{
+  background-color:#ffffff;
+  border-radius: 8px;
+  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+.paycheck-content{    padding: 10px;
+  border-radius: 10px;}
+.filter-table{ width:100%;
+  .filter-title{font-size: 11px;
+    margin: 3px 0px;
+    text-transform: uppercase;
+    font-weight: 600;}
+  td{border-bottom: solid 1px #e5e5e5;}   
+}
+ion-select{    font-size: 14px;
+  --padding-start: 0;
+  --padding-top: 0px;}
+.paychecklist-table{width:100%;
+  .paycheck-type{    color: #1F4E99;
+    font-weight: 600;}  
+ .date-blue{    color: #529FFF;
+    padding-right: 5px;}
+  .alignv-center{display:flex; align-items: center; justify-content: flex-end;}  
+  td{
+    padding:15px 0px; border-bottom:solid 1px #e5e5e5; font-size:12px; font-size: 13px;
+    color: #262E47;
+    font-weight: 600;
+    p{    margin: 0px 0px 3px;}
+  } 
+  .trans-name{
+    width: 200px;
+    white-space: break-spaces;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  } 
+  
+} 
+.text-color-red{
+    color: #c84141;
+    margin: 0px;
+    font-weight: 500;
+    font-size: 15px;
+  }
+  .text-color-green{
+    color:#3B9646;
+   //color: rgb(45,90,78);
+    margin: 0px;
+    font-weight: 500;
+    font-size: 15px;
+  }
+  .filter-title{
+    margin: 3px 0px;
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+  ion-select{  
+    color: #164895 !important;
+    font-weight: 500 !important; 
+  }  
+       

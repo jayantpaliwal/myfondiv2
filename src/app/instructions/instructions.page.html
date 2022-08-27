@@ -1,0 +1,35 @@
+<ion-content class="main-bg">
+    <div class="position-absolute">
+      <div class="container">
+    <ion-slides (ionSlideDidChange)="changeSlide($event.target)" pager="true" [options]="slideOpts">
+      <ion-slide>
+        <ion-row>
+            <h3 class="ion-text-left">Easy Money Management </h3>
+            <p class="ion-text-left"> MyFondi will help you to log where your money goes, and compare that to where you want it to go. </p>
+        </ion-row>
+       
+      </ion-slide>
+      <ion-slide>
+          <ion-row>
+              <h3 class="ion-text-left">Paycheck-Focused Budgeting</h3>
+              <p class="ion-text-left">Your budgeting and financial planning should be based on what you have on any given week.</p>
+          </ion-row>
+    
+      </ion-slide>
+      <ion-slide>
+          <ion-row>
+              <h3 class="ion-text-left">Tailored to your Goals and Behavior</h3>
+              <p class="ion-text-left"> Plan your future based on your income schedule and personality. Become debt-free and build savings on your own schedule</p>
+          </ion-row>
+    </ion-slide>
+    </ion-slides>
+    </div>
+   
+  
+    <ion-row>
+      <ion-col size="12">
+        <ion-button fill="clear" (click)="skip()" type="button" expand="block" class="skip-button">{{btnText}}</ion-button>
+      </ion-col>
+    </ion-row>
+  </div>
+  </ion-content> 

@@ -1,0 +1,208 @@
+.main-bg{
+  background: rgb(137,151,164);
+  --background: linear-gradient(180deg, #C3CCD5 0%, rgb(249, 249, 249) 50%, rgb(255, 255, 255) 100%);
+  position: relative;
+  --padding-start: 15px;
+  --padding-end: 15px;
+}
+.green-gradient-bg{
+  --background: #74D874;  /* fallback for old browsers */
+--background: -webkit-linear-gradient(to bottom, #74D874, #47BD89);  /* Chrome 10-25, Safari 5.1-6 */
+--background: linear-gradient(to bottom, #74D874, #47BD89); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+}
+.container{
+  padding: 0% 8%;
+}
+.container-fullwidth{
+    margin:0;
+    padding:0;
+}
+
+ion-toolbar{
+    --background: #C4CDD6;
+}
+.nav-title{
+  font-size:16px;
+  font-weight: 600;
+  color: #141414;
+}
+h3 {
+  font-size: 22px;
+  line-height: 31px;
+  color: #3A3B3B;
+  font-weight: 500;
+}
+.input-item p {
+  color: #0B254A;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19px;
+  margin: 0px;
+  letter-spacing: 1px;
+}
+.sc-ion-input-md-h, .sc-ion-input-ios-h {
+  border-bottom: solid 1px #527264 !important;
+}
+ion-textarea{  
+  border-bottom: solid 1px  #527264 !important;
+
+}
+.transaction-button{
+  background-color:#48596B;
+  color:#fff !important;
+      --background: transparent;
+  --box-shadow: 0 0px 0px 0px rgba(0,0,0,0.2),0 0px 0px 0 rgba(0,0,0,0.14),0 0px 0px 0 rgba(0,0,0,0.12);
+  height:45px; 
+  --opacity: 1;
+    font-size: 15px;
+    font-weight: 500;
+  
+}   
+.transaction-button:disabled,
+.transaction-button[disabled] {
+  opacity: 0.3;
+}
+.ion-padding-top-20{
+ padding-top:20px;
+}
+ion-segment {    border-radius: 8px;}
+ion-segment-button{
+--background: #ADE2AE !important;
+--background-checked:  #39A476 !important;
+--background-hover:  #39A476 !important;
+--background-focused:  #39A476 !important;
+--background-activated-opacity: 1 !important;
+--background-focused-opacity: 1;
+--background-hover-opacity: 1;
+--color:  #39A476 !important;
+--color-checked:#fff  !important;    
+--indicator-color: none;   
+--indicator-transform: none;
+--padding-top: 0;
+--padding-end: 16px;
+--padding-bottom: 0;
+--padding-start: 16px; 
+min-height: 50px !important;    
+font-size: 13px !important;
+font-weight: 500;
+letter-spacing: 0.06em;
+line-height: 40px;
+text-transform: uppercase;
+}
+// .segment-button-checked{
+//   background-color:#919598;
+//   color: #fff; 
+//   --color-checked: transparent;
+// }
+// .segment-button-checked:first-of-type {
+//   border-radius: 5px 0px 0px 5px;
+// }
+// .segment-button-checked:last-of-type {
+//   border-radius: 0px 5px 5px 0px;
+// }
+// .sc-ion-segment-md-h, .sc-ion-segment-ios-h{
+//   background-color:#E6E6E6;
+//   color: #919598;
+//   border-radius:5px;
+// }
+ion-label{
+font-weight:600;
+padding-top: 3px;
+text-transform: capitalize;
+}
+
+.input-group {
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  width: 100%;
+}
+
+.input-group-append, .input-group-prepend {
+display: -ms-flexbox;
+display: flex;
+}
+.input-item p {
+color: #0B254A;
+font-size: 16px;
+font-weight: 500;
+line-height: 19px;
+margin: 0px;
+letter-spacing: 1px;
+}
+.ion-padding-top-20{
+padding-top:20px;
+}
+.input-group-text {
+display: -ms-flexbox;
+display: flex;
+-ms-flex-align: center;
+align-items: center;
+color: #495057; 
+}
+.bg-transparent{background: transparent;}ion-toolbar
+{
+    --background: #C4CDD6;
+}
+.main-bg{
+  background: rgb(137,151,164);
+  --background: linear-gradient(180deg, #C3CCD5 0%, rgb(249, 249, 249) 50%, rgb(255, 255, 255) 100%);
+  position: relative;
+}
+.main-content {
+  padding: 10px;
+  margin: 10px 5px;
+  border-radius: 8px;
+  margin-top: -100px;
+}
+.white-background{
+  background-color:#ffffff;
+  border-radius: 8px;
+  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+.paycheck-content{    padding: 10px;
+  border-radius: 10px;}
+.filter-table{ width:100%;
+  .filter-title{font-size: 11px;
+    margin: 3px 0px;
+    text-transform: uppercase;
+    font-weight: 600;}
+  td{border-bottom: solid 1px #e5e5e5;}   
+}
+ion-select{    font-size: 14px;
+  --padding-start: 0;
+  --padding-top: 0px;}
+.paychecklist-table{width:100%;
+  .paycheck-type{    color: #1F4E99;
+    font-weight: 600;}  
+ .date-blue{    color: #529FFF;
+    padding-right: 5px;}
+  .alignv-center{display:flex; align-items: center; justify-content: flex-end;}  
+  td{
+    padding:15px 0px; border-bottom:solid 1px #e5e5e5; font-size:12px; font-size: 13px;
+    color: #262E47;
+    font-weight: 600;
+    p{    margin: 0px 0px 3px;}
+  }  
+  
+} 
+.text-color-red{
+    color: #c84141;
+    margin: 0px;
+    font-weight: 500;
+    font-size: 15px;
+  }
+  .text-color-green{
+    color:#3B9646;
+   //color: rgb(45,90,78);
+    margin: 0px;
+    font-weight: 500;
+    font-size: 15px;
+  }
+
+       

@@ -1,0 +1,59 @@
+<ion-content class="main-bg">
+    <div class="content login-content container">
+  
+      <div>
+        <ion-list>
+          <h2>Welcome</h2>
+          <p class="light-green-text"> Welcome to MyFondi App. Please fill these questionaries to analyse your approach in
+            finance. </p>
+          <div class="input-item ion-padding-top">
+            <p>Where do you feel you are finacially?</p>
+            <span class="light-green-text-span"> Choose the statement that describe you the most.</span>
+            <ion-row style="height:10px;"></ion-row>
+            <ion-segment [(ngModel)]="financially_feel" scrollable class="segment">
+              <ion-segment-button *ngFor="let item of numbers" value="{{ item.value }}" class="segment-no-border">
+                <ion-label >{{ item.name }}</ion-label>
+              </ion-segment-button>
+            </ion-segment>
+            <ion-row>
+              <ion-col class="segment-bottom" *ngFor="let item of numbers">
+                {{ item.label }}
+              </ion-col>
+            </ion-row>
+          </div>
+          <div class="input-item ion-padding-top">
+            <p>What are your top 3 financial goals?</p>
+            <div *ngFor="let item of financial_goals" class="ion-padding-bottom">
+              <ion-input type="text" placeholder="Please enter your financial goals" [(ngModel)]="item.value"></ion-input>
+  
+            </div>
+            <span class="light-blue-text" *ngIf="financial_goals.length < 3" (click)="addNewGoal()">+ Add new goal</span>
+          </div>
+  
+          <div class="input-item ion-padding-top">
+            <p>How strict are you willing to go to achieve your financial goals?</p>
+            <ion-row style="height:10px;"></ion-row>
+            <ion-segment [(ngModel)]="willing_to_achieve" scrollable class="segment">
+              <ion-segment-button  *ngFor="let item of strict" value="{{ item.value }}" class="segment-no-border">
+                <ion-label>{{ item.name }}</ion-label>
+              </ion-segment-button>
+            </ion-segment>
+            <ion-row>
+              <ion-col class="segment-bottom" *ngFor="let item of strict">
+                {{ item.label }}
+              </ion-col>
+            </ion-row>
+          </div>
+  
+        </ion-list>
+  
+      </div>
+  
+    </div>
+  </ion-content>
+  <ion-footer>
+    <div>
+      <ion-button [disabled]="financial_goals[0].value == ''" (click)="next()" class="next-button" type="submit"
+        expand="block">NEXT</ion-button>
+    </div>
+  </ion-footer>

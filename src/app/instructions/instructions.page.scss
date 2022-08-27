@@ -1,0 +1,44 @@
+ion-slide >:first-child {
+    width: 100%;
+    }
+ 
+ .main-bg{
+   background: rgb(137,151,164);
+   --background: linear-gradient(180deg, rgb(79 194 133) 0%, rgb(249, 249, 249) 50%, rgb(255, 255, 255) 100%);
+   position: relative;
+ }
+ 
+ .position-absolute{
+   position: absolute;
+   width: 100%;
+   bottom: 0px;
+ }
+ 
+ .container{
+   padding: 0% 8%;
+ }
+
+ h3 {
+   font-size: 24px;
+   letter-spacing: 1px;
+   color: #3E3E3E;
+   font-weight:800;
+ }
+
+ p{
+   font-size: 15px;
+   color:#797A5B;
+   padding-bottom:15px;
+ }
+
+ .skip-button{
+   background-color:#318149;
+   color:#fff !important;
+   height:45px; 
+   border-radius: 22px;
+   --background: transparent;
+   --box-shadow: 0 0px 0px 0px rgba(0,0,0,0.2),0 0px 0px 0 rgba(0,0,0,0.14),0 0px 0px 0 rgba(0,0,0,0.12);
+   --opacity: 1;
+     font-size: 14px;
+     font-weight: 400;
+ }

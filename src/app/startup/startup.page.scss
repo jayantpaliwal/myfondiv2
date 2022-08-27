@@ -1,0 +1,73 @@
+.main-bg{
+  background: rgb(137,151,164);
+  --background: linear-gradient(180deg, rgb(79 194 133) 0%, rgb(249, 249, 249) 50%, rgb(255, 255, 255) 100%);
+  position: relative;
+}
+
+.position-absolute{
+  position: absolute;
+  width: 100%;
+  bottom: 10px;
+}
+
+.container{
+  padding: 0% 8%;
+}
+
+h2 {
+  margin-top: 18px;
+  font-size: 30px;
+  letter-spacing: 1px;
+  color: #3E3E3E;
+  font-weight:800;
+}
+
+.light-green-text{
+  color: #797A5B;
+  letter-spacing: 0.03em;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+.icon-border{
+  border: solid 1px #e5e5e5;
+  padding:10px 15px;
+  border-radius: 10px;
+  // opacity:0.5;
+  margin:0px 5px;
+}
+
+.signup-button{
+  background-color:#318149;
+  color:#fff !important;
+  border-radius:5px;
+  --background: transparent;
+  --box-shadow: 0 0px 0px 0px rgba(0,0,0,0.2),0 0px 0px 0 rgba(0,0,0,0.14),0 0px 0px 0 rgba(0,0,0,0.12);
+  height:45px; 
+  --opacity: 1;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.ion-padding-top-10{
+  padding-top:10px;
+}
+
+.ion-padding-top-7{
+  padding-top:7px;
+}
+
+a{
+  color:#48596B;
+}
+
+.ion-2x{
+  font-size: 2.0em;
+}
+.logo{
+  text-align: center;
+  img{
+    height: 180px;
+  }
+}

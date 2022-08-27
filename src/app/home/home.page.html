@@ -1,0 +1,209 @@
+<ion-header no-border>
+    <ion-toolbar>
+        <ion-title class="nav-title">
+            <div class="logo">
+                <img height="40" src="assets/image/logo.png" />MyFondi
+            </div>
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="goToProfile()" fill="clear" class="user-button user-button">
+                <img class="image" height="40" class="user-profile" src="{{userPic}}" />
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="main-bg" fullscreen>
+    <div class="">
+        <div class="green-gradient-bg p-20">
+            <h2 class="main-title">
+                Hi, {{userName}}
+            </h2>
+            <ion-row style="height:20px;"></ion-row>
+            <ion-card *ngIf="noPaychecks" class="ion-no-margin ion-no-padding background-transparent">
+                <ion-grid class="ion-no-margin">
+                    <ion-row>
+                        <ion-col size="8" class="ion-no-padding">
+                            <div class="alignv-center">
+                                <h6>LATEST PAYCHECK</h6>
+                                <ion-icon name="help-circle" class="fs-20 pl-8"></ion-icon>
+                            </div>
+                            <p>No budget yet
+                            <p>
+                        </ion-col>
+                        <ion-col size="4" class="ion-text-end ion-no-padding">
+                            <h6>REMAINING</h6>
+                            <p class="price">$--
+                            <p>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+                <ion-progress-bar class="bar_percent" [value]="0" class="paycheck-progress progress-bar"></ion-progress-bar>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col size="6" class="ion-no-padding">
+                            <p class="size-small weight-semibold text-left">$ Budgeted</p>
+                        </ion-col>
+                        <ion-col size="6" class="ion-text-end ion-no-padding">
+                            <p class="size-small weight-semibold  text-right">$0</p>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+                <!-- <div class="div_day"></div> -->
+                <ion-button (click)="addNewBudget()" expand="block" fill="clear" size="small" slot="start">+add new
+                    budgets
+                </ion-button>
+
+            </ion-card>
+
+            <ion-card *ngIf="!noPaychecks" class="ion-no-margin background-transparent">
+                <ion-card-content class="ion-no-padding">
+                    <ion-grid class="ion-no-margin">
+                        <ion-row>
+                            <ion-col size="8" class="ion-no-padding">
+                                <div class="alignv-center">
+                                    <h6 class="fw-700">LATEST PAYCHECK</h6>
+                                    <ion-icon name="help-circle" class="fs-20 pl-8"></ion-icon>
+                                </div>
+                                <h3>{{currentDate}}</h3>
+                            </ion-col>
+                            <ion-col size="4" class="ion-text-end ion-no-padding">
+                                <h6 class="fw-700">REMAINING</h6>
+                                <p class="price">{{listPaychceck?.budgetsAvailable | thousandSeparator}}
+                                <p>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                    <ion-progress-bar value="{{bar_percent}}" class="paycheck-progress"></ion-progress-bar>
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col size="6" class="ion-no-padding">
+                                <p class="size-small weight-semibold text-left text-white">
+                                    {{listPaychceck?.spend  | thousandSeparator}}</p>
+                            </ion-col>
+                            <ion-col size="6" class="ion-text-end ion-no-padding">
+                                <p class="size-small weight-semibold text-yellow text-right">
+                                    {{listPaychceck?.receivedIncome  | thousandSeparator}}</p>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col size="6" class="ion-no-padding">
+                                <p class="size-small weight-semibold text-left text-white">Spent</p>
+                            </ion-col>
+                            <ion-col size="6" class="ion-text-end ion-no-padding">
+                                <p class="size-small weight-semibold text-yellow text-right">
+                                    Budgeted</p>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                    <!-- <div class="div_day"></div> -->
+                    <ion-button (click)="viewBudget()" fill="clear" size="small" slot="start" class="yellow-button">View
+                        Paycheck Budget Details <ion-icon name="chevron-forward-circle"></ion-icon>
+                    </ion-button>
+                </ion-card-content>
+            </ion-card>
+
+        </div>
+        <ion-row style="height:20px;"></ion-row>
+        <!-- My Goals Section -->
+        <div class="px-15">
+            <ion-row>
+                <ion-col>
+                    <h5 class="goal-title">My Goals</h5>
+                </ion-col>
+                <ion-col class="ion-text-end" *ngIf="goals.length">
+                    <ion-button fill="clear" color="tertiary" (click)="viewAllGoals()" class="view-goal-button">View All
+                        Goals</ion-button>
+                </ion-col>
+            </ion-row>
+            <div class="scrollmenu" *ngIf="goals.length">
+                <ion-card class="custom-card  ion-no-margin text-left" *ngFor="let goal of goals">
+                    <ion-row (click)="editGoal(goal)">
+                        <ion-col size="2" size-sm="2" size-md="auto" size-lg="auto" size-xl="auto" class="pt-12">
+                            <img src="{{goal.goal_type == 'debt-Reduction' ? 'assets/icon/no-debt.svg' : 'assets/icon/save-money.svg'}}"
+                                alt="money icon" width="32" height="32">
+                        </ion-col>
+                        <ion-col size="10">
+                            <p class="goal-cardtitle">{{goal.goal_name}}</p>
+                            <ion-progress-bar value="{{goal.progress}}" class="goal-progress"></ion-progress-bar>
+                            <p class="goal-progress-green">
+                                {{goal.left_amount | thousandSeparator}}<span
+                                    class="goals-left-text">Left</span></p>
+                        </ion-col>
+                    </ion-row>
+                </ion-card>
+
+            </div>
+            <div class="scrollmenu" *ngIf="!goals.length">
+                <ion-card class="ion-no-margin transaction-card">
+                    <div (click)="CreateGoalPage()" class="ion-padding ion-text-center">
+                        <ion-icon ios="ios-add" md="md-add" style="zoom:1.5;"></ion-icon>
+                        <p class="color-black your-goals" >Add New Goal</p>
+                    </div>
+                </ion-card>
+
+            </div>
+        </div>
+
+        <ion-row style="height:20px;"></ion-row>
+        <div *ngIf="!transactions.length" class="px-15">
+            <ion-row class="ion-no-padding">
+                <ion-col size="6" class="ion-no-padding">
+                    <h6 class="goal-title">LATEST TRANSACTION</h6>
+                </ion-col>
+
+            </ion-row>
+            <ion-card class="ion-no-margin transaction-card">
+                <div (click)="addTransaction()" class="ion-padding ion-text-center">
+                    <ion-icon ios="ios-add" md="md-add" style="zoom:1.5;"></ion-icon>
+                    <p class="color-black user-transaction">Add New Transaction</p>
+                </div>
+            </ion-card>
+        </div>
+        <div *ngIf="transactions.length" class="px-15">
+            <ion-row class="ion-no-padding">
+                <ion-col size="12" class="ion-no-padding">
+                    <h6 class="goal-title">LATEST TRANSACTION</h6>
+                </ion-col>
+            </ion-row>
+            <ion-card class="ion-no-margin transaction-card">
+
+                <table width="100%" *ngFor="let trans of transactions;let i=index;">
+                    <thead>
+                        <tr>
+                            <th>
+                                <span class="font-size-12 dark-blue">{{trans.transactionDateTime | date}}</span>
+                            </th>
+                            <th (click)="viewAll()" *ngIf="i==0" class="ion-text-end" colspan="2">
+                                <p class="text-color-blue"> <span style="cursor: pointer;">View All Transaction ></span></p>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th class="text-color-black" width="50%" (click)="details(trans)">
+                                <p class="text-size-small ion-no-margin dark-blue fw-500"> {{trans.name}}</p>
+                            </th>
+                            <th class="ion-text-end" width="50%" (click)="details(trans)">
+                                <p *ngIf="trans.type=='expense'" class="text-color-red ion-no-margin">
+                                    -{{ trans?.amount  | thousandSeparator}}</p>
+                                <p *ngIf="trans.type=='income'" class="text-color-green ion-no-margin">
+                                    {{trans.amount < 0 ? (-(trans?.amount) | thousandSeparator) :
+                                        trans?.amount | thousandSeparator}}</p>
+                                        <p class="text-size-small ion-no-margin dark-blue fw-600">
+                                            {{trans.category}}</p>
+                            </th>
+                            <th>
+                                <div>
+                                    <ion-icon name="ellipsis-vertical" class="menu-icon"></ion-icon>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <ion-row style="height:10px;"></ion-row>
+                </table>
+            </ion-card>
+        </div>
+    </div>
+
+
+</ion-content>

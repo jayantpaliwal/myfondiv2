@@ -1,0 +1,102 @@
+<ion-content>
+
+  <div class="green-gradient-bg px-15 bbr-80">
+    <ion-row class="ion-align-items-center">
+      <ion-col size="1" (click)="back()">
+        <ion-icon name="arrow-back-outline" class="fs-24"></ion-icon>
+      </ion-col>
+      <ion-col size="8">
+        <h2 class="header-title">Pricing Plans</h2>
+      </ion-col>
+      <ion-col size="3" class="align-right">
+        <!-- <ion-icon name="notifications" class="notification-icon"></ion-icon> -->
+        <img src="{{userPic}}" (click)="gotoProfile()" alt="user profile" class="user-profile">
+      </ion-col>
+    </ion-row>
+    <ion-row style="height:100px;"></ion-row>
+
+  </div>
+  <div class="main-content">
+    <ion-row>
+      <ion-col size="12" *ngFor="let plan of products; let index = index;">
+        <div [hidden]="isCard && !plan.checked" class="card pricing-card pricing-card-highlighted  pricing-plan-pro"
+          (click)="showCard(plan.id)">
+          <div class="card-body">
+            <table class="pricing_table">
+              <thead>
+                <tr>
+                  <th class="plans">{{getPlanRecurring(plan.interval)}} Plan</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="price">{{(plan.amount/100) | thousandSeparator}}*/{{plan.interval | titlecase}}</td>
+                </tr>
+                <tr [hidden]="plan.interval != 'year'">
+                  <td><span class="saving" >$20 Saving</span></td>
+                </tr>
+                <tr>
+                  <td><span class="tax">1.5% Tax</span></td>
+                </tr>
+                <tr>
+                  <td>Billed {{getPlanRecurring(plan.interval)}}; <br> Cancel Anytime</td>
+                </tr>
+                <tr>
+                  <td>
+                    <a class="btn pricing-plan-purchase-btn">Choose Plan</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-card id="card-element" class="payment-card" [hidden]="!isCard">
+      <div>
+        <h3>Pay Using Card</h3>
+      </div>
+      <div>
+        <p style="color: red; font-size: 16px;">*Please ensure that your name and zip code is correct in your
+          profile to process your transaction.</p>
+      </div>
+      <div>
+        <ion-label>Card Number</ion-label>
+        <ion-input class="form-control" type="tel" id="card-number">
+        </ion-input>
+      </div>
+      <div>
+        <ion-row>
+          <ion-col size="6">
+            <ion-label>Card Expire</ion-label>
+            <ion-input class="form-control" type="tel" id="card-exp"></ion-input>   
+          </ion-col>
+          <ion-col size="6">
+            <ion-label>Card CVC</ion-label>
+            <ion-input class="form-control" type="tel" id="card-cvc"></ion-input>
+          </ion-col>
+        </ion-row>
+      </div>
+
+      <div [formGroup]="couponForm">
+        <ion-label>Coupon Code</ion-label>
+        <ion-input class="form-control" type="text" formControlName="coupon" (ionChange)='checkPromoCode($event.target.value)' placeholder="Enter promo code here"></ion-input>
+      </div>
+      <div *ngIf="isValidCoupon">Promo Code Applied!!</div>
+      <ng-container>                                                                                                                      
+        <div class="error_label"
+          *ngIf="!isValidCoupon && (couponForm.controls.coupon.dirty || couponForm.controls.coupon.touched)">
+         Promo code is not valid
+        </div>
+      </ng-container>
+      <div>
+        <button (click)="createSubscription()" class="btn subscribe-btn">
+          <ion-spinner *ngIf="loading"></ion-spinner>Pay ${{finalPrice}} Now
+        </button>
+      </div>
+
+    </ion-card>
+  </div>
+
+
+</ion-content>

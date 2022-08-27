@@ -1,0 +1,98 @@
+
+  ion-list{
+    margin-bottom: 16px;
+  }
+  .top-logo {
+    width: 100%;
+    height: auto;
+    max-height:25%
+  }
+  .forgot-password{
+    color: #3c6bca;
+    text-align:left !important;
+    text-decoration: underline;
+  }
+  .input-item p {
+    color: #0B254A;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19px;
+    margin: 0px;
+    letter-spacing: 1px;
+  }
+  .main-bg{
+    background: rgb(137,151,164);
+    --background: linear-gradient(180deg, rgb(79 194 133) 0%, rgb(249, 249, 249) 50%, rgb(255, 255, 255) 100%);
+    position: relative;
+  }
+
+  .position-absolute{
+    position: absolute;
+    width: 100%;
+    bottom: 10px;
+  }
+
+h2 {
+    margin-top: 18px;
+    font-size: 30px;
+    letter-spacing: 1px;
+    color: #3E3E3E;
+    font-weight:800;
+}
+
+.sc-ion-input-md-h {
+  border-bottom: solid 1px #527264 !important;
+}
+.light-green-text{
+  color: #797A5B;
+  letter-spacing: 0.03em;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+.container{
+  padding: 0% 6%;
+}
+
+.list-md,.list-ios{
+  background: none;
+}
+
+.input-item {
+  text-align: left;
+  padding: 8px 0px;    
+}
+
+.login-button{
+  background-color:#318149;
+  color:#fff !important;
+  border-radius:5px;
+  --background: transparent;
+  --box-shadow: 0 0px 0px 0px rgba(0,0,0,0.2),0 0px 0px 0 rgba(0,0,0,0.14),0 0px 0px 0 rgba(0,0,0,0.12);
+  height:45px; 
+  --opacity: 1;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.ion-padding-top-90{
+  padding-top:90px;
+}
+.ion-padding-top-14{
+  padding-top:14px;
+}
+
+.login-button:disabled,
+.login-button[disabled] {
+  opacity: 0.3;
+}
+.register-label{
+  color: #48596B;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+}
+.pl-5{
+  padding-left:5px;
+  text-decoration: underline;
+}

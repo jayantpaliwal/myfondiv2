@@ -1,0 +1,44 @@
+.main-bg{
+  background: rgb(137,151,164);
+  --background: linear-gradient(180deg,rgb(79 194 133) 0%, rgb(249, 249, 249) 50%, rgb(255, 255, 255) 100%);
+  position: relative;
+}
+.position-absolute{
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
+}
+.container{
+  padding: 0% 8%;
+}
+
+ion-toolbar{
+  background: #47BD89;
+  --background: linear-gradient(to bottom, #74D875, #47BD89);
+}
+.nav-title{
+  font-size:16px;
+}
+.list{
+  background-color:#ffffff;
+  padding:34px 0px 12px;
+  color: #424242;
+  border-radius: 8px;
+  box-shadow: 0px 0px 6px 0px #aaaaaa4f;
+  text-align: center;
+  font-weight: 500;
+}
+
+h3 {
+    font-size: 22px;
+    line-height: 31px;
+    color: #fff;
+    font-weight: 500;
+}.logo{
+  display: flex;
+    align-items: center;
+    img{
+      margin-left: 5px;
+      margin-right: 10px;
+    }
+}

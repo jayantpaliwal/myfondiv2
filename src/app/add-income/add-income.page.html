@@ -1,0 +1,215 @@
+<ion-header no-border>
+  <ion-toolbar class="green-gradient-bg">
+    <ion-title class="nav-title" style="font-weight: bolder;">
+      Add Income Source
+    </ion-title>
+    <ion-buttons slot="start" (click)="back()">
+      <ion-icon name="arrow-back" class="fs-24"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content class="main-bg">
+  <div class="container">
+    <form [formGroup]="incomeForm">
+      <div class="input-item ion-padding-top-20">
+        <ion-radio-group formControlName="incomeType" (ionChange)="selected($event)">
+          <p>Income Type</p>
+          <ion-row>
+            <ion-col>
+              <ion-item class="no-background ion-no-padding recurring">
+                <ion-radio checked="true"  value="recurring"></ion-radio>
+                <ion-label class="ion-no-padding">
+                  <span class="font-semibold">Recurring Income</span>
+                </ion-label>
+              </ion-item>
+            </ion-col>
+            <ion-col>
+              <ion-item class="no-background ion-no-padding nonrecurring">
+                <ion-radio value="non-recurring"></ion-radio>
+                <ion-label class="ion-no-padding">
+                  <span class="font-semibold">Non-Recurring/Others</span>
+                </ion-label>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-radio-group>
+      </div>
+      <div *ngIf="incomeForm.controls?.incomeType.value =='recurring'">
+
+        <div class="ion-padding-top-20">
+          <h4>Your Payment Frequency</h4>
+          <p class="light-green-text ion-margin-v-5">Choose The Option Below</p>
+          <ion-row style="height:5px;"></ion-row>
+          <ion-segment formControlName="paycheckFrequency" scrollable (ionChange)="onSegmentChanged($event)" class="chooseoption">
+            <ion-grid>
+              <ion-row class="border-bottom">
+                <ion-col class="border-right monthly1">
+                  <ion-segment-button value="monthly" checked>
+                    <ion-label>Monthly</ion-label>
+                  </ion-segment-button>
+                </ion-col>
+                <ion-col class="semimonthly">
+                  <ion-segment-button value="semimonthly">
+                    <ion-label>Semi-Monthly</ion-label>
+                  </ion-segment-button>
+                </ion-col>
+
+              </ion-row>
+              <ion-row>
+                <ion-col class="border-right biweekly">
+                  <ion-segment-button value="biweekly">
+                    <ion-label>Biweekly </ion-label>
+                  </ion-segment-button>
+                </ion-col>
+                <ion-col class="weekly">
+                  <ion-segment-button value="weekly">
+                    <ion-label>Weekly</ion-label>
+                  </ion-segment-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-segment>
+        </div>
+
+      </div>
+      <div class="input-item ion-padding-top-20">
+        <p>Income Name</p>
+        <ion-input formControlName="paycheckName" type="text" placeholder="Enter Income Name"></ion-input>
+      </div>
+      <ng-container *ngFor="let validation of validation_messages.paycheckName">
+        <div class="error_label"
+          *ngIf="incomeForm.controls?.paycheckName.hasError(validation.type) && (incomeForm.controls.paycheckName.dirty || incomeForm.controls.paycheckName.touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+      <!-- <div *ngIf="incomeForm.get('paycheckFrequency').value != 'SemiMonthly'" class=" ion-padding-top-20"> -->
+      <div class=" ion-padding-top-20">
+        <p
+          [innerHTML]="'Select Start Date for Paychecks'">
+        </p>
+        <ion-input formControlName="payDate" type="date"
+          [placeholder]="'Please Choose PayDate'" class="paycheckdate">
+        </ion-input>
+      </div>
+      <ng-container *ngFor="let validation of validation_messages.payDate">
+        <div class="error_label"
+          *ngIf="incomeForm.controls?.payDate.hasError(validation.type) && (incomeForm.controls?.payDate.dirty || incomeForm.controls?.payDate.touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+      <!-- <div
+        *ngIf="incomeForm.controls?.incomeType.value =='recurring' && (incomeForm.controls?.paycheckFrequency.value =='monthly')"
+        class="ion-padding-top-20 alignv-center">
+        <h4 [innerHTML]="'Select your Income weeks and day'"></h4>
+        <ion-checkbox slot="end" (ionChange)="verifyEvent($event)" class="ml-10">
+        </ion-checkbox>
+      </div> -->
+      <div class="input-item ion-padding-top-20" *ngIf="(incomeForm.controls?.incomeType.value =='recurring' && incomeForm.controls?.paycheckFrequency.value =='semimonthly')">
+        <ion-radio-group formControlName="payDatesFormat" (ionChange)="selectedPayDatetype($event)">
+          <p>Income Paycheck Date Format</p>
+          <ion-row>
+            <ion-col>
+              <ion-item class="no-background ion-no-padding">
+                <ion-radio checked="true"  value="weekly"></ion-radio>
+                <ion-label class="ion-no-padding">
+                  <span class="font-semibold">By Weeks And Day</span>
+                </ion-label>
+              </ion-item>
+            </ion-col>
+            <ion-col>
+              <ion-item class="no-background ion-no-padding">
+                <ion-radio  value="Date"></ion-radio>
+                <ion-label class="ion-no-padding">
+                  <span class="font-semibold">By Dates</span>
+                </ion-label>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-radio-group>
+      </div>
+      <div
+        *ngIf="checked && incomeForm.controls?.incomeType.value =='recurring' && (incomeForm.controls?.paycheckFrequency.value =='semimonthly') && incomeForm.controls?.payDatesFormat.value ==='weekly'"
+        class=" ion-padding-top-20">
+        <ion-row>
+          <ion-col>
+            <p
+              [innerHTML]=" 'Select First Week '">
+            </p>
+            <ion-select formControlName="weekNumber">
+              <ion-select-option value="1">Week 1</ion-select-option>
+              <ion-select-option value="2">Week 2</ion-select-option>
+              <ion-select-option value="3">Week 3</ion-select-option>
+              <ion-select-option value="4">Week 4</ion-select-option>
+            </ion-select>
+          </ion-col>
+          <ion-col>
+            <p [innerHTML]="'Select Second Week'"></p>
+            <ion-select formControlName="weekNumber2">
+              <ion-select-option value="1">Week 1</ion-select-option>
+              <ion-select-option value="2">Week 2</ion-select-option>
+              <ion-select-option value="3">Week 3</ion-select-option>
+              <ion-select-option value="4">Week 4</ion-select-option>
+            </ion-select>
+          </ion-col>
+        </ion-row>
+
+      </div>
+
+      <div
+        *ngIf="checked && incomeForm.controls?.incomeType.value =='recurring' && (incomeForm.controls?.paycheckFrequency.value =='semimonthly') && incomeForm.controls?.payDatesFormat.value ==='Date'"
+        class=" ion-padding-top-20">
+        <ion-row>
+          <ion-col>
+            <p>Select First Paycheck Date
+            </p>
+            <ion-select formControlName="firstPaycheckDate">
+              <ion-select-option *ngFor="let week of getDaysInThisMonth(); let i = index" value="{{i+1}}">{{i+1}}</ion-select-option>
+            </ion-select>
+          </ion-col>
+          <ion-col>
+            <p>Select Second Paycheck Date
+            </p>
+          <ion-select formControlName="secondPaycheckDate">
+          <ion-select-option *ngFor="let week of getDaysInThisMonth(); let i = index" value="{{i+1}}">{{i+1}}</ion-select-option>
+            </ion-select>
+          </ion-col>
+        </ion-row>
+      </div>
+
+
+      <div
+        *ngIf="checked && incomeForm.controls?.incomeType.value=='recurring' && ((incomeForm.controls?.paycheckFrequency.value =='semimonthly') && incomeForm.controls?.payDatesFormat.value ==='weekly')"
+        class=" ion-padding-top-20">
+        <p [innerHTML]="'Select Income Day of Week'"></p>
+        <ion-select formControlName="weekDay">
+          <ion-select-option *ngFor="let week of week_Days; let i = index" value="{{i}}">{{week.name}}
+          </ion-select-option>
+        </ion-select>
+      </div>
+      <div class="input-item ion-padding-top-20">
+        <p>Paycheck Amount</p>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">
+              <ion-icon name="logo-usd"></ion-icon>
+            </span>
+          </div>
+          <ion-input type="number" formControlName="payAmount" placeholder="Please Enter Amount"></ion-input>
+        </div>
+      </div>
+      <ng-container *ngFor="let validation of validation_messages.payAmount">
+        <div class="error_label"
+          *ngIf="incomeForm.controls?.payAmount.hasError(validation.type) && (incomeForm.controls?.payAmount.dirty || incomeForm.controls?.payAmount.touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </form>
+  </div>
+</ion-content>
+<ion-footer>
+  <div>
+    <ion-button (click)="submit()" expand="block" class="blue-button">Submit</ion-button>
+  </div>
+</ion-footer>

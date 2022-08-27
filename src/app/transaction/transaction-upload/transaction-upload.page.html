@@ -1,0 +1,100 @@
+<ion-header no-border>
+  <ion-toolbar class="green-gradient-bg">
+    <ion-title class="nav-title">
+      Assign Bank Integrations
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="main-bg">
+  <div class="px-10">
+    <table class="paychecklist-table">
+      <tbody>
+        <tr width="100%">
+          <td width="70%">
+            <p class="paycheck-type">{{name}}</p>
+            <p class="paycheck-type"><span class="date-blue">
+                {{date |date:'dd MMM yyyy'}}</span>{{categoryName}}</p>
+          </td>
+          <td width="30%">
+            <p class="amount ion-no-margin">{{amount  | thousandSeparator}}</p>
+            <p class="amount text-color-green ion-no-margin"> {{remainingAmount | thousandSeparator}} <span
+                style="font-size: 10px;"> (Remaining)</span></p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="paychecklist-table">
+      <tbody>
+        <tr width="100%" *ngFor="let paycheck of parmsTranaction.paycheck">
+          <td width="70%">
+            <p class="paycheck-type">{{paycheck.name}}</p>
+            <p class="paycheck-type"><span class="date-blue">
+              {{paycheck?.payDate| date:"dd MMMM yyyy"}}</span> {{(paycheck.isRepeating ? paycheck.repeating.type : 'Non-Recurring')}}</p>
+          </td>
+          <td width="20%">
+            <p class="amount ion-no-margin">{{paycheck?.amount  | thousandSeparator}}</p>
+         
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="container">
+    <ion-row style="height:25px;"></ion-row>
+    <ion-list *ngIf="addMoreItem.length>0" class="bg-transparent">
+      <table>
+        <tbody *ngFor="let item of addMoreItem;let i=index;">
+          <tr width="100%" *ngFor="let it of item.assignment;let index=index;">
+            <td width="70%">{{it.paycheckName}}</td>
+            <td width="20%">{{it.amount | thousandSeparator}}</td>
+            <td width="10%">
+              <ion-button class="close-btn" fill="clear" slot="end" (click)="delete(i,index)">
+                <ion-icon name="trash"></ion-icon>
+              </ion-button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </ion-list>
+    <div>
+      <div>
+        <!-- <form [formGroup]="incomeForm">
+          <div class="input-item ion-padding-top-20">
+            <p>Transaction Pay Check</p>
+            <div class="input-group">
+              <ion-input type="text" (ionFocus)="openPayCheck()" formControlName="payCheckName"
+                placeholder="Please choose"></ion-input>
+            </div>
+          </div>
+          <div class="input-item ion-padding-top-20">
+            <p>Transaction assignment Amount</p>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">
+                  <ion-icon name="logo-usd"></ion-icon>
+                </span>
+              </div>
+              <ion-input type="number" formControlName="assignAmount" placeholder="Please enter transaction amount">
+              </ion-input>
+            </div>
+          </div>
+        </form> -->
+      </div>
+    </div>
+  </div>
+
+  <div class="input-item ion-padding-top-20">
+    <!-- <ion-button (click)="addMore()" expand="block" fill="clear" size="small">
+      <ion-icon name="add-circle"></ion-icon>
+      Add More
+    </ion-button> -->
+  </div>
+  <!-- <div class="input-item ion-padding-top-20">
+    <ion-button (click)="submit()" expand="block" class="blue-button">Submit Transaction</ion-button>
+  </div> -->
+</ion-content>

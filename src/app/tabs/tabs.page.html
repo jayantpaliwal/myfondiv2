@@ -1,0 +1,30 @@
+<ion-tabs (ionTabBarChanged)="change($event)">
+
+  <ion-tab-bar slot="bottom" class="tabscontainer dark-bg">
+    <ion-tab-button (click)="gohome()" id="homeMark">
+        <img [src]="home ? 'assets/icon/tabs/noun_Home.svg' : 'assets/icon/tabs/noun_Home-Unselected.svg'">
+        <ion-label>Home</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="paycheck">
+      <img [src]="paycheck ? 'assets/icon/tabs/transaction.svg' : 'assets/icon/tabs/transaction-Unselected.svg'">
+      <ion-label>Paychecks</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="transaction-select">
+      <img [src]="transaction ? 'assets/icon/tabs/add.svg' : 'assets/icon/tabs/add-unselected.svg'">
+      <ion-label>Transactions</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="accounts">
+      <img [src]="accounts ? 'assets/icon/tabs/bank.svg' : 'assets/icon/tabs/bank-Unselected.svg'">
+      <ion-label>Accounts</ion-label>
+    </ion-tab-button>
+
+    <!-- <ion-tab-button tab="labs">
+      <img [src]="labs ? 'assets/icon/tabs/analytics.svg' : 'assets/icon/tabs/analytics-Unselected.svg'">
+      <ion-label>Labs</ion-label>
+    </ion-tab-button> -->
+  </ion-tab-bar>
+
+</ion-tabs>

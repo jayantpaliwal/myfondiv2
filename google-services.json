@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "592683818798",
+    "firebase_url": "https://myfondi-v2.firebaseio.com",
+    "project_id": "myfondi-v2",
+    "storage_bucket": "myfondi-v2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:592683818798:android:d1cba7ee5abf1b49e364bf",
+        "android_client_info": {
+          "package_name": "com.myfondiv2.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "592683818798-r7c3vm9bbrna6ocmh80d0abflm8e4jli.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.myfondiv2.app",
+            "certificate_hash": "2eb8d87900b164c22941ab65737dcf0c4ab4a074"
+          }
+        },
+        {
+          "client_id": "592683818798-sjm890dri1o5c8bc879j022oilrqbbl5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEHZLBbjcrewPKqU0GpH0sk9GAUeOm8gc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "592683818798-sjm890dri1o5c8bc879j022oilrqbbl5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

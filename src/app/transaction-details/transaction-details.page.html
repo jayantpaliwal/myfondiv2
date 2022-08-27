@@ -1,0 +1,147 @@
+<!-- <ion-header no-border>
+    <ion-toolbar class="green-gradient-bg">
+        <ion-title class="nav-title">
+            All Transactions
+        </ion-title>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="main-bg">
+    <div class="container">
+
+        <div class="white-background ion-no-padding">
+            <ion-grid class="light-grey-bg border-radius-top2">
+                <ion-row class="ion-padding-10">
+                    <ion-col size="8">
+                        <ion-grid class="ion-no-padding">
+                            <ion-row (click)="openCalendar()" class="ion-no-margin ion-align-items-center">
+                                <ion-col size="auto" class="ion-align-self-start ion-no-padding">
+                                    <img src="assets/image/calendar.png" width="20" height="20">
+                                </ion-col>
+                                <ion-col size="9" class="ion-align-self-start ion-no-padding">
+                                    <span class="color-light-blue text-size-smaller">{{dateRange.displayForm}} -
+                                        {{dateRange.displayTo}}</span>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </div>
+    </div>
+    <div class="px-15">
+    <ion-card class="ion-no-margin transaction-card">
+
+        <table width="100%" *ngFor="let trans of transactions;let i=index;">
+            <thead>
+                <tr>
+                    <th>
+                        <span class="font-size-12 dark-blue">{{trans.transactionDateTime | date}}</span>
+                    </th>
+                </tr>
+                <tr>
+                    <th class="text-color-black" width="50%" (click)="details(trans)">
+                        <p class="text-size-small ion-no-margin dark-blue fw-500"> {{trans.name}}</p>
+                    </th>
+                    <th class="ion-text-end" width="50%" (click)="details(trans)">
+                        <p *ngIf="trans.type=='expense'" class="text-color-red ion-no-margin">
+                            $-{{ events.putThousandsSeparators(trans?.amount)}}</p>
+                        <p *ngIf="trans.type=='income'" class="text-color-green ion-no-margin">
+                            {{(trans.amount < 0 ? events.putThousandsSeparators(-(trans?.amount)) :
+                                events.putThousandsSeparators(trans?.amount))}}</p>
+                                <p class="text-size-small ion-no-margin dark-blue fw-600">
+                                    {{trans.category}}</p>
+                    </th>
+                    <th>
+                        <div >
+                            <ion-icon name="ellipsis-vertical" class="menu-icon"></ion-icon>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+
+            <ion-row style="height:10px;"></ion-row>
+        </table>
+    </ion-card>
+</div>
+</ion-content> -->
+
+<!-- all transcation vieww -->
+<ion-content>
+    <div class="green-gradient-bg px-15 bbr-80">
+        <ion-row class="ion-align-items-center">
+
+            <ion-col size="8">
+                <h2 class="header-title">All Transactions</h2>
+            </ion-col>
+            <ion-col size="4" class="align-right">
+                <!-- <ion-icon name="notifications" class="notification-icon"></ion-icon> -->
+                <img src="{{userPic}}" (click)="goToProfile()" alt="user profile" class="user-profile">
+            </ion-col>
+        </ion-row>
+        <ion-row style="height:100px;"></ion-row>
+    </div>
+    <div class="main-content">
+
+        <ion-row style="height:10px;"></ion-row>
+        <div>
+            <div>
+                <div class="white-card">
+                    <ion-card>
+                        <p class="montly-title d-flex alignv-center" (click)="openCalendar()">
+                            <img src="assets/image/calendar.png" width="20" height="20">
+                            <b style="padding-left: 35px; font-size: 14px; color: steelblue;">{{dateRange.displayForm}}
+                                -
+                                {{dateRange.displayTo}}</b>
+                        </p>
+                    </ion-card>
+                    <div class="px-15">
+                        <ion-card class="ion-no-margin transaction-card" *ngIf="!transactions.length">
+                            <div class="ion-padding ion-text-center">
+                                <ion-icon ios="ios-add" md="md-add" style="zoom:1.5;"></ion-icon>
+                                <p class="color-black">No Transaction found</p>
+                            </div>
+                        </ion-card>
+                        <table class="balance-table">
+                            <tbody>
+                                <tr *ngFor="let ele of transactions;let i=index;" (click)="details(ele)">
+                                    <td>
+                                        <div class="alignv-center">
+                                            <img [src]="ele?.type=='income' ? 'assets/icon/transaction2.svg': 'assets/icon/transaction1.svg'"
+                                                alt="transaction icon" width="22" height="auto">
+                                            <div class="pl-5">
+                                                <p>{{ele.name}}</p>
+                                                <p class="paycheck-type"><span class="date-blue">
+                                                        {{ele.transactionDateTime|date:'dd MMM yyyy'}}</span></p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="alignv-center-end">
+                                            <div class="pl-5">
+                                                <span style="text-align: right;" class="green-amount"
+                                                    *ngIf="ele?.type=='income'">+{{(ele.amount < 0 ?
+                                                    ( -(ele.amount)  | thousandSeparator):
+                                                       ele.amount  | thousandSeparator )}}</span>
+                                                        <span style="text-align: right;" class="blue-amount"
+                                                            *ngIf="ele?.type=='expense'">-{{ele.amount | thousandSeparator}}</span>
+                                                        <p class="paycheck-type">{{ele.category}}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- <ion-row style="height:80px;"></ion-row> -->
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</ion-content>

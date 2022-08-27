@@ -1,0 +1,114 @@
+<ion-content>
+
+  <div class="green-gradient-bg px-15 bbr-80">
+    <ion-row class="ion-align-items-center">
+      <ion-col size="1" (click)="back()">
+        <ion-icon name="arrow-back-outline" class="fs-24"></ion-icon>
+      </ion-col>
+      <ion-col size="8">
+        <h2 class="header-title">Bank Integrations</h2>
+      </ion-col>
+      <ion-col size="3" class="align-right">
+        <!-- <ion-icon name="notifications" class="notification-icon"></ion-icon> -->
+        <img src="{{userPic}}" (click)="gotoProfile()" alt="user profile" class="user-profile">
+      </ion-col>
+    </ion-row>
+    <ion-row style="height:100px;"></ion-row>
+
+  </div>
+  <div class="main-content">
+
+    <ion-row style="height:10px;"></ion-row>
+    <div>
+      <div class="paycheck-card" *ngIf="filterTrans.length">
+        <div class="paycheck-content white-bg" style="margin-top: -7px;">
+          <ion-row class="account-section">
+            <ion-col size="8">
+              <table class="account-section">
+                <tbody>
+                  <tr>
+                    <td class="align-right">
+                      <div class="d-flex alignv-center">
+                        <img src="assets/icon/sort-by-attributes.svg" alt="user-icon" width="22" height="auto">
+                        <div class="pl-8">
+                          <p class="filter-title">Sort</p>
+                          <div class="d-flex alignv-center">
+                            <ion-select (ionChange)="sort($event)" [(ngModel)]="sorting">
+                              <ion-select-option value="date">Date</ion-select-option>
+                              <ion-select-option value="name">Name</ion-select-option>
+
+                            </ion-select>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </ion-col>
+            <ion-col size="4" class="align-right">
+              <table class="account-section">
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="d-flex alignv-center">
+                        <!-- <div class="bank-image"> -->
+                        <!-- //icon section -->
+                        <!-- </div> -->
+                        <div class="pl-8">
+                          <p>
+                            <!-- <img src="assets/icon/user.png" alt="user-icon" width="22" height="auto">Employer -->
+                          </p>
+                        </div>
+                      </div>
+                    </td>
+
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="d-flex alignv-center">
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+
+              </table>
+            </ion-col>
+          </ion-row>
+          <div class="px-10" style="overflow-x:auto;">
+            <table class="paychecklist-table">
+              <tbody>
+                <tr *ngFor="let trans of filterTrans;let index=index;" >
+                  <td (click)="openPayPeriod(trans)">
+                    <p class="trans-name">{{trans.name}}</p>
+                    <p class="paycheck-type"><span class="date-blue">
+                        {{trans.date |date:'dd MMM yyyy'}}</span>{{trans.CategoryName}}</p>
+                  </td>
+                  <td class="ion-text-end" (click)="openPayPeriod(trans)">
+                    <!-- <div class="alignv-center">  -->
+                    <p class="amount ion-no-margin" *ngIf="trans.IncomeType">{{(trans.amount < 0 ? (-(trans.amount)  | thousandSeparator ) : (trans.amount)  | thousandSeparator)}}</p>
+                    <p class="amount text-color-green ion-no-margin" *ngIf="trans.IncomeType">
+                      {{(trans.TransAmount < 0 ? (-(trans.TransAmount)  | thousandSeparator) : (trans.TransAmount  | thousandSeparator))}}<span style="font-size: 10px;"> (Remaining)</span></p>
+                    <p class="amount text-color-red ion-no-margin" *ngIf="!trans.IncomeType">
+                      {{(trans.amount  | thousandSeparator)}}</p>
+                    <p class="amount text-color-green ion-no-margin" *ngIf="!trans.IncomeType">
+                      {{(trans.TransAmount < 0 ? (-(trans.TransAmount)  | thousandSeparator) : (trans.TransAmount)  | thousandSeparator)}}<span style="font-size: 10px;"> (Remaining)</span></p>
+
+                    <!-- </div>  -->
+                  </td>
+                  <td (click)="optionChoose($event,trans)">
+                    <ion-icon name="ellipsis-vertical" class="menu-icon"></ion-icon>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+
+          </div>
+          <ion-row style="height:20px;"></ion-row>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</ion-content>

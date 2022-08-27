@@ -1,0 +1,100 @@
+<ion-content class="main-bg" scroll="true">
+
+  <div class="content login-content">
+    <div class="container">
+      <ion-row style="height:20px"></ion-row>
+      <h2>Sign Up</h2>
+      <p class="light-green-text ">Please sign up below to enter MyFondi</p>
+      <form (ngSubmit)="register()" [formGroup]="registerForm">
+        <ion-list>
+          <ion-label class="error_label" *ngIf="serverError">{{serverError}}</ion-label>
+          <div class="input-item">
+            <p>Full Name</p>
+            <ion-input type="text" placeholder="Please enter your name here" formControlName="name"></ion-input>
+          </div>
+          <ng-container *ngFor="let validation of validation_messages.name">
+            <div
+              *ngIf="registerForm.controls.name.hasError(validation.type) && (registerForm.controls.name.dirty || registerForm.controls.name.touched)"
+              class="error_label">
+              <span> {{ validation.message }}</span>
+            </div>
+          </ng-container>
+          <div class="input-item ion-padding-top-14">
+            <p>Email Address</p>
+            <ion-input type="email" placeholder="Please enter your email address" formControlName="email"></ion-input>
+          </div>
+          <ng-container *ngFor="let validation of validation_messages.email">
+            <div
+              *ngIf="registerForm.controls.email.hasError(validation.type) && (registerForm.controls.email.dirty || registerForm.controls.email.touched)"
+              class="error_label">
+              <span> {{ validation.message }}</span>
+            </div>
+          </ng-container>
+
+          <div class="input-item ion-padding-top-14">
+            <p>Password</p>
+            <ion-input type="password" placeholder="Please enter your password here" formControlName="password">
+            </ion-input>
+          </div>
+          <ng-container *ngFor="let validation of validation_messages.password">
+            <div class="error_label"
+              *ngIf="registerForm.controls.password.hasError(validation.type) && (registerForm.controls.password.dirty || registerForm.controls.password.touched)">
+              <span> {{ validation.message }}</span>
+            </div>
+          </ng-container>
+
+          <div class="input-item ion-padding-top-14">
+            <p>Confirm Password</p>
+            <ion-input type="password" placeholder="Please enter your password again here"
+              formControlName="confirmPassword"></ion-input>
+          </div>
+          <ng-container *ngFor="let validation of validation_messages.confirmPassword">
+            <div class="error_label"
+              *ngIf="registerForm.controls.confirmPassword.hasError(validation.type) && (registerForm.controls.confirmPassword.dirty || registerForm.controls.confirmPassword.touched)">
+              <span> {{ validation.message }} </span>
+            </div>
+          </ng-container>
+
+          <div class="input-item ion-padding-top-14">
+            <p>Year Of Birth</p>
+            <ion-datetime  formControlName="birthYear" placeholder="Please select your birth Year" displayFormat="YYYY" min="1960" [max]="max"></ion-datetime>
+          </div>
+          <ng-container *ngFor="let validation of validation_messages.age">
+            <div class="error_label"
+              *ngIf="registerForm.controls.birthYear.hasError(validation.type) && (registerForm.controls.birthYear.dirty || registerForm.controls.birthYear.touched)">
+              <span> {{ validation.message }}</span>
+            </div>
+          </ng-container>
+
+          <div class="input-item ion-padding-top-14">
+            <p>Zip Code</p>
+            <ion-input type="zip" placeholder="Please enter your Zip code here"
+            formControlName="zip"></ion-input>
+          </div>
+          <ng-container *ngFor="let validation of validation_messages.zip_code">
+            <div class="error_label"
+              *ngIf="registerForm.controls.zip.hasError(validation.type) && (registerForm.controls.zip.dirty || registerForm.controls.zip.touched)">
+              <span> {{ validation.message }}</span>
+            </div>
+          </ng-container>
+        </ion-list>
+
+        <div class="login-section">
+          <ion-button [disabled]="!registerForm.valid" class="signup-button" type="submit" expand="block">SIGN UP
+          </ion-button>
+        </div>
+      </form>
+
+      <div class="login-router">
+        <p class="ion-text-center login-label">
+          Have account? <a (click)="login()"  style="text-decoration: underline;  color: #3c6bca;"> Login to my Account</a>
+        </p>
+      </div>
+      <div class="login-router ">
+        <p class="ion-text-center register-label">
+          Do you want to <a (click)="goBack()"  style="text-decoration: underline;  color: #3c6bca;"> Go Back</a>?
+        </p>
+      </div>
+    </div>
+  </div>
+</ion-content>

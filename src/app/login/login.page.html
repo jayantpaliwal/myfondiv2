@@ -1,0 +1,56 @@
+<ion-content class="main-bg">
+  <div class="position-absolute">
+    <div class="container">
+      <h2>Log In</h2>
+      <p class="light-green-text">Please login to enter MyFondi</p>
+      <form (ngSubmit)="login()" [formGroup]="loginForm">
+        <ion-label class="error_label" *ngIf="serverError">{{serverError}}</ion-label>
+        <ion-list>
+          <div class="input-item">
+            <p>Email Address</p>
+            <ion-input type="email" placeholder="Please enter your valid email address here" formControlName="email">
+            </ion-input>
+          </div>
+          <ng-container *ngFor="let validation of validation_messages.email">
+            <div class="error_label"
+              *ngIf="loginForm.controls?.email.hasError(validation.type) && (loginForm.controls?.email.dirty || loginForm.controls?.email.touched)">
+              {{ validation.message }}</div>
+          </ng-container>
+
+          <div class="input-item ion-padding-top-14">
+            <p>Password</p>
+            <ion-input type="password" placeholder="Please enter your password here" formControlName="password">
+            </ion-input>
+          </div>
+          <ng-container *ngFor="let validation of validation_messages.password">
+            <div class="error_label"
+              *ngIf="loginForm.controls?.password.hasError(validation.type) && (loginForm.controls?.password.dirty || loginForm.controls?.password.touched)">
+              {{ validation.message }}
+            </div>
+          </ng-container>
+
+          <div class="login-router">
+            <p (click)="onForgotPasswordClick()" class="forgot-password ion-text-center">
+              Forgot password?
+            </p>
+          </div>
+        </ion-list>
+        <div class="login-section">
+
+          <ion-button [disabled]="!loginForm.valid" class="login-button" type="submit" expand="block">LOG IN
+          </ion-button>
+        </div>
+      </form>
+      <div class="login-router ">
+        <p class="ion-text-center register-label">
+          Don't have an account? <a (click)="Register()"  style="text-decoration: underline;  color: #3c6bca;">Register</a>
+        </p>
+      </div>
+      <div class="login-router ">
+        <p class="ion-text-center register-label">
+           Do you want to<a (click)="goBack()"  style="text-decoration: underline;  color: #3c6bca;"> Go Back</a>?
+        </p>
+      </div>
+    </div>
+  </div>
+</ion-content>

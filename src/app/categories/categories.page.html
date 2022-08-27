@@ -1,0 +1,65 @@
+<ion-content>
+  <div class="green-gradient-bg px-15 bbr-80">
+    <ion-row class="ion-align-items-center">
+      <ion-col size="9">
+        <h2 class="header-title">{{category ? 'Choose Categories' : 'Choose Paycheck'}}</h2>
+      </ion-col>
+      <ion-col size="3">
+        <ion-button (click)="close()" fill="clear" style="padding-left: 50%; font-size: 20px;">
+          <ion-icon name="close"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-align-items-center" style="background-color: floralwhite;border-radius: 6px;">
+      <div class="input-item" style="width: 85%;">
+        <!-- <p>{{category ? 'Search Category' : 'Search Paycheck'}}</p> -->
+        <ion-input (ionChange)="setFilteredItems($event.target.value)" type="text" placeholder="Search Here...">
+        </ion-input>
+      </div>
+    </ion-row>
+    <ion-row style="height:100px;"></ion-row>
+  </div>
+  <ion-card class="ion-no-margin transaction-card" *ngIf="!filterItems.length">
+    <div class="ion-padding ion-text-center">
+      <ion-icon ios="ios-add" md="md-add" style="zoom:1.5;"></ion-icon>
+      <p class="color-black">No {{category ? 'Category' : 'Paycheck'}}</p>
+    </div>
+  </ion-card>
+  <div class="main-content white-bg" *ngIf="category">
+
+    <ion-row style="padding:0px 0px;" class="account-section" *ngFor="let group of filterItems">
+      <div class="d-flex alignv-center align-divwidth">
+        <ion-item class="no-background ion-no-padding" (click)="addItem(group)">
+          <ion-radio></ion-radio>
+          <ion-label class="ion-no-padding">
+            <span
+              [ngClass]="setCategory(group,'ion-padding-left-8 category-title-highlight','ion-padding-left-8 category-title')"
+              [innerHTML]=group.categoryName></span>
+          </ion-label>
+        </ion-item>
+      </div>
+    </ion-row>
+
+  </div>
+  <div class="main-content white-bg" *ngIf="!category">
+    <ion-row style="padding:0px 0px;" class="account-section" *ngFor="let group of filterItems">
+      <div class="d-flex alignv-center align-divwidth">
+        <ion-item class="no-background ion-no-padding" (click)="addpaycheck(group)">
+          <ion-radio></ion-radio>
+          <ion-label class="ion-no-padding">
+            <span
+              [ngClass]="setClasses(group.paycheckId,'ion-padding-left-8 category-title-highlight','ion-padding-left-8 category-title')"
+              >{{group.name | titlecase}}</span>
+          </ion-label>
+        </ion-item>
+      </div>
+    </ion-row>
+
+  </div>
+</ion-content>
+<ion-footer *ngIf="category">
+  <ion-row style="height:5px;"></ion-row>
+  <div class="input-item">
+    <ion-button (click)="addnewCategory()" expand="block" class="blue-button">Add New Category</ion-button>
+  </div>
+</ion-footer>

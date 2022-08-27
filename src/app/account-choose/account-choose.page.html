@@ -1,0 +1,58 @@
+<ion-content class="main-bg">
+  <div class="container">
+    <div class="white-background border-radius-top2-20 ion-padding">
+      <h3>Choose Account</h3>
+      <ion-button (click)="close()" class="close-btn" fill="clear" slot="end">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+      <div *ngIf="!choose">
+        <ion-row class="account-section" *ngFor="let account of accounts; let i= index;"
+          (click)="addOneAccount(account)">
+          <ion-col size="7">
+            <div class="d-flex alignv-center">
+              <div class="bank-image">
+                <img src="assets/icon/bank1.jpg" alt="user profile" class="">
+              </div>
+              <div class="pl-8">
+                <p class="bank-name">{{account?.official_name != null ? account?.official_name : account?.name}}</p>
+                <p class="account-name">{{account?.subtype}}</p>
+                <p class="card-no">XXXX XXXX XXXX {{account.lastFour}}</p>
+                <p class="reauth" (click)="checkAccountStatus(account)" *ngIf="account.flag">Re-Authenticate</p>
+              </div>
+            </div>
+          </ion-col>
+          <ion-col size="5" class="align-right">
+            <p class="amount">{{account.balances.current | thousandSeparator}}</p>
+            <ion-icon name="checkmark-circle" [ngClass]="account.checked ?'check-icon':'menu-icon'"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </div>
+      <div *ngIf="choose">
+        <ion-row class="account-section" *ngFor="let account of getUniqueAccounts(accounts); let i= index;" (click)="addAccount(account)">
+          <ion-col size="7">
+            <div class="d-flex alignv-center">
+              <div class="bank-image">
+                <img src="assets/icon/bank1.jpg" alt="user profile" class="">
+              </div>
+              <div class="pl-8">
+                <p class="bank-name">{{account?.official_name != null ? account?.official_name : account?.name}}</p>
+                <p class="account-name">{{account?.subtype}}</p>
+                <p class="card-no">XXXX XXXX XXXX {{account.lastFour}}</p>
+                <p class="reauth" (click)="checkAccountStatus(account)" *ngIf="account.flag">Re-Authenticate</p>
+              </div>
+            </div>
+          </ion-col>
+          <ion-col size="5" class="align-right">
+            <p class="amount">{{account.balances.current  | thousandSeparator}}</p>
+            <ion-icon name="checkmark-circle" [ngClass]="account.checked ?'check-icon':'menu-icon'"></ion-icon>
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+  </div>
+</ion-content>
+<ion-footer>
+  <ion-button *ngIf="accounts.length>0" expand="block" class="blue-button" (click)="attached()">Attach Account
+  </ion-button>
+  <ion-button expand="block" class="blue-button" (click)="Connect()">Add New Account</ion-button>
+</ion-footer>

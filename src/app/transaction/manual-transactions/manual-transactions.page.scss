@@ -1,0 +1,155 @@
+.main-bg{
+    background: rgb(137,151,164);
+    --background: linear-gradient(180deg,rgb(79 194 133) 0%, rgb(249, 249, 249) 50%, rgb(255, 255, 255) 100%);
+    position: relative;
+  }
+  .container{
+    padding: 0% 8%;
+  }
+  .container-fullwidth{
+      margin:0;
+      padding:0;
+  }
+  
+ion-toolbar{
+      --background: #C4CDD6;
+  }
+  .nav-title{
+    font-size:16px;
+  }
+  h3 {
+    font-size: 22px;
+    line-height: 31px;
+    color: #3A3B3B;
+    font-weight: 500;
+}
+.input-item p {
+    color: #0B254A;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19px;
+    margin: 0px;
+    letter-spacing: 1px;
+  }
+  .sc-ion-input-md-h, .sc-ion-input-ios-h {
+    border-bottom: solid 1px #527264 !important;
+  }
+  ion-textarea{  
+    border-bottom: solid 1px  #527264 !important;
+ 
+}
+.transaction-button{
+    background-color:#48596B;
+    color:#fff !important;
+        --background: transparent;
+    --box-shadow: 0 0px 0px 0px rgba(0,0,0,0.2),0 0px 0px 0 rgba(0,0,0,0.14),0 0px 0px 0 rgba(0,0,0,0.12);
+    height:45px; 
+    --opacity: 1;
+      font-size: 15px;
+      font-weight: 500;
+    
+  }   
+.transaction-button:disabled,
+.transaction-button[disabled] {
+    opacity: 0.3;
+  }
+ .ion-padding-top-20{
+   padding-top:20px;
+ }
+ ion-segment {    border-radius: 8px;}
+ ion-segment-button{
+ --background: #ADE2AE !important;
+ --background-checked:  #39A476 !important;
+ --background-hover:  #39A476 !important;
+ --background-focused:  #39A476 !important;
+ --background-activated-opacity: 1 !important;
+ --background-focused-opacity: 1;
+ --background-hover-opacity: 1;
+ --color:  #39A476 !important;
+ --color-checked:#fff  !important;    
+ --indicator-color: none;   
+ --indicator-transform: none;
+ --padding-top: 0;
+ --padding-end: 16px;
+ --padding-bottom: 0;
+ --padding-start: 16px; 
+ min-height: 50px !important;    
+ font-size: 13px !important;
+ font-weight: 500;
+ letter-spacing: 0.06em;
+ line-height: 40px;
+ text-transform: uppercase;
+ }
+ .font-semibold{
+  padding-left:5px;
+  font-weight:500;
+}
+ .no-background{
+  --background:none;
+  box-shadow: none;
+  --border-color: var(--ion-item-border-color,var(--ion-border-color,var(--ion-color-step-150,rgba(0,0,0,0.0))));
+    --inner-padding-end: 16px;
+    --inner-border-width: 0 0 0px 0;
+    --background-focused: none;
+    --background-hover: none;
+    --transition: background-color none;
+}
+.bg-transparent{background: transparent;}
+// .segment-button-checked{
+//   background-color:#919598;
+//   color: #fff; 
+//   --color-checked: transparent;
+// }
+// .segment-button-checked:first-of-type {
+//   border-radius: 5px 0px 0px 5px;
+// }
+// .segment-button-checked:last-of-type {
+//   border-radius: 0px 5px 5px 0px;
+// }
+// .sc-ion-segment-md-h, .sc-ion-segment-ios-h{
+//   background-color:#E6E6E6;
+//   color: #919598;
+//   border-radius:5px;
+// }
+ion-label{
+  font-weight:600;
+  padding-top: 3px;
+  text-transform: capitalize;
+}
+
+  .input-group {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    width: 100%;
+}
+
+.input-group-append, .input-group-prepend {
+  display: -ms-flexbox;
+  display: flex;
+}
+.input-item p {
+  color: #0B254A;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19px;
+  margin: 0px;
+  letter-spacing: 1px;
+}
+.ion-padding-top-20{
+  padding-top:20px;
+}
+.input-group-text {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #495057; 
+}
+.align-divwidth{
+  width: 90%;
+}

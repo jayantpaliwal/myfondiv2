@@ -1,0 +1,44 @@
+<ion-header no-border>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content class="main-bg">
+    <div class="content login-content container" *ngIf="!thankyou">
+      <h2></h2>
+      <ion-list>
+        <div class="input-item ion-padding-top">
+          <p>Would you like to see achievements quickly or slowly?</p>
+		  <ion-row style="height:10px;"></ion-row>
+          <ion-segment [(ngModel)]="achievements_quickly" scrollable class="segment">
+            <ion-segment-button  *ngFor="let item of numbers" value="{{ item.value }}" class="segment-no-border">
+              <ion-label>{{ item.name }}</ion-label>
+            </ion-segment-button>
+          </ion-segment>
+          <ion-row>
+            <ion-col class="segment-bottom" *ngFor="let item of numbers">
+              {{ item.label }}
+            </ion-col>
+          </ion-row>
+        </div>
+        <div class="item item-checkbox ion-padding-top">
+          <label class="checkbox">
+            <input [(ngModel)]="terms" type="checkbox" style="margin-top:10px;">
+            <span class="light-green-text-span ion-padding-start">I Agree to <a href="http://www.google.com" target="_blank">
+              terms and conditions</a> to My Fondi</span>
+          </label>
+        </div>
+        <div class="ion-padding-top">
+          <ion-button [disabled]="!terms" (click)="submit()" class="submit-button" type="submit" expand="block">Submit
+            Answers</ion-button>
+        </div>
+      </ion-list>
+    </div>
+    <div  class="content container" *ngIf="thankyou">
+        <h1>Great!</h1>
+        <h2>Thank you</h2>
+    </div>
+  </ion-content>

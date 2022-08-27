@@ -1,0 +1,283 @@
+<!-- <ion-content class="main-bg">
+  <div class="green-gradient-bg px-15">
+    <ion-row class="ion-align-items-center">
+      <ion-col size="2" (click)="back()">
+        <ion-icon name="arrow-back-outline" class="fs-24"></ion-icon>
+      </ion-col>
+      <ion-col size="6">
+        <h2 class="header-title">Add Transaction</h2>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div class="container">
+    <ion-row style="height:25px;"></ion-row>
+
+    <div class="input-item ion-padding-top-20 ">
+      <ion-radio-group class="" [(ngModel)]="transactionType">
+        <p>Transaction Type</p>
+        <ion-item class="no-background ion-no-padding">
+          <ion-radio checked="true" (ionSelect)="selected('expense')" value="expense"></ion-radio>
+          <ion-label class="ion-no-padding">
+            <span class="font-semibold">Expense</span>
+          </ion-label>
+        </ion-item>
+        <ion-item class="no-background ion-no-padding">
+          <ion-radio (ionSelect)="selected('income')" value="income"></ion-radio>
+          <ion-label class="ion-no-padding">
+            <span class="font-semibold">Income</span>
+          </ion-label>
+        </ion-item>
+      </ion-radio-group>
+    </div>
+    <div>
+      <div>
+        <form [formGroup]="incomeForm">
+
+          <div class="input-item ion-padding-top-20" style="border-bottom: solid 1px #527264 !important;">
+            <p>Transaction Name</p>
+            <div class="input-group">
+              <ion-input type="text" formControlName="incomeName" placeholder="Please Enter Transaction Name">
+              </ion-input>
+            </div>
+          </div>
+          <div class="input-item ion-padding-top-20">
+            <p>Transaction Category</p>
+            <div class="input-group">
+              <ion-input type="text" (ionFocus)="openCategory()" formControlName="categoryName"
+                placeholder="Please choose"></ion-input>
+            </div>
+          </div>
+          <div class="input-item ion-padding-top-20">
+            <p>Transaction Date</p>
+            <div class="input-group">
+              <ion-input type="date" formControlName="date" placeholder="Please choose Date"></ion-input>
+   
+            </div>
+          </div>
+          <ion-spinner *ngIf="loading" class="spinner" name="crescent"></ion-spinner>
+
+          <div class="input-item ion-padding-top-20">
+            <p>Transaction Amount</p>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">
+                  <ion-icon name="logo-usd"></ion-icon>
+                </span>
+              </div>
+              <ion-input type="number" formControlName="amount" placeholder="Please enter transaction amount">
+              </ion-input>
+            </div>
+          </div>
+          <ng-container *ngFor="let validation of validation_messages.amount">
+            <div class="error_label"
+              *ngIf="incomeForm.controls.amount.hasError(validation.type) && (incomeForm.controls.amount.dirty || incomeForm.controls.amount.touched)">
+              {{ validation.message }}
+            </div>
+          </ng-container>
+
+          <div class="input-item ion-padding-top-20">
+            <p>Transaction Pay Check</p>
+            <div class="input-group">
+              <ion-input type="text" (ionFocus)="openPayCheck()" formControlName="payCheckName"
+                placeholder="Please choose"></ion-input>
+            </div>
+          </div>
+
+          <div class="input-item ion-padding-top-20">
+            <p>Transaction assignment Amount</p>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">
+                  <ion-icon name="logo-usd"></ion-icon>
+                </span>
+              </div>
+              <ion-input type="number" formControlName="assignAmount" placeholder="Please enter transaction amount">
+              </ion-input>
+            </div>
+          </div>
+          <ng-container *ngFor="let validation of validation_messages.amount">
+            <div class="error_label"
+              *ngIf="incomeForm.controls.assignAmount.hasError(validation.type) && (incomeForm.controls.assignAmount.dirty || incomeForm.controls.assignAmount.touched)">
+              {{ validation.message }}
+            </div>
+          </ng-container>
+        </form>
+      </div>
+    </div>
+  </div>
+  <ion-list *ngIf="addMoreItem.length>0">
+    <table class="bg-transparent">
+      <tbody *ngFor="let item of addMoreItem;let i=index;">
+        <tr width="100%" *ngFor="let it of item.assignment;let indx=index;">
+          <td width="70%">{{it.paycheckName}}</td>
+          <td width="20%">{{events.putThousandsSeparators(it.amount.toFixed(2))}}</td>
+          <td width="10%">
+            <ion-button class="close-btn" fill="clear" slot="end" (click)="delete(i,indx)">
+              <ion-icon name="trash"></ion-icon>
+            </ion-button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </ion-list>
+  <ion-select style="display: none;" #incomeSourceId [(ngModel)]="incomeSource">
+    <ion-select-option *ngFor="let income of IncomeSources; let i = index" value="{{income.id}}">{{income.name}} -
+      {{income.isRepeating ? income.repeating.type:'non-recurring'}}</ion-select-option>
+  </ion-select>
+</ion-content>
+<ion-footer>
+  <div class="input-item ion-padding-top-20">
+    <ion-button (click)="addMore()" expand="block" fill="clear" size="small">
+      <ion-icon name="add-circle"></ion-icon>
+      Add More
+    </ion-button>
+  </div>
+  <div class="input-item ion-padding-top-20">
+    <ion-button (click)="submit()" expand="block" class="blue-button">Add Transaction</ion-button>
+  </div>
+</ion-footer> -->
+
+<ion-content>
+  <div class="green-gradient-bg px-15 bbr-80">
+    <ion-row class="ion-align-items-center">
+      <ion-col size="1" (click)="back()">
+        <ion-icon name="arrow-back-outline" class="fs-24"></ion-icon>
+      </ion-col>
+      <ion-col size="7">
+        <h2 class="header-title">Add Transaction</h2>
+      </ion-col>
+      <ion-col size="4" class="align-right">
+        <img src="{{userPic}}" (click)="goToProfile()" alt="user profile" class="user-profile">
+      </ion-col>
+    </ion-row>
+    <ion-row style="height:100px;"></ion-row>
+  </div>
+  <div class="main-content white-bg">
+    <div *ngIf="addMoreItem.length">
+      <div *ngFor="let item of addMoreItem;let i=index;">
+      <ion-row class="account-section"  *ngFor="let it of item.assignment;let indx=index;">
+        <ion-col size="7">
+          <div class="d-flex alignv-center">
+           <div>
+              <img src="assets/icon/money.svg" alt="bank logo" class="">
+            </div>
+            <div class="pl-8">
+              <p class="account-name">{{it.paycheckName}}</p>
+            </div>
+          </div>
+        </ion-col>
+        <ion-col size="5" class="align-right">
+          <p class="amount">{{it.amount | thousandSeparator}}</p>
+          <ion-icon name="trash" class="menu-icon" style="color: crimson;" (click)="delete(i,indx)"></ion-icon>
+        </ion-col>
+      </ion-row>
+      </div>
+    </div>
+    <ion-row class="account-section">
+        <div class="d-flex alignv-center align-divwidth">
+          <ion-radio-group class="" [(ngModel)]="transactionType">
+            <p>Transaction Type</p>
+            <ion-item class="no-background ion-no-padding">
+              <ion-radio checked="true" (ionSelect)="selected('expense')" value="expense" color="primary"></ion-radio>
+              <ion-label class="ion-no-padding">
+                <span class="font-semibold">Expense</span>
+              </ion-label>
+            </ion-item>
+            <ion-item class="no-background ion-no-padding">
+              <ion-radio (ionSelect)="selected('income')" value="income"></ion-radio>
+              <ion-label class="ion-no-padding">
+                <span class="font-semibold">Income</span>
+              </ion-label>
+            </ion-item>
+          </ion-radio-group>
+        </div>
+    </ion-row>
+    <div [formGroup]="incomeForm">
+      <ion-row class="account-section">
+          <div class="d-flex alignv-center align-divwidth">
+            <p>Transaction Name</p>
+          </div>
+          <div class="d-flex alignv-center align-divwidth">
+            <div class="input-group">
+              <ion-input type="text" formControlName="incomeName" placeholder="Please Enter Transaction Name">
+              </ion-input>
+            </div>
+          </div>
+      </ion-row>
+      <ion-row class="account-section">
+          <div class="d-flex alignv-center align-divwidth">
+            <p>Transaction Category</p>
+          </div>
+          <div class="d-flex alignv-center align-divwidth">
+            <div class="input-group">
+              <ion-input type="text" (ionFocus)="openCategory()" formControlName="categoryName"
+                placeholder="Please Choose Category"></ion-input>
+            </div>
+          </div>
+      </ion-row>
+      <ion-row class="account-section">
+          <div class="d-flex alignv-center align-divwidth">
+            <p>Transaction Date</p>
+          </div>
+          <div class="d-flex alignv-center align-divwidth">
+            <div class="input-group">
+              <ion-input type="date" formControlName="date" placeholder="Please Choose Date"></ion-input>
+              <!-- min="2019-10-1" max="2019-10-31" -->
+            </div>
+          </div>
+      </ion-row>
+      <ion-row class="account-section">
+          <div class="d-flex alignv-center align-divwidth">
+            <p>Transaction Amount</p>
+          </div>
+          <div class="d-flex alignv-center align-divwidth">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">
+                  <ion-icon name="logo-usd"></ion-icon>
+                </span>
+              </div>
+              <ion-input type="number" formControlName="amount" placeholder="Please Enter Transaction Amount">
+              </ion-input>
+            </div>
+          </div>
+      </ion-row>
+      <ion-row class="account-section">
+          <div class="d-flex alignv-center align-divwidth">
+            <p>Transaction Paycheck</p>
+          </div>
+          <div class="d-flex alignv-center align-divwidth">
+            <div class="input-group">
+              <ion-input type="text" (ionFocus)="openPayCheck()" formControlName="payCheckName"
+                placeholder="Please Choose Paycheck"></ion-input>
+            </div>
+          </div>
+      </ion-row>
+      <ion-row class="account-section">
+          <div class="d-flex alignv-center align-divwidth">
+            <p>Transaction Assignment Amount</p>
+          </div>
+          <div class="d-flex alignv-center align-divwidth">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">
+                  <ion-icon name="logo-usd"></ion-icon>
+                </span>
+              </div>
+              <ion-input type="number" formControlName="assignAmount" placeholder="Please Enter Transaction Assignment Amount">
+              </ion-input>
+            </div>
+          </div>
+      </ion-row>
+    </div>
+
+    <ion-row style="height:20px;"></ion-row>
+    <ion-button class="blue-button" (click)="addMore()" expand="block" fill="outline">
+      <ion-icon name="add-circle" style="padding-right: 10px;"></ion-icon>
+      Add More
+    </ion-button>
+    <ion-button expand="block" class="blue-button" (click)="submit()">Add Transaction</ion-button>
+  </div>
+
+</ion-content>

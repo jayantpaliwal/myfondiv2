@@ -1,0 +1,317 @@
+.form-row {
+  padding: 10px;
+  margin-bottom: 29px;
+  display: block !important;
+  flex-wrap: nowrap !important;
+  margin-right: 0px !important;
+  margin-left: 0px !important;
+  text-align: left !important;
+}
+
+.StripeElement {
+  width: 100%;
+  background-color: rgb(206, 191, 191);
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 3px 0 #e6ebf1;
+  -webkit-transition: box-shadow 150ms ease;
+  transition: box-shadow 150ms ease;
+}
+
+.StripeElement--focus {
+  box-shadow: 0 1px 3px 0 #b4b7bb;
+}
+
+.StripeElement--invalid {
+  border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+  background-color: #fefde5 !important;
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+body {
+  background-color: #EEEFF3;
+  font-family: 'Roboto', sans-serif
+}
+
+.card {
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+}
+
+p.top {
+  font-size: 14px
+}
+
+
+h2 {
+  letter-spacing: 2px
+}
+
+.fa-euro-sign {
+  font-size: 27px;
+  color: #07a744
+}
+
+.card-content p {
+  line-height: 18px;
+  font-size: 11px;
+  color: #2b4fb9
+}
+
+.btn-primary {
+  border: none;
+  border-radius: 6px;
+  background-color: #233c99;
+  padding-top: 0;
+  height: 46px
+}
+
+.btn-primary span {
+  font-size: 13px;
+  color: #D1E2FF;
+  margin-right: 10px
+}
+
+.fa-arrow-right {
+  font-size: 12px;
+  color: #D1E2FF
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #647EDF;
+  box-shadow: none
+}
+
+.form-control:focus {
+  box-shadow: 10px 0px 0px 0px #ffffff !important;
+  border-color: #4ca746
+}
+
+body {
+  font-family: 'Karla', sans-serif;
+}
+
+.pricing-table-subtitle {
+  margin-top: 68px;
+  font-weight: normal;
+}
+
+.pricing-table-title {
+  font-weight: bold;
+  margin-bottom: 68px;
+}
+
+.pricing-card {
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  text-align: center;
+  -webkit-transition: all 0.6s;
+  transition: all 0.6s;
+}
+
+.pricing-card:hover {
+  box-shadow: 0 2px 40px 0 rgba(205, 205, 205, 0.55);
+}
+
+.pricing-card.pricing-card-highlighted {
+  box-shadow: 0 2px 40px 0 rgba(205, 205, 205, 0.55);
+
+}
+
+.pricing-card:hover {
+  box-shadow: 0 2px 40px 0 rgba(205, 205, 205, 0.55);
+  -webkit-transform: translateY(-10px);
+  transform: translateY(-10px);
+}
+
+.pricing-card .card-body {}
+
+.pricing-plan-title {
+  font-size: 20px;
+  color: #000;
+  margin-bottom: 11px;
+  font-weight: normal;
+}
+
+.pricing-plan-cost {
+  font-size: 29px;
+  color: #000;
+  font-weight: bold;
+  margin-bottom: 29px;
+}
+
+.pricing-plan-features {
+  list-style: none;
+  padding-left: 0;
+  font-size: 14px;
+  line-height: 2.14;
+  margin-bottom: 35px;
+  color: #303132;
+}
+
+.pricing-plan-purchase-btn {
+  color: #000;
+  font-size: 16px;
+  font-weight: bold;
+  width: 145px;
+  height: 45px;
+  border-radius: 22.5px;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+  position: relative;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  -webkit-box-pack: center;
+  justify-content: center;
+}
+
+.pricing-plan-basic .pricing-plan-purchase-btn {
+  background-color: #fe397a;
+  color: #fff;
+}
+
+.pricing-plan-basic .pricing-plan-purchase-btn:hover {
+  box-shadow: 0 3px 0 0 #b7013d;
+}
+
+.pricing-plan-basic .pricing-plan-purchase-btn:active {
+  -webkit-transform: translateY(3px);
+  transform: translateY(3px);
+  box-shadow: none;
+}
+
+.pricing-plan-pro .pricing-plan-purchase-btn {
+  background-color: #24335e;
+  color: #fff;
+  width: 61%;
+}
+
+.subscribe-btn {
+  background-color: #24335e;
+  color: #ffffff;
+  width: 61%;
+  margin-top: 22px;
+  font-size: 16px;
+  font-weight: bold;
+  height: 45px;
+  border-radius: 22.5px;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+  position: relative;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  -webkit-box-pack: center;
+  justify-content: center;
+}
+
+.pricing-plan-pro .pricing-plan-purchase-btn:hover {
+  box-shadow: 0 3px 0 0 #24335e;
+}
+
+.pricing-plan-pro .pricing-plan-purchase-btn:active {
+  -webkit-transform: translateY(3px);
+  transform: translateY(3px);
+  background-color: #b7013d;
+  box-shadow: none;
+}
+
+.pricing-plan-enterprise .pricing-plan-purchase-btn {
+  background-color: #5d78ff;
+  color: #fff;
+}
+
+.pricing-plan-enterprise .pricing-plan-purchase-btn:hover {
+  box-shadow: 0 3px 0 0 #1138ff;
+}
+
+.pricing-plan-enterprise .pricing-plan-purchase-btn:active {
+  -webkit-transform: translateY(3px);
+  transform: translateY(3px);
+  box-shadow: none;
+}
+
+.main-content {
+  padding: 0px !important;
+  margin: 10px 10px;
+  border-radius: 8px;
+  margin-top: -100px;
+}
+
+.pricing_table {
+  width: 100%;
+
+  th,
+  td {
+    padding: 10px;
+    border-bottom: solid 1px #e5e5e5;
+  }
+
+  .plans {
+    font-size: 24px;
+  }
+
+  .price {
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  .saving {
+    background-color: #fa2b26;
+    color: #fff;
+    font-size: 17px;
+    padding: 5px 15px;
+    border-radius: 5px;
+  }
+}
+
+/*# sourceMappingURL=pricing-plan.css.map */
+.tax {
+  background-color: #24335e;
+  color: #fff;
+  font-size: 17px;
+  padding: 5px 15px;
+  border-radius: 30px;
+}
+
+.payment-card {
+  padding: 24px;
+  box-shadow: 1px 1px 1px 1px;
+  border-radius: 5px;
+
+  ion-label {
+    font-size: 15px;
+    font-weight: bold;
+    color: #163565;
+  }
+h3{
+  color: #163565;
+}
+  ion-input {
+    margin: 4px;
+    font-size: 16px !important;
+    width: 100%!important;
+    background-color: #ffffff !important;
+    padding: 10px 12px !important;
+    border-radius: 4px !important;
+    border: 1px solid #000 !important;
+    box-shadow: 0 1px 3px 0 #e6ebf1 !important;
+    transition: box-shadow 150ms ease !important;
+  }
+}

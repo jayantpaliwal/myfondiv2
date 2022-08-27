@@ -1,0 +1,62 @@
+.user-profile{width: 48px;
+    height: 48px;
+    background-color: #868686;
+    border-radius: 50%;
+    border: solid 3px #fff;}
+.credit-card-section{background: #fff; border-radius: 8px; padding:10px; margin-bottom: 10px;}
+.card-title{
+    color: #24335E;
+    font-size: 14px;
+    text-transform: capitalize;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    margin: 0px 0px 3px 0px;
+}
+
+.card-amount{color: #5FCC7C;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    margin: 0px 0px 3px 0px;
+    padding-right: 3px;}
+.amount-detail  {color: #141414;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    margin: 0px 0px 3px 0px;
+    padding-right: 3px;}  
+.goal-progress{--background:#EBF1FF; --progress-background: linear-gradient(to left, #74D875,#47BD89); height: 12px;
+    border-radius: 4px;}
+    .reduction-progress{--background:#983563; --progress-background: linear-gradient(to left, #74D875,#47BD89); height: 12px;  border-radius: 4px;}  
+    ion-segment {    border-radius: 8px;}
+    ion-segment-button{
+    --background: #ADE2AE !important;
+    --background-checked:  #39A476 !important;
+    --background-hover:  #39A476 !important;
+    --background-focused:  #39A476 !important;
+    --background-activated-opacity: 1 !important;
+    --background-focused-opacity: 1;
+    --background-hover-opacity: 1;
+    --color:  #39A476 !important;
+    --color-checked:#fff  !important;    
+    --indicator-color: none;   
+    --indicator-transform: none;
+    --padding-top: 0;
+    --padding-end: 16px;
+    --padding-bottom: 0;
+    --padding-start: 16px; 
+     min-height: 30px !important;    
+    font-size: 13px !important;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    line-height: 40px;
+    text-transform: capitalize;
+    height: 35px;
+}   
+ion-segment-button:first-of-type{
+    border-radius: 8px 0px 0px 8px;
+}  
+ion-segment-button:last-of-type{
+    border-radius: 0px 8px 8px 0px;
+}   
+.menu-icon-active{font-size: 20px; color: #01070e;}

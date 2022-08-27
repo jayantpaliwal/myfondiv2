@@ -1,0 +1,123 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>paycheck-allocation-popup</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content *ngIf="paycheckAllocation">
+  <div class="container">
+    <div class="white-background border-radius-top2-20 ion-padding">
+      <h4 class="paycheck-title">Paycheck Allocation</h4>
+      <ion-button (click)="close()" class="close-btn" fill="clear" slot="end">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+      <table class="paycheck-table">
+        <tr>
+          <td>
+            <div class="alignv-center">
+              <img src="assets/icon/user.png" alt="user icon" width="24" height="auto">
+              <div class="pl-5">
+                <p>Take Away Food</p>
+                <p class="paycheck-type"><span class="date-blue">
+                    5 Jan 2019</span>Food</p>
+              </div>
+            </div>
+          </td>
+          <td class="amount">
+            $25.50
+          </td>
+        </tr>
+      </table>
+      <p class="sub-title">Allocate to</p>
+      <table class="allocate-table">
+        <tr>
+          <td width="65%">
+            <div class="alignv-center">
+              <img src="assets/icon/user.png" alt="user icon" width="24" height="auto">
+              <div class="pl-5">
+                <p>BNYM Paycheck</p>
+                <p class="paycheck-type"> Biweekly Paycheck</p>
+              </div>
+            </div>
+          </td>
+          <td>
+            <ion-input type="text" placeholder="$--"></ion-input>
+          </td>
+          <td width="10%" class="ion-text-end">
+            <ion-icon name="trash-outline" class="delete-icon fs-24"></ion-icon>
+          </td>
+        </tr>
+        <tr>
+          <td width="65%">
+            <div class="alignv-center">
+              <img src="assets/icon/user.png" alt="user icon" width="24" height="auto">
+              <div class="pl-5">
+                <p>BNYM Paycheck</p>
+                <p class="paycheck-type"> Biweekly Paycheck</p>
+              </div>
+            </div>
+          </td>
+          <td>
+            <ion-input type="text" placeholder="$--"></ion-input>
+          </td>
+          <td class="ion-text-end">
+            <ion-icon name="trash-outline" class="delete-icon fs-24"></ion-icon>
+          </td>
+        </tr>
+        <tr>
+          <td width="65%">
+            <div class="alignv-center">
+              <img src="assets/icon/user.png" alt="user icon" width="24" height="auto">
+              <div class="pl-5">
+                <p>BNYM Paycheck</p>
+                <p class="paycheck-type"> Biweekly Paycheck</p>
+              </div>
+            </div>
+          </td>
+          <td>
+            <ion-input type="text" placeholder="$--"></ion-input>
+          </td>
+          <td class="ion-text-end">
+            <ion-icon name="add-circle" class="add-icon fs-24"></ion-icon>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <ion-row style="height:20px;"></ion-row>
+  <ion-button expand="block" class="save-button">Save Allocation</ion-button>
+</ion-content>
+<ion-content *ngIf="!paycheckAllocation">
+  <div class="container">
+    <div class="white-background border-radius-top2-20 ion-padding">
+      <h4 class="paycheck-title">Plaid Transaction</h4>
+      <ion-button (click)="close()" class="close-btn" fill="clear" slot="end">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+      <form [formGroup]="dateForm">
+        <table class="paycheck-table">
+          <tr>
+            <div class="input-item ion-padding-top-20">
+              <p>Choose Date From</p>
+              <div class="alignv-center">
+                <ion-input type="date" formControlName="dateFrom" placeholder="Please choose Date"></ion-input>
+              </div>
+            </div>
+          </tr>
+          <tr>
+            <div class="input-item ion-padding-top-20">
+              <p>Choose Date TO</p>
+              <div class="alignv-center">
+                <ion-input type="date" formControlName="dateTo" placeholder="Please choose Date"></ion-input>
+              </div>
+            </div>
+          </tr>
+        </table>
+      </form>
+
+    </div>
+
+  </div>
+  <ion-row style="height:20px;"></ion-row>
+  <ion-button expand="block" (click)="Retrive()" class="save-button">Fetch Your data</ion-button>
+</ion-content>

@@ -1,0 +1,127 @@
+.main-bg{
+    background: rgb(137,151,164);
+    --background: linear-gradient(180deg, rgb(79 194 133) 0%, rgb(249, 249, 249) 50%, rgb(255, 255, 255) 100%);
+    position: relative;
+  }
+  ion-toolbar{
+    --background: #C4CDD6;
+}
+ 
+.add-button{
+    background-color:#48596B;
+    color:#fff !important;
+        --background: transparent;
+    --box-shadow: 0 0px 0px 0px rgba(0,0,0,0.2),0 0px 0px 0 rgba(0,0,0,0.14),0 0px 0px 0 rgba(0,0,0,0.12);
+   
+    --opacity: 1;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 5px;
+}
+.add-button-blue{    
+    color:#3880ff !important;
+    --background: transparent;
+    --box-shadow: 0 0px 0px 0px rgba(0,0,0,0.2),0 0px 0px 0 rgba(0,0,0,0.14),0 0px 0px 0 rgba(0,0,0,0.12);   
+    --opacity: 1;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 5px;
+}
+ion-item{
+    font-size: 13px;
+    font-weight: 300;
+    color: gray;
+}
+ion-item-divider{
+    color:black;
+}
+.box-shadow{
+    box-shadow: 3px 5px 12px 0px #aaaaaa;
+}
+.searchbar-input
+{
+  height: 30px;
+  -webkit-box-shadow:none;
+  box-shadow:none;
+}
+.grey-circle{
+    background-color:#D8D8D8;
+    border-radius:20px;
+    width:16px;
+    height:16px;
+    display: inline-block;
+  }
+  .table-heading{
+    display: flex;
+    align-items: center;
+  } 
+  .ion-padding-left-8{
+    padding-left:8px;
+  }
+.category-list{
+    font-size: 15px;
+    color: #373737;
+    font-weight: 400;
+}
+.category-title{
+    text-transform: capitalize;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+    color: #3B3B3B;
+}
+.category-title-highlight{
+    text-transform: capitalize;
+    letter-spacing: 0.04em;
+    font-weight: 800;
+    color: rgb(73, 45, 45);
+}
+.ion-margin-top-8{
+    margin-top:8px;
+}  
+.input-item p {
+    color: #0B254A;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 19px;
+    margin: 0px;
+    letter-spacing: 1px;
+}
+.sc-ion-input-md-h, .sc-ion-input-ios-h {
+    border-bottom: solid 1px #527264 !important;
+}
+.white-background{
+    background-color:#fff;
+}
+.close-btn{
+    float: right;
+    right: 10px;
+    top: 25px;
+    position: absolute;
+}
+.label-or{
+    text-align:center;
+    span{
+        color:#3880ff
+    }
+}
+.ion-item-divider{
+    border:none;
+}
+.item {
+    min-height: 0rem; /* <- this can be whatever you need */
+}
+
+.input-wrapper{    
+    padding-top: 10px;
+    padding-bottom: 10px;    
+    min-height: inherit;  
+}
+.small-title{
+    // text-transform: ;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+    color: #3B3B3B;
+}
+.align-divwidth{
+    width: 90%;
+  }
